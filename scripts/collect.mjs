@@ -5,8 +5,10 @@ import {chromium} from 'playwright';
 import {collectKwikTrip} from './kwiktrip.mjs';
 import {SOURCE,TOWNS,parseCard,mergeStations,censusMatch,stationTime} from './core.mjs';
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const DATA=path.join(ROOT,'site/data/prices.json');
-const CACHE=path.join(ROOT,'site/data/county-cache.json');
+// Standalone GasBuddy attempts never replace the site's working fallback data.
+const gasbuddyOnly=process.argv.includes('--gasbuddy-only');
+const DATA=path.join(ROOT,gasbuddyOnly?'work/gasbuddy/prices.json':'site/data/prices.json');
+const CACHE=path.join(ROOT,gasbuddyOnly?'work/gasbuddy/county-cache.json':'site/data/county-cache.json');
 const attemptedAt=new Date().toISOString();
 const read=async(p,fallback)=>{try{return JSON.parse(await fs.readFile(p,'utf8'))}catch(e){if(e.code==='ENOENT')return fallback;throw e}};
 const previous=await read(DATA,{schemaVersion:1,stations:[],lastSuccessAt:null});
@@ -15,7 +17,7 @@ const pages=[];const fresh=[];let browser;let fatal=null;
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 const limited=process.argv.includes('--smoke')?TOWNS.slice(0,1):TOWNS;
 try{
- browser=await chromium.launch({headless:true});
+ browser=await chromium.launch({headless:!process.argv.includes('--headed')});
  const context=await browser.newContext({locale:'en-US'});
  const page=await context.newPage();
  for(const town of limited){
@@ -23,8 +25,10 @@ try{
   try{
    const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
    const title=await page.title();
-   if(response?.status()===403||/just a moment|access denied|captcha/i.test(title)){
-    pages.push({town,url,status:'blocked',count:0});fatal='GasBuddy blocked the normal browser request. No challenge bypass was attempted.';break;
+   if([401,403,429].includes(response?.status())||/just a moment|access denied|captcha/i.test(title)){
+    pages.push({town,url,status:'blocked',httpStatus:response?.status()??null,title,count:0});
+    fatal=`GasBuddy did not return listings: HTTP ${response?.status()??'unknown'}, title ${JSON.stringify(title)}. Stopped without retrying the challenge.`;
+    break;
    }
    if(response?.status()===404){pages.push({town,url,status:'not-found',count:0});continue}
    if(!response?.ok())throw Error(`HTTP ${response?.status()}`);
@@ -58,7 +62,7 @@ try{
 finally{await browser?.close()}
 // A blocked GasBuddy request is not retried or bypassed. Use a first-party feed.
 let fallback=false;
-if(!fresh.length){
+if(!fresh.length&&!gasbuddyOnly){
  fallback=true;
  const official=await collectKwikTrip({getJSON:async url=>{
   const r=await fetch(url,{signal:AbortSignal.timeout(20000),headers:{'User-Agent':'DaneFuel/1.0'}});
@@ -95,6 +99,7 @@ await fs.mkdir(path.dirname(DATA),{recursive:true});
 await fs.writeFile(DATA+'.tmp',JSON.stringify(result,null,2)+'\n');await fs.rename(DATA+'.tmp',DATA);
 await fs.writeFile(CACHE,JSON.stringify(cache,null,2)+'\n');
 console.log(result.message);
+console.log(`Saved attempt: ${DATA}`);
 for(const p of pages.filter(p=>p.status==='error'||p.status==='blocked'))console.error(`${p.town}: ${p.status}${p.error?': '+p.error:''}`);
 console.log(`${result.status}: ${unique.length} new reports; ${unique.filter(s=>s.countyFips==='55025').length} county-verified.`);
 if(!success)process.exitCode=1;

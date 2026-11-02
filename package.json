@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": {"node": ">=22"},
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "collect": "node scripts/collect.mjs",
-    "serve": "python3 -m http.server 8080 --directory site"
+    "serve": "python3 -m http.server 8080 --directory site",
+    "scrape:gasbuddy": "node scripts/collect.mjs --gasbuddy-only"
   },
-  "devDependencies": {"playwright": "1.64.1"}
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
 }

@@ -31,6 +31,18 @@ npm run collect -- --smoke
 
 To collect all configured community lists and use the official fallback if none return prices, run `npm run collect`. Up to 29 community pages are checked sequentially, with pauses. Prices hydrate before extraction. Only visible regular-price reports are read. Reports with no recognizable price/time are ignored. No site login is required or attempted.
 
+## GasBuddy web scraper
+
+The collector includes a Playwright web scraper, independent of any API. Run it directly without the official-source fallback:
+
+```sh
+npm run scrape:gasbuddy -- --smoke
+```
+
+This visits the Madison listing page in Chromium, waits for visible regular-price reports, extracts station names, street addresses, prices and report ages, and county-checks any returned reports. To check all 29 configured community pages, omit `--smoke`. To see the normal browser on a machine with a desktop display, add `--headed`.
+
+Standalone output goes to `work/gasbuddy/prices.json`, with a separate county cache. It cannot overwrite the site's collected Kwik Trip prices. HTTP status and page title are recorded when blocked. A 401/403/429 or challenge stops collection, saves the attempt and exits unsuccessfully. No login, third-party key, CAPTCHA solver or proxy is used. Current GitHub-runner requests have returned an access challenge, so a working all-brand scrape has **not** been demonstrated. Changing HTML extraction does not remove that network blocker. The 29 listing pages also cannot guarantee every county station is represented.
+
 ## County accuracy and coverage
 
 Community labels are not treated as county boundaries. For GasBuddy reports, every new address is looked up through the free U.S. Census Geocoder. Only an unambiguous county match with GEOID **55025** enters the ranking. The official Kwik Trip fallback instead requires the state and county fields to match WI and DANE in both discovery and the store-detail response. It records that provider as the county authority; it is not independently Census-geocoded. Census matches are cached for 180 days. Unmatched addresses and county-service outages can reduce coverage. Expired cache entries are not accepted on geocoding failure.
