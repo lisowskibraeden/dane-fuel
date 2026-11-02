@@ -72,3 +72,7 @@ Once hosted over HTTPS, open in Safari or Chrome and choose Add to Home Screen /
 - `tests/`: price parsing, exclusions, ranking and failure-related data rules.
 
 Sources: [Kwik Trip public locator](https://www.kwiktrip.com/locator), [official location service](https://api.kwiktrip.com/api/stores/nearby?latitude=43.0731&longitude=-89.4012&limit=100), [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages), [Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions), [schedule limitations](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), [Census Geocoder](https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html), [Wisconsin calculation guidance](https://datcp.wi.gov/Pages/Programs_Services/UnfairSalesAct.aspx).
+
+## Cross-brand coverage investigation
+
+The free cross-brand collection requirement remains unresolved. The manual runner probe returned challenges for Way and iExit and a 404 for the legacy Autoblog page; it did not produce station prices. See [the source investigation](docs/data-source-investigation.md) for tested URLs, run evidence, API access restrictions and remaining dependencies. Production coverage remains explicitly Kwik Trip only.
