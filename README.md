@@ -6,6 +6,8 @@ A mobile-friendly, static gas-price finder for Dane County, Wisconsin. The large
 
 The project is private and publication is disabled. The normal GasBuddy browser request is blocked in the GitHub runner. The collector now falls back to **Kwik Trip’s public first-party location service**, which requires no login, API key or paid service. The site clearly labels this as **Kwik Trip only**, rather than claiming the cheapest price across all brands in Dane County.
 
+**Verified in GitHub Actions on November 2, 2026:** [run 41547799719](https://github.com/lisowskibraeden/dane-fuel/actions/runs/41547799719) succeeded and committed 57 regular-87 prices at 5:46 PM CST. All 22 tests passed. Five discovered fuel stores had no usable regular-87 quote and were excluded. The lowest returned quote was $3.899/gal; this is a recorded snapshot, not a guarantee of the current pump price. Deployment and recurring private runs remain disabled.
+
 The fallback discovers the 100 stores nearest Madison, selects fuel stores marked Dane County, Wisconsin, then fetches each store’s regular-87 quote. Premium, E15/88 and diesel are excluded. The service provides currentPrice but no price-change timestamp: the site shows **Fetched** times, never invented report times. Store-profile modification dates are not used as price dates. Old snapshots expire normally and failed requests never refresh their timestamps.
 
 GasBuddy collection uses a normal Playwright Chromium session and stops on a challenge. The original failed verification is recorded at https://github.com/lisowskibraeden/dane-fuel/actions/runs/41506782583. No publisher keys, paid feeds, proxies, stealth tools or challenge bypasses are used.
