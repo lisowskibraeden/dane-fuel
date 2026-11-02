@@ -1,12 +1,12 @@
 # Dane Fuel
 
-A mobile-friendly, static gas-price finder for Dane County, Wisconsin. The largest number is the lowest **reported regular pump price**, including taxes. It ranks recent, county-verified station reports; membership and cash-only prices are excluded by default and can be included with filters.
+A mobile-friendly, static gas-price finder for Dane County, Wisconsin. The largest number is the retailer’s **calculated standard Wisconsin minimum selling price**, including markup, using eligible cost inputs. It stays uncalculated until required inputs are provided. Below it, all recent, county-verified regular station reports are sorted cheapest first, with locally stored brand logos. Membership and cash-only prices are excluded by default and can be included with filters.
 
 ## Current state
 
 The project is private and publication is disabled. No old sample prices are presented as live. The initial data is empty until an actual collector run succeeds.
 
-GasBuddy has returned Cloudflare challenges in testing. The collector uses a normal Playwright Chromium session and stops on a challenge; it does not use stealth plugins, proxies, exported session cookies, CAPTCHA solvers or challenge bypasses. **The local smoke test on November 2, 2026 returned a Cloudflare block (0 prices). Automatic collection has therefore not been demonstrated, and it has not been tested from GitHub-hosted runners.** A failure retains original report times, records the failed attempt and makes the workflow red. Partial coverage is clearly labeled. GasBuddy can change its site and block collection. Review and obtain any permission needed for your use of its data before enabling collection: https://help.gasbuddy.com/hc/en-us/articles/40439396627991-Updated-Terms-of-Service-Effective-June-22nd-2026
+GasBuddy has returned Cloudflare challenges in testing. The collector uses a normal Playwright Chromium session and stops on a challenge; it does not use stealth plugins, proxies, exported session cookies, CAPTCHA solvers or challenge bypasses. **Both the local smoke test and the one-time GitHub-hosted verification on November 2, 2026 returned a Cloudflare block (0 prices). Automatic collection has therefore not been demonstrated. The GitHub verification is recorded at https://github.com/lisowskibraeden/dane-fuel/actions/runs/41506782583 .** A failure retains original report times, records the failed attempt and makes the workflow red. Partial coverage is clearly labeled. GasBuddy can change its site and block collection. Review and obtain any permission needed for your use of its data before enabling collection: https://help.gasbuddy.com/hc/en-us/articles/40439396627991-Updated-Terms-of-Service-Effective-June-22nd-2026
 
 ## Run locally
 
@@ -33,7 +33,7 @@ Community labels are not treated as county boundaries. Every new address is look
 
 The source's local pages may list only their top stations. “Lowest reported” means the lowest eligible price among retrieved, verified reports; it does not establish a countywide census of every pump. The default maximum report age is 24 hours; users may choose 6 or 12. Relative source ages become approximate timestamps at collection time. Reports are deduplicated across pages by station ID. Old retained reports still expire from the displayed ranking automatically.
 
-The small terminal calculator is separate from pump prices. It shows the price including 9.18% markup with the markup as secondary information. It does not establish a legal minimum: eligible determination dates, nearest terminal and invoice/replacement-cost comparisons still require checking.
+The headline calculation requires a sale date, closest-terminal cost for the preceding day, and at least one eligible invoice or current replacement cost. Costs entered must already include taxes, delivery and other required charges, adjusted for applicable trade discounts. An eligible purchase-day terminal cost can optionally be used for a purchase 1–10 days earlier. The invoice branch requires a purchase within 10 days. It takes the lower eligible invoice/replacement cost, applies the applicable 6% or 9.18% markup, and compares that with the eligible terminal branch plus 9.18%. The higher amount is displayed, rounded upward to the next tenth of a cent. The calculation is conditional on valid retailer inputs; it is not a universal countywide legal price and does not model competition-matching exceptions. Cost inputs are stored only in the visitor’s browser.
 
 ## Free GitHub hosting, when you choose to publish
 

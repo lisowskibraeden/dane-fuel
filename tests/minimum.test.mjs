@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {calculateMinimum} from '../site/minimum.js';
+const base={saleDate:'2026-11-02',purchaseDate:'2026-11-01',terminalPrior:'3.5293',terminalPurchase:'',invoice:'3.5',replacement:'',sellerType:'retailer'};
+test('uses higher terminal-based cost, includes markup and rounds upward',()=>{const r=calculateMinimum(base);assert.equal(r.errors.length,0);assert.equal(r.price,3.854);assert.equal(r.basis,'Terminal-based cost')});
+test('higher invoice branch sets standard minimum',()=>{const r=calculateMinimum({...base,invoice:'4'});assert.equal(r.price,4.24);assert.equal(r.basis,'Invoice/replacement cost')});
+test('eligible lower purchase-day terminal quote may be chosen',()=>{const r=calculateMinimum({...base,terminalPurchase:'3.4'});assert.equal(r.price,3.713)});
+test('lower replacement cost beats invoice cost',()=>{const r=calculateMinimum({...base,invoice:'4',replacement:'3.3'});assert.equal(r.price,3.854)});
+test('refiner/wholesaler uses 9.18% on invoice branch',()=>{const r=calculateMinimum({...base,invoice:'4',sellerType:'wholesaler'});assert.equal(r.price,4.368)});
+test('missing costs never produce a claimed minimum',()=>{assert(calculateMinimum({...base,invoice:'',replacement:''}).errors.length);assert(calculateMinimum({...base,terminalPrior:''}).errors.length)});
+test('old or future invoices and same-day purchase terminal quotes are rejected',()=>{assert(calculateMinimum({...base,purchaseDate:'2026-10-20'}).errors.length);assert(calculateMinimum({...base,purchaseDate:'2026-11-03'}).errors.length);assert(calculateMinimum({...base,purchaseDate:'2026-11-02',terminalPurchase:'3.4'}).errors.length)});
+test('current replacement can be used without an eligible invoice',()=>{assert.equal(calculateMinimum({...base,invoice:'',purchaseDate:'',replacement:'4'}).price,4.24)});
