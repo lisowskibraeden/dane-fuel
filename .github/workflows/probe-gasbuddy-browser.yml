@@ -1,0 +1,25 @@
+name: Test GasBuddy in standard Chrome
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chrome
+      - run: xvfb-run -a node scripts/probe-gasbuddy-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gasbuddy-browser-probe
+          path: probe-results/
+          retention-days: 1
+          if-no-files-found: ignore
