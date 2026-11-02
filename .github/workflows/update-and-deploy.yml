@@ -1,0 +1,70 @@
+name: Refresh prices and deploy Pages
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: fuel-update-and-pages
+  cancel-in-progress: false
+jobs:
+  update:
+    # Never consume private-repository Actions minutes or publish a private project.
+    # Enable only after the owner chooses to make the repository public.
+    if: github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    outputs:
+      collected: ${{ steps.collect.outcome }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - name: Collect public reports
+        id: collect
+        continue-on-error: true
+        run: npm run collect
+      - name: Preserve results and attempt status
+        if: always() && steps.collect.outcome != 'skipped'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add site/data/prices.json site/data/county-cache.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update fuel reports and collection status'
+            git push
+          fi
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Surface collector failure after publishing status
+        if: needs.update.outputs.collected == 'failure'
+        run: |
+          echo 'GasBuddy collection failed. The site displays the failed attempt and original report ages.'
+          exit 1

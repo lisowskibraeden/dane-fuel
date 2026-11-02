@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseCard,reportTime,eligibleStations,mergeStations,censusMatch} from '../scripts/core.mjs';
+import fs from 'node:fs';
+const now=Date.parse('2026-11-02T18:00:00Z');
+const card={name:'Kwik Trip',href:'/station/4427',text:'Kwik Trip\n87\n9 TOWER DR\nSun Prairie, WI\n$3.89\nDataFeed\n17 Minutes Ago\nAmenities\nC-Store\nReviews\nUsed to be $1.99!'};
+const base={...parseCard(card,new Date(now).toISOString()),countyFips:'55025'};
+test('extracts reported price and address, not review price or rating',()=>{assert.equal(base.price,3.89);assert.equal(base.address,'9 TOWER DR');assert.equal(base.city,'Sun Prairie');assert.equal(base.reportedAt,'2026-11-02T17:43:00.000Z');assert.equal(base.payment,'unspecified')});
+test('missing report does not turn a review price into current data',()=>{assert.equal(parseCard({...card,text:'Kwik Trip\n9 TOWER DR\nSun Prairie, WI\nAmenities\nReviews\n$1.99 1 Hour Ago'}),null);assert.equal(parseCard({...card,text:card.text.replace('17 Minutes Ago','')}),null)});
+test('marks membership and explicit cash requirements',()=>{const s=parseCard({...card,text:card.text.replace('$3.89','Cash $3.89')+'\nMembership Required'});assert.equal(s.membership,true);assert.equal(s.payment,'cash')});
+test('rank excludes stale, future, other-county, unknown-county, member and cash reports by default',()=>{const records=[base,{...base,id:'2',price:2,reportedAt:'2026-10-30T00:00:00Z'},{...base,id:'3',price:2,countyFips:'55049'},{...base,id:'4',price:2,countyFips:null},{...base,id:'5',price:2,membership:true},{...base,id:'6',price:2,payment:'cash'},{...base,id:'7',price:2,reportedAt:'2026-11-03T00:00:00Z'}];assert.deepEqual(eligibleStations(records,{now}).map(s=>s.id),['4427']);assert.equal(eligibleStations(records,{now,members:true,cash:true}).length,3)});
+test('chooses lowest price and freshest report within ties',()=>{const s=eligibleStations([base,{...base,id:'x',price:3.8},{...base,id:'y',price:3.8,reportedAt:'2026-11-02T17:59:00Z'}],{now});assert.deepEqual(s.map(x=>x.id),['y','x','4427'])});
+test('deduplicates by station id, preserving most recent report',()=>{assert.equal(mergeStations([base],[{...base,price:2,reportedAt:'2026-11-01T00:00:00Z'}])[0].price,3.89)});
+test('county verification requires exactly one unambiguous county match',()=>{assert.equal(censusMatch({result:{addressMatches:[]}}),null);assert.equal(censusMatch({result:{addressMatches:[{geographies:{Counties:[{GEOID:'55025'}]}}]}}).countyFips,'55025');assert.equal(censusMatch({result:{addressMatches:[{},{}]}}),null)});
+test('rejects invalid station URLs and unparseable report times',()=>{assert.equal(parseCard({...card,href:'https://evil.test/station/1'}),null);assert.equal(reportTime('yesterday'),null)});
+test('browser and collector use the same filtering model',()=>{assert.equal(fs.readFileSync('scripts/core.mjs','utf8'),fs.readFileSync('site/model.js','utf8'))});

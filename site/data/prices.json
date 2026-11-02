@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "source": "GasBuddy",
+  "fuel": "regular",
+  "scope": "Dane County, Wisconsin",
+  "attemptedAt": "2026-11-02T18:53:34.270Z",
+  "lastSuccessAt": null,
+  "status": "failed",
+  "message": "GasBuddy blocked the normal browser request. No challenge bypass was attempted.",
+  "geocodeErrors": 0,
+  "pages": [
+    {
+      "town": "madison",
+      "url": "https://www.gasbuddy.com/gasprices/wisconsin/madison",
+      "status": "blocked",
+      "count": 0
+    }
+  ],
+  "stations": []
+}
