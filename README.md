@@ -37,7 +37,7 @@ The small terminal calculator is separate from pump prices. It shows the price i
 
 ## Free GitHub hosting, when you choose to publish
 
-GitHub Free provides Pages for **public** repositories and standard Actions runners for public repositories. Private repositories can consume a limited monthly Actions allowance and may require a paid plan for Pages. This workflow deliberately skips **all jobs while the repository is private**, even for manual triggers. It cannot create private-repository Actions usage or publish private source.
+GitHub Free provides Pages for **public** repositories and standard Actions runners for public repositories. Private repositories can consume a limited monthly Actions allowance and may require a paid plan for Pages. This workflow skips **all recurring jobs while the repository is private**. A manually dispatched run with `private_test=true` may run one verification in a private repository, after the owner confirms an enforced $0 Actions budget. That test can use included private-repository Actions minutes but cannot deploy Pages. The default manual input is false. It cannot publish private source.
 
 When you explicitly decide to make this repository public:
 
@@ -49,6 +49,10 @@ When you explicitly decide to make this repository public:
 The job is scheduled at minute 17 of every hour (UTC). GitHub may delay schedules or disable them after 60 days without repository activity. Updater commits usually create activity, but check the Actions tab if updates stop. No paid runners, paid feeds, custom domains, third-party proxies or API keys are configured. No paid plan or service is required for the public-repository setup. Keep the repository private until you are ready; changing its visibility is a separate choice.
 
 Pushes made using `GITHUB_TOKEN` do not trigger another push workflow. A single scheduled workflow updates JSON, commits it and deploys the static `site/` directory. The latest attempt status is deployed even when collection fails, then the job reports the failure. It never silently substitutes a city average.
+
+## One-time private verification
+
+Confirm an enforced $0 Actions budget with stop-usage enabled in GitHub billing settings first. In Actions → Refresh prices and deploy Pages → Run workflow, set `private_test` to true. This explicitly runs the collector once, preserves the attempt JSON and reports failure if no prices were retrieved. Pages deployment stays disabled while private. It does not enable the hourly schedule.
 
 ## Phone use
 

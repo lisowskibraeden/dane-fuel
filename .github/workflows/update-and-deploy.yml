@@ -1,6 +1,11 @@
 name: Refresh prices and deploy Pages
 on:
   workflow_dispatch:
+    inputs:
+      private_test:
+        description: 'Run one private verification after confirming an enforced $0 Actions budget. Does not deploy Pages.'
+        type: boolean
+        default: false
   schedule:
     - cron: '17 * * * *'
   push:
@@ -12,9 +17,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
-    # Never consume private-repository Actions minutes or publish a private project.
-    # Enable only after the owner chooses to make the repository public.
-    if: github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true'
+    # Recurring updates require a public repo. Private runs are explicit, one-time tests.
+    if: (github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true') || (github.event_name == 'workflow_dispatch' && inputs.private_test == true)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -35,7 +39,7 @@ jobs:
         continue-on-error: true
         run: npm run collect
       - name: Preserve results and attempt status
-        if: always() && steps.collect.outcome != 'skipped'
+        if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -44,11 +48,18 @@ jobs:
             git commit -m 'Update fuel reports and collection status'
             git push
           fi
+      - name: Surface private test failure
+        if: github.event.repository.private && steps.collect.outcome == 'failure'
+        run: |
+          echo 'GasBuddy collection failed. Inspect the committed site/data/prices.json for the actual cause.'
+          exit 1
       - name: Upload site
+        if: github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
           path: site
   deploy:
+    if: github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true'
     needs: update
     runs-on: ubuntu-latest
     permissions:
