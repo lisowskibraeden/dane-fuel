@@ -28,13 +28,15 @@ export function parseCard(card, observedAt = new Date().toISOString()) {
   const payment=/\bcash\b/i.test(head)?'cash':/\bcredit\b/i.test(head)?'credit':'unspecified';
   return {id:match[1],name:card.name.trim(),address:lines[cityIndex-1],city,state:'WI',fuel:'regular',price:amount,reportedAt,reportAgeLabel:time,observedAt,membership,payment,url:SOURCE+card.href};
 }
+// Official quotes have retrieval times, not invented price-change/report times.
+export const stationTime=s=>s.timeBasis==='retrieved'?s.observedAt:s.reportedAt;
 export function mergeStations(oldStations, newStations) {
   const map=new Map(oldStations.map(s=>[s.id,s]));
-  for(const s of newStations){const old=map.get(s.id);if(!old||Date.parse(s.reportedAt)>=Date.parse(old.reportedAt))map.set(s.id,s)}
+  for(const s of newStations){const old=map.get(s.id);if(!old||Date.parse(stationTime(s))>=Date.parse(stationTime(old)))map.set(s.id,s)}
   return [...map.values()].sort((a,b)=>a.id.localeCompare(b.id));
 }
 export function eligibleStations(stations,{now=Date.now(),maxAge=24,members=false,cash=false}={}) {
-  return stations.filter(s=>s.countyFips==='55025' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>0 && Date.parse(s.reportedAt)<=now+300000 && now-Date.parse(s.reportedAt)<=maxAge*3600e3 && (members||!s.membership) && (cash||s.payment!=='cash')).sort((a,b)=>a.price-b.price||Date.parse(b.reportedAt)-Date.parse(a.reportedAt)||a.name.localeCompare(b.name));
+  return stations.filter(s=>s.countyFips==='55025' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>0 && Date.parse(stationTime(s))<=now+300000 && now-Date.parse(stationTime(s))<=maxAge*3600e3 && (members||!s.membership) && (cash||s.payment!=='cash')).sort((a,b)=>a.price-b.price||Date.parse(stationTime(b))-Date.parse(stationTime(a))||a.name.localeCompare(b.name));
 }
 export function censusMatch(payload) {
   const matches=payload?.result?.addressMatches;

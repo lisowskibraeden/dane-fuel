@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {fuelStores,parseKwikTrip,collectKwikTrip} from '../scripts/kwiktrip.mjs';
+import {eligibleStations,mergeStations} from '../scripts/core.mjs';
+const time='2026-11-02T18:00:00Z';
+const store={id:1513,address:{state:'WI',county:'DANE'},properties:[{name:'GAS',hasProperty:true}]};
+const quote={storeNumber:1513,address:{state:'WI',county:'DANE',city:'MADISON',address1:'3401 UNIVERSITY AVE'},lastModifiedDttm:'2020-01-01',fuel:[{type:'UNLEADED 88',currentPrice:2.5},{type:'UNLEADED 87 (10% ETH)',currentPrice:3.999},{type:'UNLEADED PREMIUM 91',currentPrice:4.5}]};
+test('discovery selects only unique Dane Wisconsin fuel stores',()=>{assert.deepEqual(fuelStores({stores:[store,store,{...store,id:2,address:{state:'WI',county:'COLUMBIA'}},{...store,id:3,properties:[]},{...store,id:4,address:{state:'MN',county:'DANE'}}]}),[store]);assert.throws(()=>fuelStores({}))});
+test('official quote uses regular 87 and retrieval time, never store-modification time',()=>{const s=parseKwikTrip(quote,1513,time);assert.equal(s.price,3.999);assert.equal(s.reportedAt,null);assert.equal(s.observedAt,time);assert.equal(s.timeBasis,'retrieved');assert.equal(s.countyFips,'55025');assert.equal(s.source,'Kwik Trip');assert.equal(eligibleStations([s],{now:Date.parse(time)}).length,1);assert.equal(eligibleStations([s],{now:Date.parse(time)+25*3600e3}).length,0)});
+test('rejects wrong store, county, grade, unavailable or invalid prices',()=>{assert.equal(parseKwikTrip(quote,2,time),null);assert.equal(parseKwikTrip({...quote,address:{...quote.address,county:'ROCK'}},1513,time),null);for(const fuel of [null,[],[{type:'UNLEADED 88',currentPrice:2.5}],[{type:'UNLEADED 87',currentPrice:0}],[{type:'UNLEADED 87',currentPrice:'3.99'}]])assert.equal(parseKwikTrip({...quote,fuel},1513,time),null)});
+test('refresh replaces official snapshots and preserves source-specific ids',()=>{const s=parseKwikTrip(quote,1513,time);assert.equal(mergeStations([s],[{...s,price:4,observedAt:'2026-11-02T19:00:00Z'}])[0].price,4);assert.equal(mergeStations([s],[{...s,id:'1513',reportedAt:time,timeBasis:undefined}]).length,2)});
+test('provider outages are recorded without fabricating prices',async()=>{const result=await collectKwikTrip({getJSON:async()=>{throw Error('HTTP 503')},log:()=>{},pause:async()=>{}});assert.equal(result.stations.length,0);assert.equal(result.pages[0].status,'error');assert.match(result.pages[0].error,/503/)});

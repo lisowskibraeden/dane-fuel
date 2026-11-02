@@ -51,7 +51,7 @@ jobs:
       - name: Surface private test failure
         if: github.event.repository.private && steps.collect.outcome == 'failure'
         run: |
-          echo 'GasBuddy collection failed. Inspect the committed site/data/prices.json for the actual cause.'
+          node --input-type=module -e "import fs from 'node:fs'; const d=JSON.parse(fs.readFileSync('site/data/prices.json')); console.error(d.message); for(const p of d.pages||[]) if(p.error||p.status==='blocked') console.error(p.town,p.status,p.error||'');"
           exit 1
       - name: Upload site
         if: github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true'
@@ -77,5 +77,5 @@ jobs:
       - name: Surface collector failure after publishing status
         if: needs.update.outputs.collected == 'failure'
         run: |
-          echo 'GasBuddy collection failed. The site displays the failed attempt and original report ages.'
+          echo 'Price collection failed. The site displays the failed attempt and original report ages.'
           exit 1

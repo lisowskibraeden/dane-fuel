@@ -1,4 +1,4 @@
-import {eligibleStations} from './model.js';
+import {eligibleStations,stationTime} from './model.js';
 import {calculateMinimum} from './minimum.js';
 const $=id=>document.getElementById(id);
 let data=null,prompt=null;
@@ -14,9 +14,9 @@ function render(){
  $('update-detail').textContent=data.attemptedAt?`Attempted ${fmt(data.attemptedAt)}`:'';
  if(data.status==='failed')notice('Station update failed. Original report times are preserved.');
  else if(data.lastSuccessAt&&Date.now()-Date.parse(data.lastSuccessAt)>2*3600e3)notice('Station updates are behind. Check report times.');
- else if(data.status==='partial')notice('Partial coverage · some listings or county checks were unavailable.');
+ else if(data.status==='partial')notice(data.source==='Kwik Trip'?'Kwik Trip only · limited coverage. Lowest among listed stations.':'Partial coverage · some listings or county checks were unavailable.');
  else if(data.status==='not-run')notice('Waiting for the first station update.');else notice('');
- $('result-count').textContent=`${eligible.length} report${eligible.length===1?'':'s'}`;
+ $('result-count').textContent=`${eligible.length} price${eligible.length===1?'':'s'}`;
  const list=$('station-list');list.replaceChildren();
  for(const [index,station] of eligible.entries()){
   const row=document.createElement('article');row.className='station';
@@ -25,14 +25,15 @@ function render(){
   if(logo){const image=document.createElement('img');image.src=`./assets/logos/${logo}`;image.alt='';image.loading='lazy';image.addEventListener('load',()=>fallback.hidden=true);image.addEventListener('error',()=>image.remove());mark.append(image)}
   const info=document.createElement('div');info.className='station-info';const title=document.createElement('a');title.textContent=station.name;title.href=safeSource(station.url);title.target='_blank';title.rel='noreferrer';info.append(title);
   const address=document.createElement('p');address.textContent=`${station.address}, ${station.city}`;info.append(address);
-  const meta=document.createElement('small');meta.textContent=[age(station.reportedAt),terms(station)].filter(Boolean).join(' · ');info.append(meta);
+  const meta=document.createElement('small');meta.textContent=[`${station.timeBasis==='retrieved'?'Fetched ':''}${age(stationTime(station))}`,terms(station),station.source].filter(Boolean).join(' · ');info.append(meta);
   const price=document.createElement('strong');price.textContent=`$${station.price.toFixed(3)}`;if(index===0)price.className='lowest';row.append(mark,info,price);list.append(row);
  }
  $('empty').hidden=eligible.length>0;
- const pages=data.pages||[];$('coverage').textContent=`${pages.filter(p=>p.status==='ok').length} community lists returned prices; ${pages.filter(p=>p.status!=='ok').length} were empty, blocked or unavailable. ${(data.stations||[]).filter(s=>s.countyFips!=='55025').length} saved reports are outside the county or not county-verified.`;
+ $('source-label').textContent=`Station prices: ${data.source||'GasBuddy'}. Logos identify their respective brands; no affiliation.`;
+ const pages=data.pages||[];$('coverage').textContent=data.source==='Kwik Trip'?'Kwik Trip only. Discovery checks the 100 nearest stores to Madison and selects fuel stores whose official county field is Dane, Wisconsin. Other brands are not included. Retrieval time is shown; the provider does not supply the price-change time.':`${pages.filter(p=>p.status==='ok').length} community lists returned prices; ${pages.filter(p=>p.status!=='ok').length} were empty, blocked or unavailable. ${(data.stations||[]).filter(s=>s.countyFips!=='55025').length} saved reports are outside the county or not county-verified.`;
  $('collector-message').textContent=data.message||'';
 }
-function safeSource(url){try{const u=new URL(url);if(u.origin==='https://www.gasbuddy.com'&&/^\/station\/\d+$/.test(u.pathname))return u.href}catch{}return 'https://www.gasbuddy.com/gasprices/wisconsin/madison'}
+function safeSource(url){try{const u=new URL(url);if(u.origin==='https://api.kwiktrip.com'&&/^\/api\/location\/store\/information\/\d+$/.test(u.pathname))return u.href;if(u.origin==='https://www.gasbuddy.com'&&/^\/station\/\d+$/.test(u.pathname))return u.href}catch{}return 'https://www.gasbuddy.com/gasprices/wisconsin/madison'}
 async function refresh(){
  $('refresh').disabled=true;
  try{const r=await fetch(`./data/prices.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error();const next=await r.json();if(next.schemaVersion!==1||!Array.isArray(next.stations))throw Error();data=next;render()}
