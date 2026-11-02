@@ -3,7 +3,7 @@
   "source": "GasBuddy",
   "fuel": "regular",
   "scope": "Dane County, Wisconsin",
-  "attemptedAt": "2026-11-02T18:53:34.270Z",
+  "attemptedAt": "2026-11-02T19:06:40.582Z",
   "lastSuccessAt": null,
   "status": "failed",
   "message": "GasBuddy blocked the normal browser request. No challenge bypass was attempted.",
