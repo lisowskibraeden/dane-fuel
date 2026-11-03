@@ -1,7 +1,8 @@
 import {eligibleStations,stationTime} from './model.js';
 import {calculateMinimum} from './minimum.js';
+import {terminalEstimate} from './terminal.js';
 const $=id=>document.getElementById(id);
-let data=null,prompt=null;
+let data=null,prompt=null,terminalReport=null;
 const fmt=t=>new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(t));
 const age=t=>{const h=Math.max(0,(Date.now()-Date.parse(t))/3600e3);return h<1?`${Math.max(1,Math.round(h*60))} min ago`:`${Math.floor(h)}h ago`};
 const terms=s=>[s.membership?'Membership required':null,s.payment==='cash'?'Cash price':s.payment==='credit'?'Credit price':null].filter(Boolean).join(' · ');
@@ -45,20 +46,28 @@ const costInputs=()=>Object.fromEntries(fields.map(id=>[id,$(id).value]));
 const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 function renderMinimum(showErrors=false){
  const input=costInputs(),result=calculateMinimum(input);
- $('minimum-price').replaceChildren(document.createTextNode(result.errors.length?'—':`$${result.price.toFixed(3)}`));const unit=document.createElement('small');unit.textContent=' / gal';$('minimum-price').append(unit);
- $('minimum-context').textContent=result.errors.length?'Enter retailer costs to calculate.':`For ${input.saleDate} · ${result.basis}`;
+ const estimate=terminalEstimate(terminalReport);
+ const manual=!result.errors.length;
+ const value=manual?result.price:estimate?.price;
+ $('minimum-title').textContent=manual?'Calculated minimum price':'Estimated minimum price';
+ $('minimum-price').replaceChildren(document.createTextNode(value===undefined?'—':`$${value.toFixed(3)}`));const unit=document.createElement('small');unit.textContent=' / gal';$('minimum-price').append(unit);
+ $('minimum-context').textContent=manual?`For ${input.saleDate} · ${result.basis}`:estimate?`Madison · ULC10 · Report ${terminalReport.reportDate} ${terminalReport.reportTime}`:'Terminal report unavailable. Enter costs below.';
+ $('minimum-basis').textContent=manual?'Standard Wisconsin calculation':'Terminal estimate · includes markup';
+ $('minimum-note').textContent=manual?'Calculated from your inputs. Costs vary by retailer; exceptions can permit lower prices.':'Estimate assumes taxes excluded from the report and 2.5¢ delivery. Actual legal minimum varies by retailer.';
+ $('estimate-breakdown').textContent=estimate?`AXXIS Madison ULC10 $${estimate.wholesale.toFixed(4)} + federal tax $0.184 + Wisconsin tax and inspection $0.329 + assumed delivery $0.025 = $${estimate.base.toFixed(4)} before 9.18% markup. Rounded upward: $${estimate.price.toFixed(3)}/gal. Report ${terminalReport.reportDate} ${terminalReport.reportTime}; retrieved ${fmt(terminalReport.retrievedAt)}.${terminalReport.lastError?' Last update failed; showing saved report.':''}`:'No terminal report is available.';
  $('edit-costs').textContent=result.errors.length?'Set cost inputs ↓':'Edit cost inputs ↓';
  $('minimum-error').hidden=!showErrors||!result.errors.length;$('minimum-error').textContent=result.errors.join(' ');
  $('minimum-breakdown').textContent=result.errors.length?'':`Terminal branch: $${result.terminal.toFixed(4)} · Invoice/replacement branch: $${result.retailer.toFixed(4)}. Higher amount used; rounded upward to the next tenth of a cent.`;
  return result;
 }
 $('saleDate').value=today();
-try{const settings=JSON.parse(localStorage.getItem('dane-fuel-settings')||'{}');if(['6','12','24'].includes(settings.age))$('age').value=settings.age;$('members').checked=settings.members===true;$('cash').checked=settings.cash===true;const costs=JSON.parse(localStorage.getItem('dane-fuel-costs')||'null');if(costs)for(const f of fields)if(typeof costs[f]==='string')$(f).value=costs[f]}catch{}
-for(const id of ['age','members','cash'])$(id).addEventListener('change',()=>{render();try{localStorage.setItem('dane-fuel-settings',JSON.stringify({age:$('age').value,members:$('members').checked,cash:$('cash').checked}))}catch{}});
-$('refresh').addEventListener('click',refresh);
+try{const settings=JSON.parse(localStorage.getItem('dane-fuel-settings')||'{}');if(['6','12','24'].includes(settings.age))$('age').value=settings.age;$('members').checked=settings.version===2?settings.members!==false:true;$('cash').checked=settings.cash===true;const costs=JSON.parse(localStorage.getItem('dane-fuel-costs')||'null');if(costs)for(const f of fields)if(typeof costs[f]==='string')$(f).value=costs[f]}catch{}
+for(const id of ['age','members','cash'])$(id).addEventListener('change',()=>{render();try{localStorage.setItem('dane-fuel-settings',JSON.stringify({version:2,age:$('age').value,members:$('members').checked,cash:$('cash').checked}))}catch{}});
+$('refresh').addEventListener('click',()=>{refresh();refreshMinimum()});
 $('minimum-form').addEventListener('submit',e=>{e.preventDefault();const r=renderMinimum(true);if(!r.errors.length){try{localStorage.setItem('dane-fuel-costs',JSON.stringify(costInputs()))}catch{}$('cost-inputs').open=false;$('minimum-price').scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}});
 $('edit-costs').addEventListener('click',()=>$('cost-inputs').open=true);
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();prompt=e});
 $('install').addEventListener('click',async()=>{if(prompt){await prompt.prompt();prompt=null}else $('install-help').hidden=!$('install-help').hidden});
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
-renderMinimum();refresh();setInterval(render,60000);setInterval(refresh,15*60000);
+async function refreshMinimum(){try{const r=await fetch(`./data/terminal.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error();terminalReport=await r.json()}catch{}renderMinimum()}
+renderMinimum();refresh();refreshMinimum();setInterval(render,60000);setInterval(()=>{refresh();refreshMinimum()},15*60000);

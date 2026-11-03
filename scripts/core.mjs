@@ -35,8 +35,9 @@ export function mergeStations(oldStations, newStations) {
   for(const s of newStations){const old=map.get(s.id);if(!old||Date.parse(stationTime(s))>=Date.parse(stationTime(old)))map.set(s.id,s)}
   return [...map.values()].sort((a,b)=>a.id.localeCompare(b.id));
 }
-export function eligibleStations(stations,{now=Date.now(),maxAge=24,members=false,cash=false}={}) {
-  return stations.filter(s=>s.countyFips==='55025' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>0 && Date.parse(stationTime(s))<=now+300000 && now-Date.parse(stationTime(s))<=maxAge*3600e3 && (members||!s.membership) && (cash||s.payment!=='cash')).sort((a,b)=>a.price-b.price||Date.parse(stationTime(b))-Date.parse(stationTime(a))||a.name.localeCompare(b.name));
+export const brandPriority=name=>/costco/i.test(name)?0:/woodman/i.test(name)?1:/kwik trip/i.test(name)?2:3;
+export function eligibleStations(stations,{now=Date.now(),maxAge=24,members=true,cash=false}={}) {
+  return stations.filter(s=>s.countyFips==='55025' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>0 && Date.parse(stationTime(s))<=now+300000 && now-Date.parse(stationTime(s))<=maxAge*3600e3 && (members||!s.membership) && (cash||s.payment!=='cash')).sort((a,b)=>a.price-b.price||brandPriority(a.name)-brandPriority(b.name)||Date.parse(stationTime(b))-Date.parse(stationTime(a))||a.name.localeCompare(b.name));
 }
 export function censusMatch(payload) {
   const matches=payload?.result?.addressMatches;

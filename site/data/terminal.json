@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "terminal": "967",
+  "city": "Madison, WI",
+  "product": "ULC10",
+  "reportDate": "2026-11-02",
+  "reportTime": "10:30 AM",
+  "wholesale": 2.958,
+  "source": "https://old.axxispetro.com/download/wisconsin-cta.txt",
+  "attemptedAt": "2026-11-03T01:12:38.960Z",
+  "retrievedAt": "2026-11-03T01:12:39.255Z",
+  "lastError": null
+}
