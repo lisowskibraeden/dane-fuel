@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseSearchStation} from '../scripts/gasbuddy.mjs';
+const time='2026-11-03T00:10:00Z';
+const card={href:'/station/9075',name:"Woodman's",text:"Woodman's\n225\n725 S Gammon Rd\nMadison, WI\n$3.89\n5 Minutes Ago"};
+const raw={id:'9075',prices:[{fuelProduct:'regular_gas',credit:{price:3.89,postedTime:'2026-11-03T00:05:13Z'},cash:{price:3.79,postedTime:'2026-11-03T00:06:00Z'}},{fuelProduct:'premium_gas',credit:{price:5.29,postedTime:time}}]};
+test('joins rendered address with exact regular credit report time',()=>{const s=parseSearchStation(card,raw,time);assert.equal(s.price,3.89);assert.equal(s.reportedAt,'2026-11-03T00:05:13.000Z');assert.equal(s.address,'725 S Gammon Rd');assert.equal(s.city,'Madison');assert.equal(s.payment,'credit');assert.equal(s.membership,false)});
+test('uses cash only when no valid credit quote exists and identifies membership',()=>{const s=parseSearchStation({...card,name:'Costco'}, {...raw,prices:[{...raw.prices[0],credit:{price:0,postedTime:null}}]},time);assert.equal(s.price,3.79);assert.equal(s.payment,'cash');assert.equal(s.membership,true)});
+test('rejects mismatched station metadata, placeholders and absent timestamps',()=>{assert.equal(parseSearchStation(card,{...raw,id:'123'},time),null);assert.equal(parseSearchStation(null,raw,time),null);for(const credit of [{price:0,postedTime:time},{price:3.89,postedTime:null},{price:'3.89',postedTime:time}])assert.equal(parseSearchStation(card,{id:'9075',prices:[{fuelProduct:'regular_gas',credit}]},time),null)});
+test('never substitutes premium or missing grade for regular',()=>{assert.equal(parseSearchStation(card,{...raw,prices:raw.prices.slice(1)},time),null);assert.equal(parseSearchStation(card,{...raw,prices:[]},time),null)});

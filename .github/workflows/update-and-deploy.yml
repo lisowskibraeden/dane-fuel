@@ -33,11 +33,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chrome
       - name: Collect public reports
         id: collect
         continue-on-error: true
-        run: npm run collect
+        run: xvfb-run -a npm run collect -- --headed --chrome
       - name: Preserve results and attempt status
         if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
         run: |
