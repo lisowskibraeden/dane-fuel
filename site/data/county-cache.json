@@ -1492,5 +1492,41 @@
     },
     "checkedAt": "2026-11-03T04:59:53.420Z",
     "checkedWithPostalCode": "53529"
+  },
+  "1130 WILLIAMSON ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1130 WILLIAMSON ST, MADISON, WI, 53703",
+    "coordinates": {
+      "x": -89.365587674283,
+      "y": 43.082449158553
+    },
+    "checkedAt": "2026-11-03T16:59:56.985Z",
+    "checkedWithPostalCode": "53703"
+  },
+  "2801 ATWOOD AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2801 ATWOOD AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.343450503888,
+      "y": 43.093823309031
+    },
+    "checkedAt": "2026-11-03T16:59:57.518Z",
+    "checkedWithPostalCode": "53704"
+  },
+  "5418 N. BLUEBILL PARK DRIVE, WESTPORT, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T16:59:58.445Z",
+    "checkedWithPostalCode": "53597",
+    "countyFallbackVersion": 1
+  },
+  "7515 UNIVERSITY AVE, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7515 UNIVERSITY AVE, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.51176664859,
+      "y": 43.096799852818
+    },
+    "checkedAt": "2026-11-03T16:59:58.666Z",
+    "checkedWithPostalCode": null
   }
 }
