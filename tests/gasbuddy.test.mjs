@@ -13,3 +13,5 @@ test('other brand names in surrounding page text do not imply membership',()=>{a
 
 test('normalizes complete public response metadata and rejects out-of-state stations',()=>{const r={...raw,name:"Woodman's",address:{line1:'725 S Gammon Rd',locality:'Madison',region:'WI'}};assert.equal(parseGraphqlStation(r,time).address,'725 S Gammon Rd');assert.equal(parseGraphqlStation({...r,address:{...r.address,region:'MN'}},time),null)});
 test('pagination stops at actual result count even if cursor is nonzero',()=>{assert.equal(moreCursor({count:2,cursor:{next:'20'},results:[{},{}]},2),null);assert.equal(moreCursor({count:65,cursor:{next:'20'},results:[{}]},20),'20');assert.equal(moreCursor({count:65,cursor:{next:'0'},results:[{}]},65),null)});
+
+test('provider final cursor denotes the last row even when listings contain duplicate IDs',()=>{assert.equal(moreCursor({count:68,cursor:{next:'67'},results:Array(8).fill({})},61),null);assert.equal(moreCursor({count:68,cursor:{next:'60'},results:Array(20).fill({})},57),'60')});

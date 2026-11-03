@@ -37,13 +37,13 @@ async function verifyCounty(station){
  if(station.countyAuthority==='Kwik Trip county field'&&station.countyFips==='55025')return;
  const key=`${station.address}, ${station.city}, WI`.toUpperCase();
  let entry=cache[key];
- if(!entry || Date.now()-Date.parse(entry.checkedAt)>180*86400e3){
+ if(!entry || Date.now()-Date.parse(entry.checkedAt)>180*86400e3 || (!entry.countyFips&&station.postalCode&&entry.checkedWithPostalCode!==station.postalCode)){
   try{
    const u=new URL('https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress');
-   u.search=new URLSearchParams({address:key,benchmark:'Public_AR_Current',vintage:'Current_Current',format:'json'}).toString();
+   u.search=new URLSearchParams({address:key+(station.postalCode?' '+station.postalCode:''),benchmark:'Public_AR_Current',vintage:'Current_Current',format:'json'}).toString();
    const r=await fetch(u,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error(`Geocoder HTTP ${r.status}`);
    const match=censusMatch(await r.json());
-   entry={...(match||{countyFips:null}),checkedAt:new Date().toISOString()};
+   entry={...(match||{countyFips:null}),checkedAt:new Date().toISOString(),checkedWithPostalCode:station.postalCode||null};
    cache[key]=entry;
   }catch{geocodeErrors++;entry=null}
   await pause(300);
@@ -58,7 +58,7 @@ for(let i=0;i<unique.length;i+=3){
 }
 const success=unique.some(s=>s.countyFips==='55025');
 const merged=mergeStations((previous.stations||[]).filter(s=>fallback?s.source==='Kwik Trip':s.source!=='Kwik Trip'),unique).filter(s=>Date.now()-Date.parse(stationTime(s))<7*86400e3);
-const result={schemaVersion:1,gasbuddyError:gasbuddy.fatal,inventoryCount:gasbuddy.inventoryCount,source:fallback?'Kwik Trip':'GasBuddy',fuel:'regular',scope:'Dane County, Wisconsin',attemptedAt,lastSuccessAt:success?new Date().toISOString():previous.lastSuccessAt,status:success?(pages.some(p=>p.status!=='ok')||geocodeErrors?'partial':'ok'):'failed',message:fallback&&success?'Kwik Trip only: limited brand coverage, not the countywide lowest. Regular-87 quotes from the 100 nearest Madison stores, filtered to Dane County using the provider county field. Times indicate retrieval; the provider does not supply price-change times. GasBuddy was unavailable.':fatal||(success?`GasBuddy: ${gasbuddy.inventoryCount} unique station listings checked across configured Dane-area communities, including all available pagination. ${unique.length} regular-price reports retrieved. Only recent Dane County matches are ranked; missing or outdated reports do not establish a current price.`:'No usable station prices were retrieved. Saved prices have not been marked fresh.'),geocodeErrors,pages,stations:merged};
+const result={schemaVersion:1,gasbuddyError:gasbuddy.fatal,inventoryCount:gasbuddy.inventoryCount,source:fallback?'Kwik Trip':'GasBuddy',fuel:'regular',scope:'Dane County, Wisconsin',attemptedAt,lastSuccessAt:success?new Date().toISOString():previous.lastSuccessAt,status:success?(pages.some(p=>!['ok','empty'].includes(p.status))||geocodeErrors?'partial':'ok'):'failed',message:fallback&&success?'Kwik Trip only: limited brand coverage, not the countywide lowest. Regular-87 quotes from the 100 nearest Madison stores, filtered to Dane County using the provider county field. Times indicate retrieval; the provider does not supply price-change times. GasBuddy was unavailable.':fatal||(success?`GasBuddy: ${gasbuddy.inventoryCount} unique station listings checked across configured Dane-area communities, including all available pagination. ${unique.length} regular-price reports retrieved. Only recent Dane County matches are ranked; missing or outdated reports do not establish a current price.`:'No usable station prices were retrieved. Saved prices have not been marked fresh.'),geocodeErrors,pages,stations:merged};
 await fs.mkdir(path.dirname(DATA),{recursive:true});
 await fs.writeFile(DATA+'.tmp',JSON.stringify(result,null,2)+'\n');await fs.rename(DATA+'.tmp',DATA);
 await fs.writeFile(CACHE,JSON.stringify(cache,null,2)+'\n');
@@ -66,4 +66,4 @@ console.log(result.message);
 console.log(`Saved attempt: ${DATA}`);
 for(const p of pages.filter(p=>p.status==='error'||p.status==='blocked'))console.error(`${p.town}: ${p.status}${p.error?': '+p.error:''}`);
 console.log(`${result.status}: ${unique.length} new reports; ${unique.filter(s=>s.countyFips==='55025').length} county-verified.`);
-if(!success||(process.argv.includes('--require-gasbuddy')&&result.source!=='GasBuddy'))process.exitCode=1;
+if(!success||(process.argv.includes('--require-gasbuddy')&&(result.source!=='GasBuddy'||gasbuddy.pages.some(p=>!['ok','empty'].includes(p.status)))))process.exitCode=1;

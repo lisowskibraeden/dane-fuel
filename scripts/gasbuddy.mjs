@@ -17,6 +17,7 @@ export function parseGraphqlStation(raw,observedAt){
  const a=raw?.address;
  if(!/^\d+$/.test(String(raw?.id))||typeof raw.name!=='string'||a?.region!=='WI'||!a.line1||!a.locality)return null;
  const station=parseSearchStation({href:`/station/${raw.id}`,name:raw.name,text:`${a.line1}\n${a.locality}, WI`},raw,observedAt);
+ if(station&&/^\d{5}$/.test(a.postalCode||''))station.postalCode=a.postalCode;
  if(station&&raw.brands?.some(b=>/\bcostco\b|\bsam['’]?s club\b/i.test(b.name)))station.membership=true;
  return station;
 }
@@ -25,7 +26,7 @@ export function moreCursor(connection,seenCount){
  if(!next||next==='0'||!connection.results.length)return null;
  if(Number.isFinite(connection.count)&&seenCount>=connection.count)return null;
  // Follow the website's own numeric cursor/count convention.
- if(/^\d+$/.test(next)&&Number.isFinite(connection.count)&&Number(next)>=connection.count)return null;
+ if(/^\d+$/.test(next)&&Number.isFinite(connection.count)&&Number(next)>=connection.count-1)return null;
  return next;
 }
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
@@ -83,20 +84,21 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
     throw Error(`Price service HTTP ${result.status}${detail?': '+detail:''}`);
    }
    if(result.json?.errors?.length)throw Error(result.json.errors.map(e=>e.message).join('; '));
+   if(result.json?.data?.locationBySearchTerm===null)return {count:0,cursor:{next:'0'},results:[]};
    const connection=result.json?.data?.locationBySearchTerm?.stations;
    if(!Array.isArray(connection?.results))throw Error('Price response has no station results');
    return connection;
   };
   for(const town of towns){
    const search=town.replaceAll('-',' ')+', WI';
-   const row={town,url:`${SOURCE}/home?${new URLSearchParams({search,fuel:'1'})}`,status:'ok',count:0,listed:0,batches:0};pages.push(row);
+   const row={town,url:`${SOURCE}/home?${new URLSearchParams({search,fuel:'1'})}`,status:'ok',count:0,listed:0,rows:0,batches:0};pages.push(row);
    const seen=new Set(),cursors=new Set();let cursor=null;
    try{
     for(let batch=0;batch<30;batch++){
      const connection=await request('LocationBySearchTerm',{search,cursor});
      const prices=await request('SearchPrices',{search,cursor});
      const priceMap=new Map(prices.results.map(s=>[String(s.id),s.prices]));
-     row.batches++;row.expected=connection.count;
+     row.batches++;row.rows+=connection.results.length;row.expected=connection.count;
      const now=new Date().toISOString();
      for(const raw of connection.results){
       const id=String(raw.id);inventory.add(id);if(seen.has(id))continue;seen.add(id);row.listed++;

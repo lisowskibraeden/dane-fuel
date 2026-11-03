@@ -1,5 +1,5 @@
 export const SOURCE = 'https://www.gasbuddy.com';
-export const TOWNS = ['madison','black-earth','blue-mounds','cottage-grove','cross-plains','dane','deforest','deerfield','fitchburg','marshall','mazomanie','mcfarland','middleton','monona','mount-horeb','oregon','rockdale','stoughton','sun-prairie','verona','waunakee','windsor','belleville','brooklyn','cambridge','maple-bluff','shorewood-hills','westport','token-creek'];
+export const TOWNS = ['madison','dane-county','black-earth','blue-mounds','cottage-grove','cross-plains','dane','deforest','deerfield','fitchburg','marshall','mazomanie','mcfarland','middleton','monona','mount-horeb','oregon','rockdale','stoughton','sun-prairie','verona','waunakee','windsor','belleville','brooklyn','cambridge','maple-bluff','shorewood-hills','westport','token-creek'];
 export const MAX_REPORT_AGE_HOURS = 24;
 export function reportTime(text, now = Date.now()) {
   if (/just now|moments? ago/i.test(text)) return new Date(now).toISOString();
