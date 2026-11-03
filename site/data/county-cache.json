@@ -19,8 +19,9 @@
   },
   "4222 E WASHINGTON AVE, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:29.308Z",
-    "checkedWithPostalCode": "53704"
+    "checkedAt": "2026-11-03T01:03:09.016Z",
+    "checkedWithPostalCode": "53704",
+    "countyFallbackVersion": 1
   },
   "3401 UNIVERSITY AVE, MADISON, WI": {
     "countyFips": "55025",
@@ -323,8 +324,9 @@
   },
   "6525 KILPATRICK LN, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:44.880Z",
-    "checkedWithPostalCode": "53718"
+    "checkedAt": "2026-11-03T01:03:09.403Z",
+    "checkedWithPostalCode": "53718",
+    "countyFallbackVersion": 1
   },
   "7583 W MINERAL POINT RD, VERONA, WI": {
     "countyFips": "55025",
@@ -399,9 +401,13 @@
     "checkedAt": "2026-11-03T00:28:46.648Z"
   },
   "3401 MILWAUKEE ST, MADISON, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:54.774Z",
-    "checkedWithPostalCode": "53714"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.563Z",
+    "checkedWithPostalCode": "53714",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "3401 Milwaukee Street, Madison, WI 53714",
+    "countyFallbackVersion": 1
   },
   "4902 VERONA RD, MADISON, WI": {
     "countyFips": "55025",
@@ -519,9 +525,13 @@
     "checkedWithPostalCode": null
   },
   "2500 ROYAL AVE, MONONA, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:30.854Z",
-    "checkedWithPostalCode": null
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:08.998Z",
+    "checkedWithPostalCode": null,
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "2500 Royal Avenue, Madison, WI 53713",
+    "countyFallbackVersion": 1
   },
   "981 N PAGE ST, STOUGHTON, WI": {
     "countyFips": "55025",
@@ -654,9 +664,13 @@
     "checkedWithPostalCode": null
   },
   "2762 CR-N, COTTAGE GROVE, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:34.629Z",
-    "checkedWithPostalCode": null
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.016Z",
+    "checkedWithPostalCode": null,
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "2762 County Highway N, Cottage Grove, WI 53527",
+    "countyFallbackVersion": 1
   },
   "781 S MAIN ST, DE FOREST, WI": {
     "countyFips": "55025",
@@ -719,9 +733,13 @@
     "checkedWithPostalCode": "53590"
   },
   "2763 COUNTY ROAD N, COTTAGE GROVE, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:37.768Z",
-    "checkedWithPostalCode": "53527"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.124Z",
+    "checkedWithPostalCode": "53527",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "2763 County Highway N, Cottage Grove, WI 53527",
+    "countyFallbackVersion": 1
   },
   "5901 US-51, DE FOREST, WI": {
     "countyFips": "55025",
@@ -754,14 +772,22 @@
     "checkedWithPostalCode": "53562"
   },
   "4112 MILWAUKEE ST, MADISON, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:38.863Z",
-    "checkedWithPostalCode": null
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.123Z",
+    "checkedWithPostalCode": null,
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "4112 Milwaukee Street, Madison, WI 53714",
+    "countyFallbackVersion": 1
   },
   "1100 N WINDSOR AVE, COTTAGE GROVE, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:38.872Z",
-    "checkedWithPostalCode": "53527"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.176Z",
+    "checkedWithPostalCode": "53527",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "1100 North Windsor Avenue, Cottage Grove, WI 53527",
+    "countyFallbackVersion": 1
   },
   "4004 TERMINAL DR, MCFARLAND, WI": {
     "countyFips": "55025",
@@ -944,9 +970,13 @@
     "checkedWithPostalCode": "53532"
   },
   "4630 DALMORE RD, DE FOREST, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:43.872Z",
-    "checkedWithPostalCode": "53532"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.292Z",
+    "checkedWithPostalCode": "53532",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "4630 Dalmore Road, DeForest, WI 53532",
+    "countyFallbackVersion": 1
   },
   "4301 WINDSOR RD, WINDSOR, WI": {
     "countyFips": "55025",
@@ -989,14 +1019,22 @@
     "checkedWithPostalCode": "53597"
   },
   "233 WILD CAT WAY, VERONA, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:44.889Z",
-    "checkedWithPostalCode": "53593"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.303Z",
+    "checkedWithPostalCode": "53593",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "233 Wildcat Way, Verona, WI 53593",
+    "countyFallbackVersion": 1
   },
   "4665 DALMORE RD, DE FOREST, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:44.911Z",
-    "checkedWithPostalCode": "53532"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.307Z",
+    "checkedWithPostalCode": "53532",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "4665 Dalmore Road, DeForest, WI 53532",
+    "countyFallbackVersion": 1
   },
   "1359 US HIGHWAY 51, STOUGHTON, WI": {
     "countyFips": "55025",
@@ -1029,9 +1067,13 @@
     "checkedWithPostalCode": "53572"
   },
   "1000 BATKER CT, VERONA, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:45.864Z",
-    "checkedWithPostalCode": "53593"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.404Z",
+    "checkedWithPostalCode": "53593",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "1000 Batker Court, Verona, WI 53593",
+    "countyFallbackVersion": 1
   },
   "2792 S SYENE RD, FITCHBURG, WI": {
     "countyFips": "55025",
@@ -1354,9 +1396,13 @@
     "checkedWithPostalCode": null
   },
   "699 S WHITNEY WAY, MADISON, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:53.105Z",
-    "checkedWithPostalCode": null
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.452Z",
+    "checkedWithPostalCode": null,
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "699 South Whitney Way, Madison, WI 53711",
+    "countyFallbackVersion": 1
   },
   "6136 UNIVERSITY AVE, MIDDLETON, WI": {
     "countyFips": "55025",
@@ -1369,9 +1415,13 @@
     "checkedWithPostalCode": "53562"
   },
   "504 PLAZA DR, MARSHALL, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:45:54.239Z",
-    "checkedWithPostalCode": "53559"
+    "countyFips": "55025",
+    "checkedAt": "2026-11-03T01:03:09.563Z",
+    "checkedWithPostalCode": "53559",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "504 Plaza Drive, Marshall, WI 53559",
+    "countyFallbackVersion": 1
   },
   "2145 CR-PB, VERONA, WI": {
     "countyFips": "55025",

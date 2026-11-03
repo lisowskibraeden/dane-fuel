@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {collectGasBuddy} from './gasbuddy.mjs';
+import {countyAddressMatch} from './county.mjs';
 import {collectKwikTrip} from './kwiktrip.mjs';
 import {TOWNS,mergeStations,censusMatch,stationTime} from './core.mjs';
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -37,7 +38,7 @@ async function verifyCounty(station){
  if(station.countyAuthority==='Kwik Trip county field'&&station.countyFips==='55025')return;
  const key=`${station.address}, ${station.city}, WI`.toUpperCase();
  let entry=cache[key];
- if(!entry || Date.now()-Date.parse(entry.checkedAt)>180*86400e3 || (!entry.countyFips&&station.postalCode&&entry.checkedWithPostalCode!==station.postalCode)){
+ if(!entry || Date.now()-Date.parse(entry.checkedAt)>(entry.countyFips?180:7)*86400e3 || (!entry.countyFips&&station.postalCode&&entry.checkedWithPostalCode!==station.postalCode)){
   try{
    const u=new URL('https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress');
    u.search=new URLSearchParams({address:key+(station.postalCode?' '+station.postalCode:''),benchmark:'Public_AR_Current',vintage:'Current_Current',format:'json'}).toString();
@@ -48,6 +49,17 @@ async function verifyCounty(station){
   }catch{geocodeErrors++;entry=null}
   await pause(300);
  }
+ // County address points can confirm new or differently formatted addresses.
+ if(!entry?.countyFips&&entry?.countyFallbackVersion!==1){
+  try{
+   const match=await countyAddressMatch(station,async u=>{
+    const r=await fetch(u,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error(`County data HTTP ${r.status}`);return r.json();
+   });
+   entry={...(entry||{countyFips:null}),...(match||{}),countyFallbackVersion:1,checkedAt:new Date().toISOString()};cache[key]=entry;
+  }catch{geocodeErrors++}
+ }
+ station.countyAuthority=entry?.countyFips?(entry.countyAuthority||'US Census Geocoder'):null;
+ station.countySource=entry?.countySource||null;
  station.countyFips=entry?.countyFips||null;
  station.countyVerifiedAt=entry?.countyFips?entry.checkedAt:null;
 }

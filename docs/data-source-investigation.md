@@ -1,6 +1,12 @@
 # Cross-brand station-price investigation
 
-Checked November 2, 2026. The requested result (fresh prices across all Dane County brands, collected automatically with no ongoing charges) has **not been achieved**. The production JSON remains the verified Kwik Trip-only snapshot. No cross-brand source has been promoted into the production collector.
+**Verified result:** [full run 41555853033](https://github.com/lisowskibraeden/dane-fuel/actions/runs/41555853033) completed successfully in eight minutes on November 2, 2026. It checked 180 unique listings through the county search and 29 community searches, and saved 152 regular-price reports. Subsequent verification using the county's official address records brought the county-confirmed total to 150 without changing any price or report timestamp. All 35 local tests pass.
+
+The working adapter uses stock Chrome with an isolated anonymous profile, the website's own request templates and the required CSRF/Apollo preflight headers. It follows the provider's final-row cursor convention and checks the resolved state. Oregon, Wisconsin uses ZIP 53575 to avoid being interpreted as the state of Oregon. There are no paid proxies, imported user sessions or external API keys.
+
+The [official county address layer](https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0) resolves addresses missed by Census using exact house/street/postal or municipality fields and explicit state/county FIPS. Two addresses remain unverified and are excluded from the ranking.
+
+The earlier results below describe the investigation, not the current production implementation.
 
 ## Actual GitHub runner tests
 
@@ -24,8 +30,8 @@ The separate [GasBuddy verification](https://github.com/lisowskibraeden/dane-fue
 - [AAA station-level finder](https://www.acg.aaa.com/drivers-safety/fuel-prices.html): a separate tool from the AAA averages website, covering stations across brands. Its published link goes to an OPIS-hosted service. This is a consumer finder, not a demonstrated free redistribution API for our site; no publisher token was repurposed.
 - [OPIS PricePro](https://info.opisnet.com/opis-pricepro-improve-retail-fuel-pricing-strategies): a supported cross-brand real-time feed product with API integration, offered through sales/demo. No zero-cost license or public-display permission has been obtained.
 
-## Remaining dependency
+## Current limitations
 
-A verified, provider-approved cross-brand feed with a zero-cost license and permission to publish its data would satisfy the missing data dependency. We have not found or obtained one. Asking a provider for noncommercial/community access is a possible next step, not a promise that access will be free or complete. No messages have been sent and no paid services have been enabled.
+Collection depends on the public website continuing to serve its search operations. The scraper uses the same anonymous session that loaded the search page, spaces requests apart, honors a bounded rate-limit cooldown and records failures. It does not automate CAPTCHA interaction.
 
-Freshness and coverage remain separate requirements: even a source listing all brands can have missing or old station reports. Missing prices must stay unknown; neither a recent fetch nor the legal-minimum calculator can establish a current pump price for an unreported station.
+No provider can supply a current reported price where its source has none. Freshness and coverage remain separate: county-matched reports outside the selected age window are excluded, and a recent fetch never changes the original report timestamp. The site must describe its result as the lowest among available qualifying reports, not certify every pump in the county.

@@ -9,3 +9,10 @@ Logos are unmodified brand marks displayed solely to identify station brands; no
 - Amoco: https://www.bp.com/en/global/corporate/who-we-are/our-brands.html (Amoco brand card).
 
 Unknown brands use a neutral initial until a sourced logo is added.
+
+Additional logos observed on GasBuddy's public Madison search, November 2, 2026:
+
+- BP: https://images.gasbuddy.io/33xauto/b/23.png
+- Mobil: https://images.gasbuddy.io/33xauto/b/92.png
+- Casey's: https://images.gasbuddy.io/33xauto/b/28.png
+- Shell: https://images.gasbuddy.io/33xauto/b/122.png

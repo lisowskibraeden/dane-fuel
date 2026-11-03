@@ -599,8 +599,10 @@
       "payment": "credit",
       "url": "https://www.gasbuddy.com/station/11771",
       "source": "GasBuddy",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:08.998Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "118137",
@@ -987,8 +989,10 @@
       "payment": "credit",
       "url": "https://www.gasbuddy.com/station/13552",
       "source": "GasBuddy",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.016Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "13554",
@@ -1286,8 +1290,10 @@
       "url": "https://www.gasbuddy.com/station/13857",
       "source": "GasBuddy",
       "postalCode": "53527",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.124Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "13976",
@@ -1409,8 +1415,10 @@
       "payment": "credit",
       "url": "https://www.gasbuddy.com/station/15113",
       "source": "GasBuddy",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.123Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "151975",
@@ -1427,8 +1435,10 @@
       "url": "https://www.gasbuddy.com/station/151975",
       "source": "GasBuddy",
       "postalCode": "53527",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.176Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "155243",
@@ -1942,8 +1952,10 @@
       "url": "https://www.gasbuddy.com/station/197560",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.292Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "198034",
@@ -2032,8 +2044,10 @@
       "url": "https://www.gasbuddy.com/station/202885",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.307Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "202919",
@@ -2050,8 +2064,10 @@
       "url": "https://www.gasbuddy.com/station/202919",
       "source": "GasBuddy",
       "postalCode": "53593",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.303Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "203362",
@@ -2140,8 +2156,10 @@
       "url": "https://www.gasbuddy.com/station/207418",
       "source": "GasBuddy",
       "postalCode": "53593",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.404Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "207725",
@@ -2855,8 +2873,10 @@
       "payment": "credit",
       "url": "https://www.gasbuddy.com/station/5924",
       "source": "GasBuddy",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.452Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "5925",
@@ -2943,8 +2963,10 @@
       "url": "https://www.gasbuddy.com/station/66912",
       "source": "GasBuddy",
       "postalCode": "53559",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.563Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "68327",
@@ -2996,8 +3018,10 @@
       "url": "https://www.gasbuddy.com/station/73939",
       "source": "GasBuddy",
       "postalCode": "53714",
-      "countyFips": null,
-      "countyVerifiedAt": null
+      "countyFips": "55025",
+      "countyVerifiedAt": "2026-11-03T01:03:09.563Z",
+      "countyAuthority": "Dane County public address data",
+      "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0"
     },
     {
       "id": "9075",
@@ -3051,5 +3075,6 @@
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:47.820Z"
     }
-  ]
+  ],
+  "countyVerificationUpdatedAt": "2026-11-03T01:03:09.563Z"
 }

@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {matchDaneAddress,normalizedStreet} from '../scripts/county.mjs';
+const station={address:'1000 Batker Ct',city:'Verona',state:'WI',postalCode:'53593'};
+const fields={HouseNum:1000,fullStreetName:'Batker Court',ZIPCode:'53593',ZipMunicipality:'Verona',FIPsMunicipality:'City of Verona',FIPsCountyCode:'025',FIPsStateCode:'55'};
+const payload=a=>({features:[{attributes:a}]});
+test('county authority requires exact house, normalized street, postal and county fields',()=>{assert.equal(matchDaneAddress(station,payload(fields)).countyFips,'55025');for(const patch of [{HouseNum:1001},{fullStreetName:'Batker Lane'},{ZIPCode:'53575'},{FIPsCountyCode:'027'},{FIPsStateCode:'27'}])assert.equal(matchDaneAddress(station,payload({...fields,...patch})),null)});
+test('without postal code, physical municipality can confirm a different mailing city',()=>{const s={address:'2500 Royal Ave',city:'Monona',state:'WI'};const a={...fields,HouseNum:2500,fullStreetName:'Royal Avenue',ZIPCode:'53713',ZipMunicipality:'Madison',FIPsMunicipality:'City of Monona'};assert.equal(matchDaneAddress(s,payload(a)).countyFips,'55025');assert.equal(matchDaneAddress({...s,city:'Middleton'},payload(a)),null)});
+test('normalizes county-road and standard suffix spellings without fuzzy address guesses',()=>{assert.equal(normalizedStreet('CR-N'),normalizedStreet('County Highway N'));assert.equal(normalizedStreet('Wild Cat Way'),normalizedStreet('Wildcat Way'));assert.notEqual(normalizedStreet('East Main St'),normalizedStreet('West Main St'))});
+test('rejects failed, truncated and missing county responses',()=>{assert.equal(matchDaneAddress(station,{error:{message:'unavailable'}}),null);assert.equal(matchDaneAddress(station,{...payload(fields),exceededTransferLimit:true}),null);assert.equal(matchDaneAddress(station,payload({...fields,FIPsCountyCode:null})),null)});

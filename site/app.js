@@ -6,7 +6,7 @@ const fmt=t=>new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'
 const age=t=>{const h=Math.max(0,(Date.now()-Date.parse(t))/3600e3);return h<1?`${Math.max(1,Math.round(h*60))} min ago`:`${Math.floor(h)}h ago`};
 const terms=s=>[s.membership?'Membership required':null,s.payment==='cash'?'Cash price':s.payment==='credit'?'Credit price':null].filter(Boolean).join(' · ');
 const notice=s=>{$('notice').hidden=!s;$('notice').textContent=s||''};
-const brandLogo=name=>{const n=name.toLowerCase();return /kwik trip/.test(n)?'kwik-trip.svg':/woodman/.test(n)?'woodmans.png':/amoco/.test(n)?'amoco.png':/citgo/.test(n)?'citgo.png':/costco/.test(n)?'costco.svg':null};
+const brandLogo=name=>{const n=name.toLowerCase();return /kwik trip/.test(n)?'kwik-trip.svg':/\bshell\b/.test(n)?'shell.png':/\bbp\b/.test(n)?'bp.png':/\bmobil\b/.test(n)?'mobil.png':/casey/.test(n)?'caseys.png':/woodman/.test(n)?'woodmans.png':/amoco/.test(n)?'amoco.png':/citgo/.test(n)?'citgo.png':/costco/.test(n)?'costco.svg':null};
 function render(){
  if(!data)return;
  const eligible=eligibleStations(data.stations||[],{maxAge:Number($('age').value),members:$('members').checked,cash:$('cash').checked});
@@ -30,7 +30,7 @@ function render(){
  }
  $('empty').hidden=eligible.length>0;
  $('source-label').textContent=`Station prices: ${data.source||'GasBuddy'}. Logos identify their respective brands; no affiliation.`;
- const pages=data.pages||[];$('coverage').textContent=data.source==='Kwik Trip'?'Kwik Trip only. Discovery checks the 100 nearest stores to Madison and selects fuel stores whose official county field is Dane, Wisconsin. Other brands are not included. Retrieval time is shown; the provider does not supply the price-change time.':`${pages.filter(p=>p.status==='ok').length} community lists returned prices; ${pages.filter(p=>p.status!=='ok').length} were empty, blocked or unavailable. ${(data.stations||[]).filter(s=>s.countyFips!=='55025').length} saved reports are outside the county or not county-verified.`;
+ const pages=data.pages||[];$('coverage').textContent=data.source==='GasBuddy'&&Number.isInteger(data.inventoryCount)?`${data.inventoryCount} unique station listings checked across ${pages.length} Dane-area searches, with pagination. ${(data.stations||[]).filter(s=>s.countyFips==='55025').length} saved regular-price reports match Dane County. Missing and outdated reports are excluded from the ranking.`:data.source==='Kwik Trip'?'Kwik Trip only. Discovery checks the 100 nearest stores to Madison and selects fuel stores whose official county field is Dane, Wisconsin. Other brands are not included. Retrieval time is shown; the provider does not supply the price-change time.':`${pages.filter(p=>p.status==='ok').length} community lists returned prices; ${pages.filter(p=>p.status!=='ok').length} were empty, blocked or unavailable. ${(data.stations||[]).filter(s=>s.countyFips!=='55025').length} saved reports are outside the county or not county-verified.`;
  $('collector-message').textContent=data.message||'';
 }
 function safeSource(url){try{const u=new URL(url);if(u.origin==='https://api.kwiktrip.com'&&/^\/api\/location\/store\/information\/\d+$/.test(u.pathname))return u.href;if(u.origin==='https://www.gasbuddy.com'&&/^\/station\/\d+$/.test(u.pathname))return u.href}catch{}return 'https://www.gasbuddy.com/gasprices/wisconsin/madison'}

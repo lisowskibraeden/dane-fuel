@@ -7,9 +7,9 @@ on:
         type: boolean
         default: false
       require_gasbuddy:
-        description: 'Fail this test if collection falls back to another provider.'
+        description: 'Require GasBuddy and all configured searches to complete.'
         type: boolean
-        default: false
+        default: true
       smoke:
         description: 'Test Madison only before a full county-area run.'
         type: boolean
@@ -46,7 +46,7 @@ jobs:
         id: collect
         continue-on-error: true
         env:
-          REQUIRE_GASBUDDY: ${{ inputs.require_gasbuddy }}
+          REQUIRE_GASBUDDY: ${{ github.event_name != 'workflow_dispatch' || inputs.require_gasbuddy }}
           SMOKE_TEST: ${{ inputs.smoke }}
         run: |
           args=(--headed --chrome --standard-chrome)
