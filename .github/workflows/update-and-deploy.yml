@@ -6,6 +6,10 @@ on:
         description: 'Run one private verification after confirming an enforced $0 Actions budget. Does not deploy Pages.'
         type: boolean
         default: false
+      require_gasbuddy:
+        description: 'Fail this test if collection falls back to another provider.'
+        type: boolean
+        default: false
   schedule:
     - cron: '17 * * * *'
   push:
@@ -37,7 +41,12 @@ jobs:
       - name: Collect public reports
         id: collect
         continue-on-error: true
-        run: xvfb-run -a npm run collect -- --headed --chrome
+        env:
+          REQUIRE_GASBUDDY: ${{ inputs.require_gasbuddy }}
+        run: |
+          args=(--headed --chrome)
+          if [ "$REQUIRE_GASBUDDY" = 'true' ]; then args+=(--require-gasbuddy); fi
+          xvfb-run -a npm run collect -- "${args[@]}"
       - name: Preserve results and attempt status
         if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
         run: |

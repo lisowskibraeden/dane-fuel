@@ -11,7 +11,7 @@ export function parseSearchStation(card,raw,observedAt){
  const valid=p=>typeof p?.price==='number'&&Number.isFinite(p.price)&&p.price>=.5&&p.price<=20&&Number.isFinite(Date.parse(p.postedTime));
  const grade=grades[0],quote=valid(grade.credit)?grade.credit:valid(grade.cash)?grade.cash:null;
  if(!quote)return null;
- return {id,name:card.name.trim(),address:lines[i-1],city:lines[i].replace(/,\s*WI.*$/i,'').trim(),state:'WI',fuel:'regular',price:quote.price,reportedAt:new Date(quote.postedTime).toISOString(),observedAt,membership:/membership required|membership pricing|\bcostco\b|\bsam['’]?s club\b/i.test(card.text+' '+card.name),payment:quote===grade.credit?'credit':'cash',url:SOURCE+card.href,source:'GasBuddy'};
+ return {id,name:card.name.trim(),address:lines[i-1],city:lines[i].replace(/,\s*WI.*$/i,'').trim(),state:'WI',fuel:'regular',price:quote.price,reportedAt:new Date(quote.postedTime).toISOString(),observedAt,membership:/membership required|membership pricing/i.test(card.text)||/\bcostco\b|\bsam['’]?s club\b/i.test(card.name),payment:quote===grade.credit?'credit':'cash',url:SOURCE+card.href,source:'GasBuddy'};
 }
 async function cardsOnPage(page){
  return page.locator('a[href^="/station/"]').evaluateAll(links=>{
@@ -39,22 +39,23 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,log=con
  try{
   browser=await chromium.launch({headless,...(channel?{channel}:{})});
   const context=await browser.newContext({locale:'en-US'}),page=await context.newPage();
+  // Start with the standard search landing page and use its own form thereafter.
+  const landing=`${SOURCE}/home?search=53703&fuel=1`;
+  const ready=priceResponse(page);
+  const entry=await page.goto(landing,{waitUntil:'domcontentloaded',timeout:30000});
+  const initialPrices=await ready;
+  if(!entry?.ok()||!initialPrices?.ok())throw Error(`Search landing unavailable: page HTTP ${entry?.status()}, prices HTTP ${initialPrices?.status()??'none'}, ${await page.title()}`);
+  await initialPrices.finished();
   for(const town of towns){
    const search=town.replaceAll('-',' ')+', WI';
    const url=`${SOURCE}/home?${new URLSearchParams({search,fuel:'1',method:'all',maxAge:'0'})}`;
    const row={town,url,status:'ok',count:0,listed:0,batches:0};pages.push(row);
    try{
+    await page.getByRole('searchbox',{name:'Search gas prices by city or zip code...'}).fill(search);
     let waiting=priceResponse(page);
-    const navigation=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
-    // Give a standard browser's normal page loading time to complete; no challenge interaction.
+    await page.getByRole('button',{name:/^Find Gas$/i,exact:true}).click();
     let response=await waiting;
-    if(!navigation?.ok()||!response){
-     const title=await page.title();row.httpStatus=navigation?.status()??null;row.title=title;
-     if([401,403,429].includes(navigation?.status())||/just a moment|access denied|captcha|attention required/i.test(title)){
-      row.status='blocked';fatal=`GasBuddy access blocked: HTTP ${row.httpStatus}, ${title}.`;break;
-     }
-     throw Error(`No website price response (page HTTP ${row.httpStatus})`);
-    }
+    if(!response)throw Error('Search form returned no website price response');
     const cursors=new Set();let complete=false;
     for(let batch=0;batch<30;batch++){
      if(!response.ok())throw Error(`Price service HTTP ${response.status()}`);
@@ -87,7 +88,11 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,log=con
     if(!complete)throw Error('Pagination exceeded 30 batches');
     if(!row.listed)row.status='empty';
     log(`${town}: ${row.count} regular reports, ${row.listed} listings in ${row.batches} batches`);
-   }catch(e){row.status='error';row.error=String(e.message).slice(0,250);log(`${town}: ${row.error}`)}
+   }catch(e){
+    row.error=String(e.message).slice(0,250);
+    if(/Price service HTTP (401|403|429)/.test(row.error)){row.status='blocked';fatal=row.error;log(`${town}: ${row.error}`);break}
+    row.status='error';log(`${town}: ${row.error}`);
+   }
    await new Promise(r=>setTimeout(r,1500));
   }
  }catch(e){fatal=`GasBuddy collector failed: ${e.message}`}

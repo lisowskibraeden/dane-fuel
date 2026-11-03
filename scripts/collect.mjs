@@ -65,4 +65,4 @@ console.log(result.message);
 console.log(`Saved attempt: ${DATA}`);
 for(const p of pages.filter(p=>p.status==='error'||p.status==='blocked'))console.error(`${p.town}: ${p.status}${p.error?': '+p.error:''}`);
 console.log(`${result.status}: ${unique.length} new reports; ${unique.filter(s=>s.countyFips==='55025').length} county-verified.`);
-if(!success)process.exitCode=1;
+if(!success||(process.argv.includes('--require-gasbuddy')&&result.source!=='GasBuddy'))process.exitCode=1;
