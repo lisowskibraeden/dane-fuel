@@ -1,3 +1,4 @@
+import {renderHistory} from './history-chart.js';
 import {eligibleStations,stationTime} from './model.js';
 import {calculateWorksheet} from './minimum.js?v=worksheet';
 import {terminalEstimate,estimatedWorksheetInputs} from './terminal.js?v=worksheet';
@@ -29,6 +30,8 @@ function render(){
   const meta=document.createElement('small');meta.textContent=[`${station.timeBasis==='retrieved'?'Fetched ':''}${age(stationTime(station))}`,terms(station),station.source].filter(Boolean).join(' · ');info.append(meta);
   const price=document.createElement('strong');price.textContent=`$${station.price.toFixed(3)}`;if(index===0)price.className='lowest';row.append(mark,info,price);list.append(row);
  }
+ const cashReports=(data.stations||[]).filter(s=>s.countyFips==='55025'&&((s.cashQuote&&Date.now()-Date.parse(s.cashQuote.reportedAt)<=86400e3)||s.payment==='cash')).length;
+ $('cash-note').textContent=cashReports?`${cashReports} stations have a recent cash quote. Including cash prices uses the lower eligible cash or credit quote; this does not mean the station accepts cash only.`:'No separate recent cash quotes in this snapshot. Payment restrictions are not verified.';
  $('empty').hidden=eligible.length>0;
  $('source-label').textContent=`Station prices: ${data.source||'GasBuddy'}. Logos identify their respective brands; no affiliation.`;
  const pages=data.pages||[];$('coverage').textContent=data.source==='GasBuddy'&&Number.isInteger(data.inventoryCount)?`${data.inventoryCount} unique station listings checked across ${pages.length} Dane-area searches, with pagination. ${(data.stations||[]).filter(s=>s.countyFips==='55025').length} saved regular-price reports match Dane County. Missing and outdated reports are excluded from the ranking.`:data.source==='Kwik Trip'?'Kwik Trip only. Discovery checks the 100 nearest stores to Madison and selects fuel stores whose official county field is Dane, Wisconsin. Other brands are not included. Retrieval time is shown; the provider does not supply the price-change time.':`${pages.filter(p=>p.status==='ok').length} community lists returned prices; ${pages.filter(p=>p.status!=='ok').length} were empty, blocked or unavailable. ${(data.stations||[]).filter(s=>s.countyFips!=='55025').length} saved reports are outside the county or not county-verified.`;
@@ -67,4 +70,5 @@ $('use-estimate').addEventListener('click',()=>{const inputs=estimatedWorksheetI
 $('edit-costs').addEventListener('click',()=>$('cost-inputs').open=true);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 async function refreshMinimum(){try{const r=await fetch(`./data/terminal.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error();terminalReport=await r.json();if(usingAssumedInputs){const next=estimatedWorksheetInputs(terminalReport,today());if(next){for(const f of fields)$(f).value=next[f];try{localStorage.setItem('dane-fuel-worksheet-costs',JSON.stringify({...next,assumed:true}))}catch{}}}}catch{}renderMinimum()}
-renderMinimum();refresh();refreshMinimum();setInterval(render,60000);
+async function loadHistory(){try{const r=await fetch(`./data/minimum-history.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error();renderHistory(await r.json())}catch{$('trend-summary').textContent='History unavailable. It will appear after a terminal update.'}}
+renderMinimum();refresh();refreshMinimum();loadHistory();setInterval(render,60000);

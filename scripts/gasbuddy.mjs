@@ -11,7 +11,7 @@ export function parseSearchStation(card,raw,observedAt){
  const valid=p=>typeof p?.price==='number'&&Number.isFinite(p.price)&&p.price>=.5&&p.price<=20&&Number.isFinite(Date.parse(p.postedTime));
  const grade=grades[0],quote=valid(grade.credit)?grade.credit:valid(grade.cash)?grade.cash:null;
  if(!quote)return null;
- return {id,name:card.name.trim(),address:lines[i-1],city:lines[i].replace(/,\s*WI.*$/i,'').trim(),state:'WI',fuel:'regular',price:quote.price,reportedAt:new Date(quote.postedTime).toISOString(),observedAt,membership:/membership required|membership pricing/i.test(card.text)||/\bcostco\b|\bsam['’]?s club\b/i.test(card.name),payment:quote===grade.credit?'credit':'cash',url:SOURCE+card.href,source:'GasBuddy'};
+ return {id,name:card.name.trim(),address:lines[i-1],city:lines[i].replace(/,\s*WI.*$/i,'').trim(),state:'WI',fuel:'regular',price:quote.price,reportedAt:new Date(quote.postedTime).toISOString(),observedAt,membership:/membership required|membership pricing/i.test(card.text)||/\bcostco\b|\bsam['’]?s club\b/i.test(card.name),payment:quote===grade.credit?'credit':'cash',cashQuote:valid(grade.cash)?{price:grade.cash.price,reportedAt:new Date(grade.cash.postedTime).toISOString()}:null,url:SOURCE+card.href,source:'GasBuddy'};
 }
 export function parseGraphqlStation(raw,observedAt){
  const a=raw?.address;

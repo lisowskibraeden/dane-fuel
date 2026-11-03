@@ -5,6 +5,7 @@ set -euo pipefail
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 git add site/data/prices.json site/data/county-cache.json site/data/terminal.json
+if [ -f site/data/minimum-history.json ]; then git add site/data/minimum-history.json; fi
 if ! git diff --cached --quiet; then
   git commit -m 'Update fuel reports and collection status'
 fi

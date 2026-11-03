@@ -37,7 +37,9 @@ export function mergeStations(oldStations, newStations) {
 }
 export const brandPriority=name=>/costco/i.test(name)?0:/woodman/i.test(name)?1:/kwik trip/i.test(name)?2:3;
 export function eligibleStations(stations,{now=Date.now(),maxAge=24,members=true,cash=false}={}) {
-  return stations.filter(s=>s.countyFips==='55025' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>0 && Date.parse(stationTime(s))<=now+300000 && now-Date.parse(stationTime(s))<=maxAge*3600e3 && (members||!s.membership) && (cash||s.payment!=='cash')).sort((a,b)=>a.price-b.price||brandPriority(a.name)-brandPriority(b.name)||Date.parse(stationTime(b))-Date.parse(stationTime(a))||a.name.localeCompare(b.name));
+  const fresh=(price,time)=>Number.isFinite(price)&&price>0&&Date.parse(time)<=now+300000&&now-Date.parse(time)<=maxAge*3600e3;
+  const selected=stations.map(s=>cash&&s.cashQuote&&fresh(s.cashQuote.price,s.cashQuote.reportedAt)&&(!fresh(s.price,stationTime(s))||s.cashQuote.price<s.price)?{...s,price:s.cashQuote.price,reportedAt:s.cashQuote.reportedAt,timeBasis:'reported',payment:'cash'}:s);
+  return selected.filter(s=>s.countyFips==='55025' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>0 && Date.parse(stationTime(s))<=now+300000 && now-Date.parse(stationTime(s))<=maxAge*3600e3 && (members||!s.membership) && (cash||s.payment!=='cash')).sort((a,b)=>a.price-b.price||brandPriority(a.name)-brandPriority(b.name)||Date.parse(stationTime(b))-Date.parse(stationTime(a))||a.name.localeCompare(b.name));
 }
 export function censusMatch(payload) {
   const matches=payload?.result?.addressMatches;

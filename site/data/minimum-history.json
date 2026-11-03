@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "967/ULC10/2026-11-02/10:30 AM/2.958/datcp-worksheet-v1",
+      "reportDate": "2026-11-02",
+      "reportTime": "10:30 AM",
+      "wholesale": 2.958,
+      "estimatedMinimum": 3.8169328000000005,
+      "displayMinimum": 3.817,
+      "terminalBranch": 3.8169328000000005,
+      "retailerBranch": 3.70576,
+      "inputs": {
+        "saleDate": "2026-11-02",
+        "purchaseDate": "2026-11-01",
+        "terminalPrior": "2.958",
+        "terminalPurchase": "",
+        "invoice": "2.958",
+        "replacement": "2.958",
+        "sellerType": "retailer",
+        "federalTax": "0.184",
+        "stateTax": "0.309",
+        "inspectionFee": "0.020",
+        "terminalDelivery": "0.025",
+        "purchaseDelivery": "0.025",
+        "invoiceDelivery": "0.025",
+        "replacementDelivery": "0.025"
+      },
+      "calculationVersion": "datcp-worksheet-v1",
+      "source": "https://old.axxispetro.com/download/wisconsin-cta.txt",
+      "retrievedAt": "2026-11-03T01:12:39.255Z",
+      "recordedAt": "2026-11-03T17:24:24.034Z",
+      "reconstructed": true
+    },
+    {
+      "id": "967/ULC10/2026-11-03/10:30 AM/2.6226/datcp-worksheet-v1",
+      "reportDate": "2026-11-03",
+      "reportTime": "10:30 AM",
+      "wholesale": 2.6226,
+      "estimatedMinimum": 3.45074308,
+      "displayMinimum": 3.451,
+      "terminalBranch": 3.45074308,
+      "retailerBranch": 3.3502359999999998,
+      "inputs": {
+        "saleDate": "2026-11-03",
+        "purchaseDate": "2026-11-02",
+        "terminalPrior": "2.6226",
+        "terminalPurchase": "",
+        "invoice": "2.6226",
+        "replacement": "2.6226",
+        "sellerType": "retailer",
+        "federalTax": "0.184",
+        "stateTax": "0.309",
+        "inspectionFee": "0.020",
+        "terminalDelivery": "0.025",
+        "purchaseDelivery": "0.025",
+        "invoiceDelivery": "0.025",
+        "replacementDelivery": "0.025"
+      },
+      "calculationVersion": "datcp-worksheet-v1",
+      "source": "https://old.axxispetro.com/download/wisconsin-cta.txt",
+      "retrievedAt": "2026-11-03T16:52:32.173Z",
+      "recordedAt": "2026-11-03T17:24:24.045Z",
+      "reconstructed": true
+    }
+  ]
+}

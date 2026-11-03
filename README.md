@@ -8,7 +8,7 @@ No account, app store download, or paid data subscription is required.
 
 - **An estimated minimum price** based on the Madison terminal report, taxes and markup.
 - **Station prices, lowest first**, with addresses, brand logos, report ages, and links to the source listings.
-- **Membership stations included**, with membership requirements clearly labeled. Cash-only prices are excluded by default.
+- **Membership stations included**, with membership requirements clearly labeled. Separate cash quotes are retained when reported. **Include cash prices** compares eligible cash and credit quotes and uses the lower one; it does not establish that a station accepts cash only. Cash quotes are excluded from ranking by default.
 - **Daily snapshots** with collection time and individual report ages. Reports older than 24 hours are excluded.
 - **Preferred brands when prices tie:** Costco, then Woodman’s, then Kwik Trip. A lower price always ranks ahead of a higher price.
 
@@ -38,6 +38,14 @@ Station reports come from GasBuddy searches across Dane County and surrounding c
 Prices are saved snapshots. The app preserves source report times and excludes reports older than 24 hours. Missing prices, unmatched addresses, and source outages can reduce coverage. The lowest listed price is the lowest eligible report collected, and may change before you reach the pump.
 
 Dane Fuel is an independent project and is not affiliated with GasBuddy or the station brands shown. Logos identify their respective brands.
+
+## Estimated minimum-price history
+
+The trend chart shows the latest estimated minimum for each saved report date. History starts November 2, 2026, using actual terminal reports recovered from repository history; those early estimates are marked as reconstructed. Missing dates are not invented.
+
+Each new report is archived in `site/data/minimum-history.json`, including the wholesale quote, full worksheet result, inputs, formula version and timestamps. Duplicate fetches are ignored; corrected report versions are retained. Old records have no automatic expiry. History is stored in the Git repository and survives browser resets and deployments as long as the repository is retained. **Download CSV** exports all saved versions.
+
+The chart uses standard estimated costs, not a visitor’s private calculator inputs. Run `node scripts/backfill-history.mjs` to recover any earlier terminal reports already present in this repository’s Git history.
 
 ## How it runs
 
