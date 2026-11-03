@@ -10,6 +10,10 @@ on:
         description: 'Fail this test if collection falls back to another provider.'
         type: boolean
         default: false
+      smoke:
+        description: 'Test Madison only before a full county-area run.'
+        type: boolean
+        default: false
   schedule:
     - cron: '17 * * * *'
   push:
@@ -43,9 +47,11 @@ jobs:
         continue-on-error: true
         env:
           REQUIRE_GASBUDDY: ${{ inputs.require_gasbuddy }}
+          SMOKE_TEST: ${{ inputs.smoke }}
         run: |
           args=(--headed --chrome --standard-chrome)
           if [ "$REQUIRE_GASBUDDY" = 'true' ]; then args+=(--require-gasbuddy); fi
+          if [ "$SMOKE_TEST" = 'true' ]; then args+=(--smoke); fi
           xvfb-run -a npm run collect -- "${args[@]}"
       - name: Preserve results and attempt status
         if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
