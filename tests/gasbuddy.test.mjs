@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parseSearchStation,parseGraphqlStation,moreCursor} from '../scripts/gasbuddy.mjs';
+import {parseSearchStation,parseGraphqlStation,moreCursor,searchVariables} from '../scripts/gasbuddy.mjs';
 const time='2026-11-03T00:10:00Z';
 const card={href:'/station/9075',name:"Woodman's",text:"Woodman's\n225\n725 S Gammon Rd\nMadison, WI\n$3.89\n5 Minutes Ago"};
 const raw={id:'9075',prices:[{fuelProduct:'regular_gas',credit:{price:3.89,postedTime:'2026-11-03T00:05:13Z'},cash:{price:3.79,postedTime:'2026-11-03T00:06:00Z'}},{fuelProduct:'premium_gas',credit:{price:5.29,postedTime:time}}]};
@@ -15,3 +15,5 @@ test('normalizes complete public response metadata and rejects out-of-state stat
 test('pagination stops at actual result count even if cursor is nonzero',()=>{assert.equal(moreCursor({count:2,cursor:{next:'20'},results:[{},{}]},2),null);assert.equal(moreCursor({count:65,cursor:{next:'20'},results:[{}]},20),'20');assert.equal(moreCursor({count:65,cursor:{next:'0'},results:[{}]},65),null)});
 
 test('provider final cursor denotes the last row even when listings contain duplicate IDs',()=>{assert.equal(moreCursor({count:68,cursor:{next:'67'},results:Array(8).fill({})},61),null);assert.equal(moreCursor({count:68,cursor:{next:'60'},results:Array(20).fill({})},57),'60')});
+
+test('switching named areas clears stale coordinates, cursor and filters',()=>{const next=searchVariables({lat:43,lng:-89,brandId:23,maxAge:6,cursor:'40',lang:'en-US',search:'Madison, WI'},{search:'Sun Prairie, WI',cursor:null});assert.deepEqual(next,{lang:'en-US',search:'Sun Prairie, WI',fuel:1});assert.equal(searchVariables(next,{search:'Sun Prairie, WI',cursor:'20'}).cursor,'20')});

@@ -29,6 +29,13 @@ export function moreCursor(connection,seenCount){
  if(/^\d+$/.test(next)&&Number.isFinite(connection.count)&&Number(next)>=connection.count-1)return null;
  return next;
 }
+export function searchVariables(previous,{search,cursor}){
+ const values={...previous,search,fuel:1};
+ // An explicitly named area must not inherit a prior search's GPS or filters.
+ for(const key of ['lat','lng','brandId','maxAge'])delete values[key];
+ if(cursor===null||cursor===undefined)delete values.cursor;else values.cursor=cursor;
+ return values;
+}
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standardChrome=false,log=console.log}={}){
  const pages=[],stations=[],inventory=new Set();let session,fatal=null;
@@ -64,8 +71,7 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
   await metadataResponse.finished();
   const request=async (operation,variables)=>{
    await pause(5000);
-   const template=templates.get(operation),values={...template.variables,...variables};
-   if(values.cursor===null)delete values.cursor;
+   const template=templates.get(operation),values=searchVariables(template.variables,variables);
    const payload={...template,variables:values};
    const call=()=>page.evaluate(async ({payload,csrf})=>{
     const r=await fetch('/graphql',{method:'POST',headers:{'Content-Type':'application/json','gbcsrf':csrf,'apollo-require-preflight':'true'},body:JSON.stringify(payload)});
@@ -87,10 +93,12 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
    if(result.json?.data?.locationBySearchTerm===null)return {count:0,cursor:{next:'0'},results:[]};
    const connection=result.json?.data?.locationBySearchTerm?.stations;
    if(!Array.isArray(connection?.results))throw Error('Price response has no station results');
-   return connection;
+   return {...connection,location:result.json.data.locationBySearchTerm.displayName,region:result.json.data.locationBySearchTerm.regionCode};
   };
   for(const town of towns){
-   const search=town.replaceAll('-',' ')+', WI';
+   // GasBuddy resolves the state name before the Wisconsin village name.
+   // Village ZIP: https://oregonwi.gov/31/Residents
+   const search=town==='oregon'?'53575':town.replaceAll('-',' ')+', WI';
    const row={town,url:`${SOURCE}/home?${new URLSearchParams({search,fuel:'1'})}`,status:'ok',count:0,listed:0,rows:0,batches:0};pages.push(row);
    const seen=new Set(),cursors=new Set();let cursor=null;
    try{
@@ -98,7 +106,8 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
      const connection=await request('LocationBySearchTerm',{search,cursor});
      const prices=await request('SearchPrices',{search,cursor});
      const priceMap=new Map(prices.results.map(s=>[String(s.id),s.prices]));
-     row.batches++;row.rows+=connection.results.length;row.expected=connection.count;
+     row.batches++;row.rows+=connection.results.length;row.expected=connection.count;row.sourceLocation=connection.location;row.sourceRegion=connection.region;
+     if(connection.results.length&&connection.results.every(s=>s.address?.region&&s.address.region!=='WI'))throw Error('Named-area search resolved outside Wisconsin');
      const now=new Date().toISOString();
      for(const raw of connection.results){
       const id=String(raw.id);inventory.add(id);if(seen.has(id))continue;seen.add(id);row.listed++;
