@@ -67,7 +67,7 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
    if(values.cursor===null)delete values.cursor;
    const payload={...template,variables:values};
    const call=()=>page.evaluate(async ({payload,csrf})=>{
-    const r=await fetch('/graphql',{method:'POST',headers:{'Content-Type':'application/json','gbcsrf':csrf},body:JSON.stringify(payload)});
+    const r=await fetch('/graphql',{method:'POST',headers:{'Content-Type':'application/json','gbcsrf':csrf,'apollo-require-preflight':'true'},body:JSON.stringify(payload)});
     return {status:r.status,retryAfter:r.headers.get('retry-after'),json:await r.json().catch(()=>null)};
    },{payload,csrf});
    let result=await call();
