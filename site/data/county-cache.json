@@ -1452,5 +1452,15 @@
     },
     "checkedAt": "2026-11-03T00:45:54.909Z",
     "checkedWithPostalCode": null
+  },
+  "4402 E BUCKEYE RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4402 E BUCKEYE RD, MADISON, WI, 53716",
+    "coordinates": {
+      "x": -89.308561102615,
+      "y": 43.073305527158
+    },
+    "checkedAt": "2026-11-03T02:32:22.799Z",
+    "checkedWithPostalCode": null
   }
 }
