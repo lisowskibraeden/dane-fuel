@@ -1,12 +1,12 @@
 # Dane Fuel
 
-Regular gas prices for Dane County, Wisconsin, in a simple view built for your phone. Compare nearby stations, see when each price was reported, and check an estimated Madison fuel price including Wisconsin’s minimum markup.
+Regular gas prices for Dane County, Wisconsin, in a simple view built for your phone. Compare nearby stations, see when each price was reported, and check an estimated Madison fuel price including markup and taxes.
 
 No account, app store download, or paid data subscription is required.
 
 ## What it shows
 
-- **An estimated minimum price** based on the Madison terminal report, taxes, estimated delivery, and markup.
+- **An estimated minimum price** based on the Madison terminal report, taxes and markup.
 - **Station prices, lowest first**, with addresses, brand logos, report ages, and links to the source listings.
 - **Membership stations included**, with membership requirements clearly labeled. Cash-only prices are excluded by default.
 - **Freshness filters** for reports from the last 6, 12, or 24 hours. The default is 24 hours.
@@ -23,7 +23,7 @@ The app opens from your home screen. An internet connection is required to load 
 
 ## Understanding the headline price
 
-The headline is a **terminal-based estimate**, not a verified legal minimum for every station. It uses the latest available AXXIS Madison terminal 967 report, treats ULC10 as regular E10, and assumes the reported wholesale price excludes taxes. It adds federal gasoline tax, Wisconsin fuel tax and inspection fees, and an illustrative 2.5¢ per gallon delivery charge, then applies 9.18% markup. The source date and calculation are available in the app.
+The headline is a **terminal-based estimate**, not a verified legal minimum for every station. It uses the latest available AXXIS Madison terminal 967 report, treats ULC10 as regular E10, and assumes the reported wholesale price excludes taxes. The configured benchmark rounds wholesale cost to the nearest cent, applies 6% markup, then adds $0.51 per gallon for combined state and federal taxes. It adds no delivery allowance and displays four decimal places. For example, a $2.9580 quote rounds to $2.96: `$2.96 × 1.06 + $0.51 = $3.6476`. This benchmark formula is separate from the retailer-specific statutory-cost comparison. The source date and calculation are available in the app.
 
 Actual statutory costs depend on the retailer’s eligible terminal, invoice or replacement costs, delivery charges, discounts, and applicable exceptions. The optional **Minimum-price inputs** calculator accepts retailer-specific costs and replaces the headline estimate when valid inputs are supplied. Those inputs stay in your browser.
 

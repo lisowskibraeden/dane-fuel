@@ -50,11 +50,11 @@ function renderMinimum(showErrors=false){
  const manual=!result.errors.length;
  const value=manual?result.price:estimate?.price;
  $('minimum-title').textContent=manual?'Calculated minimum price':'Estimated minimum price';
- $('minimum-price').replaceChildren(document.createTextNode(value===undefined?'—':`$${value.toFixed(3)}`));const unit=document.createElement('small');unit.textContent=' / gal';$('minimum-price').append(unit);
+ $('minimum-price').replaceChildren(document.createTextNode(value===undefined?'—':`$${value.toFixed(manual?3:4)}`));const unit=document.createElement('small');unit.textContent=' / gal';$('minimum-price').append(unit);
  $('minimum-context').textContent=manual?`For ${input.saleDate} · ${result.basis}`:estimate?`Madison · ULC10 · Report ${terminalReport.reportDate} ${terminalReport.reportTime}`:'Terminal report unavailable. Enter costs below.';
- $('minimum-basis').textContent=manual?'Standard Wisconsin calculation':'Terminal estimate · includes markup';
- $('minimum-note').textContent=manual?'Calculated from your inputs. Costs vary by retailer; exceptions can permit lower prices.':'Estimate assumes taxes excluded from the report and 2.5¢ delivery. Actual legal minimum varies by retailer.';
- $('estimate-breakdown').textContent=estimate?`AXXIS Madison ULC10 $${estimate.wholesale.toFixed(4)} + federal tax $0.184 + Wisconsin tax and inspection $0.329 + assumed delivery $0.025 = $${estimate.base.toFixed(4)} before 9.18% markup. Rounded upward: $${estimate.price.toFixed(3)}/gal. Report ${terminalReport.reportDate} ${terminalReport.reportTime}; retrieved ${fmt(terminalReport.retrievedAt)}.${terminalReport.lastError?' Last update failed; showing saved report.':''}`:'No terminal report is available.';
+ $('minimum-basis').textContent=manual?'Standard Wisconsin calculation':'Cost + 6% + 51¢ tax';
+ $('minimum-note').textContent=manual?'Calculated from your inputs. Costs vary by retailer; exceptions can permit lower prices.':'Wholesale rounded to cents, plus 6%, then 51¢ tax. Actual legal minimum varies by retailer.';
+ $('estimate-breakdown').textContent=estimate?`AXXIS Madison ULC10 $${estimate.wholesale.toFixed(4)}, rounded to $${estimate.cost.toFixed(2)} × 1.06 + $${estimate.tax.toFixed(2)} tax = $${estimate.price.toFixed(4)}/gal. No delivery allowance is added. Report ${terminalReport.reportDate} ${terminalReport.reportTime}; retrieved ${fmt(terminalReport.retrievedAt)}.${terminalReport.lastError?' Last update failed; showing saved report.':''}`:'No terminal report is available.';
  $('edit-costs').textContent=result.errors.length?'Set cost inputs ↓':'Edit cost inputs ↓';
  $('minimum-error').hidden=!showErrors||!result.errors.length;$('minimum-error').textContent=result.errors.join(' ');
  $('minimum-breakdown').textContent=result.errors.length?'':`Terminal branch: $${result.terminal.toFixed(4)} · Invoice/replacement branch: $${result.retailer.toFixed(4)}. Higher amount used; rounded upward to the next tenth of a cent.`;

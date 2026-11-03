@@ -1,6 +1,6 @@
 export const TERMINAL_SOURCE='https://old.axxispetro.com/download/wisconsin-cta.txt';
-// Rates checked against Wisconsin DOR and IRS Publication 510 on 2026-11-02.
-// Report tax treatment, ULC10 product mapping and delivery remain assumptions.
+// Configured benchmark: round wholesale cost to cents, add 6%, then $0.51 tax.
+// This user-supplied formula is distinct from the optional statutory-cost calculator.
 export function parseMadisonReport(text){
  const lines=text.replace(/\r/g,'').split('\n');
  const start=lines.findIndex(line=>/^967\s+MADISON, WI\s+Date:/i.test(line));
@@ -19,6 +19,6 @@ export function parseMadisonReport(text){
 }
 export function terminalEstimate(report){
  if(report?.schemaVersion!==1||report.terminal!=='967'||report.product!=='ULC10'||!Number.isFinite(report.wholesale)||report.wholesale<=0||report.wholesale>20)return null;
- const base=report.wholesale+0.184+0.309+0.020+0.025;
- return {wholesale:report.wholesale,base,price:Math.ceil((base*1.0918-1e-10)*1000)/1000};
+ const costCents=Math.round((report.wholesale+Number.EPSILON)*100);
+ return {wholesale:report.wholesale,cost:costCents/100,markup:costCents*6/10000,tax:0.51,price:(costCents*106+5100)/10000};
 }
