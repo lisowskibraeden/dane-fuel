@@ -66,5 +66,5 @@ $('minimum-form').addEventListener('submit',e=>{e.preventDefault();const r=rende
 $('use-estimate').addEventListener('click',()=>{const inputs=estimatedWorksheetInputs(terminalReport,today());if(!inputs)return;usingAssumedInputs=true;for(const f of fields)$(f).value=inputs[f];$('minimum-error').hidden=false;$('minimum-error').textContent='Loaded assumed costs, not verified retailer costs. Review and replace them before calculating.'});
 $('edit-costs').addEventListener('click',()=>$('cost-inputs').open=true);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
-async function refreshMinimum(){try{const r=await fetch(`./data/terminal.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error();terminalReport=await r.json()}catch{}renderMinimum()}
+async function refreshMinimum(){try{const r=await fetch(`./data/terminal.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error();terminalReport=await r.json();if(usingAssumedInputs){const next=estimatedWorksheetInputs(terminalReport,today());if(next){for(const f of fields)$(f).value=next[f];try{localStorage.setItem('dane-fuel-worksheet-costs',JSON.stringify({...next,assumed:true}))}catch{}}}}catch{}renderMinimum()}
 renderMinimum();refresh();refreshMinimum();setInterval(render,60000);

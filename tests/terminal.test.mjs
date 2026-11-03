@@ -7,3 +7,5 @@ test('rejects missing product, truncated columns, absent terminal and invalid da
 test('missing or invalid saved report cannot produce a benchmark',()=>{assert.equal(terminalEstimate(null),null);assert.equal(terminalEstimate({...parseMadisonReport(report),wholesale:0}),null)});
 
 test('terminal benchmark includes tax and assumed delivery before markup without rounding wholesale',()=>{const r=terminalEstimate(parseMadisonReport(report));assert.equal(r.wholesale,2.958);assert.equal(r.delivery,0.025);assert.ok(Math.abs(r.tax-0.513)<1e-12);assert.ok(Math.abs(r.base-3.496)<1e-12);assert.ok(Math.abs(r.raw-3.8169328)<1e-12);assert.equal(r.price,3.817)});
+
+test('automatic worksheet estimates use the new quote and sale date rather than prior saved assumptions',()=>{const r=terminalEstimate({...parseMadisonReport(report),wholesale:2.6226,reportDate:'2026-11-03'},{saleDate:'2026-11-03'});assert.equal(r.inputs.saleDate,'2026-11-03');assert.equal(r.inputs.purchaseDate,'2026-11-02');assert.equal(r.inputs.invoice,'2.6226');assert.equal(r.inputs.replacement,'2.6226');assert.equal(r.price,3.451)});
