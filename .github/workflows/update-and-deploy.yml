@@ -44,7 +44,7 @@ jobs:
         env:
           REQUIRE_GASBUDDY: ${{ inputs.require_gasbuddy }}
         run: |
-          args=(--headed --chrome)
+          args=(--headed --chrome --standard-chrome)
           if [ "$REQUIRE_GASBUDDY" = 'true' ]; then args+=(--require-gasbuddy); fi
           xvfb-run -a npm run collect -- "${args[@]}"
       - name: Preserve results and attempt status

@@ -15,9 +15,10 @@ const previous=await read(DATA,{schemaVersion:1,stations:[],lastSuccessAt:null})
 const cache=await read(CACHE,{});
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 const limited=process.argv.includes('--smoke')?TOWNS.slice(0,1):TOWNS;
-const gasbuddy=await collectGasBuddy({towns:limited,headless:!process.argv.includes('--headed'),channel:process.argv.includes('--chrome')?'chrome':undefined});
+const gasbuddy=await collectGasBuddy({towns:limited,standardChrome:process.argv.includes('--standard-chrome'),headless:!process.argv.includes('--headed'),channel:process.argv.includes('--chrome')?'chrome':undefined});
 const pages=gasbuddy.pages,fresh=gasbuddy.stations;
 let fatal=gasbuddy.fatal;
+if(fatal)console.error(fatal);
 // A blocked GasBuddy request is not retried or bypassed. Use a first-party feed.
 let fallback=false;
 if(!fresh.length&&!gasbuddyOnly){
@@ -57,7 +58,7 @@ for(let i=0;i<unique.length;i+=3){
 }
 const success=unique.some(s=>s.countyFips==='55025');
 const merged=mergeStations((previous.stations||[]).filter(s=>fallback?s.source==='Kwik Trip':s.source!=='Kwik Trip'),unique).filter(s=>Date.now()-Date.parse(stationTime(s))<7*86400e3);
-const result={schemaVersion:1,inventoryCount:gasbuddy.inventoryCount,source:fallback?'Kwik Trip':'GasBuddy',fuel:'regular',scope:'Dane County, Wisconsin',attemptedAt,lastSuccessAt:success?new Date().toISOString():previous.lastSuccessAt,status:success?(pages.some(p=>p.status!=='ok')||geocodeErrors?'partial':'ok'):'failed',message:fallback&&success?'Kwik Trip only: limited brand coverage, not the countywide lowest. Regular-87 quotes from the 100 nearest Madison stores, filtered to Dane County using the provider county field. Times indicate retrieval; the provider does not supply price-change times. GasBuddy was unavailable.':fatal||(success?`GasBuddy: ${gasbuddy.inventoryCount} unique station listings checked across configured Dane-area communities, including all available pagination. ${unique.length} regular-price reports retrieved. Only recent Dane County matches are ranked; missing or outdated reports do not establish a current price.`:'No usable station prices were retrieved. Saved prices have not been marked fresh.'),geocodeErrors,pages,stations:merged};
+const result={schemaVersion:1,gasbuddyError:gasbuddy.fatal,inventoryCount:gasbuddy.inventoryCount,source:fallback?'Kwik Trip':'GasBuddy',fuel:'regular',scope:'Dane County, Wisconsin',attemptedAt,lastSuccessAt:success?new Date().toISOString():previous.lastSuccessAt,status:success?(pages.some(p=>p.status!=='ok')||geocodeErrors?'partial':'ok'):'failed',message:fallback&&success?'Kwik Trip only: limited brand coverage, not the countywide lowest. Regular-87 quotes from the 100 nearest Madison stores, filtered to Dane County using the provider county field. Times indicate retrieval; the provider does not supply price-change times. GasBuddy was unavailable.':fatal||(success?`GasBuddy: ${gasbuddy.inventoryCount} unique station listings checked across configured Dane-area communities, including all available pagination. ${unique.length} regular-price reports retrieved. Only recent Dane County matches are ranked; missing or outdated reports do not establish a current price.`:'No usable station prices were retrieved. Saved prices have not been marked fresh.'),geocodeErrors,pages,stations:merged};
 await fs.mkdir(path.dirname(DATA),{recursive:true});
 await fs.writeFile(DATA+'.tmp',JSON.stringify(result,null,2)+'\n');await fs.rename(DATA+'.tmp',DATA);
 await fs.writeFile(CACHE,JSON.stringify(cache,null,2)+'\n');

@@ -1,4 +1,4 @@
-import {chromium} from 'playwright';
+import {openBrowser} from './browser.mjs';
 import {SOURCE,TOWNS,mergeStations} from './core.mjs';
 export function parseSearchStation(card,raw,observedAt){
  const id=card?.href?.match(/^\/station\/(\d+)$/)?.[1];
@@ -34,17 +34,21 @@ const priceResponse=page=>page.waitForResponse(r=>{
  if(new URL(r.url()).pathname!=='/graphql')return false;
  try{return r.request().postDataJSON()?.operationName==='SearchPrices'}catch{return false}
 },{timeout:25000}).catch(()=>null);
-export async function collectGasBuddy({towns=TOWNS,headless=true,channel,log=console.log}={}){
- const pages=[],stations=[],inventory=new Set();let browser,fatal=null;
+export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standardChrome=false,log=console.log}={}){
+ const pages=[],stations=[],inventory=new Set();let session,fatal=null;
  try{
-  browser=await chromium.launch({headless,...(channel?{channel}:{})});
-  const context=await browser.newContext({locale:'en-US'}),page=await context.newPage();
+  session=await openBrowser({headless,channel,standardChrome});
+  const {context}=session,page=await context.newPage();
   // Start with the standard search landing page and use its own form thereafter.
   const landing=`${SOURCE}/home?search=53703&fuel=1`;
   const ready=priceResponse(page);
   const entry=await page.goto(landing,{waitUntil:'domcontentloaded',timeout:30000});
   const initialPrices=await ready;
-  if(!entry?.ok()||!initialPrices?.ok())throw Error(`Search landing unavailable: page HTTP ${entry?.status()}, prices HTTP ${initialPrices?.status()??'none'}, ${await page.title()}`);
+  if(!entry?.ok()||!initialPrices?.ok()){
+   const title=await page.title();
+   pages.push({town:'GasBuddy search landing',url:landing,status:'blocked',httpStatus:entry?.status()??null,priceStatus:initialPrices?.status()??null,title,count:0});
+   throw Error(`Search landing unavailable: page HTTP ${entry?.status()}, prices HTTP ${initialPrices?.status()??'none'}, ${title}`);
+  }
   await initialPrices.finished();
   for(const town of towns){
    const search=town.replaceAll('-',' ')+', WI';
@@ -96,6 +100,6 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,log=con
    await new Promise(r=>setTimeout(r,1500));
   }
  }catch(e){fatal=`GasBuddy collector failed: ${e.message}`}
- finally{await browser?.close()}
+ finally{await session?.close()}
  return {stations:mergeStations([],stations),pages,fatal,inventoryCount:inventory.size};
 }
