@@ -13,93 +13,92 @@ export function parseSearchStation(card,raw,observedAt){
  if(!quote)return null;
  return {id,name:card.name.trim(),address:lines[i-1],city:lines[i].replace(/,\s*WI.*$/i,'').trim(),state:'WI',fuel:'regular',price:quote.price,reportedAt:new Date(quote.postedTime).toISOString(),observedAt,membership:/membership required|membership pricing/i.test(card.text)||/\bcostco\b|\bsam['’]?s club\b/i.test(card.name),payment:quote===grade.credit?'credit':'cash',url:SOURCE+card.href,source:'GasBuddy'};
 }
-async function cardsOnPage(page){
- return page.locator('a[href^="/station/"]').evaluateAll(links=>{
-  const out=[],seen=new Set();
-  for(const link of links){
-   const href=link.getAttribute('href');if(!/^\/station\/\d+$/.test(href||'')||seen.has(href))continue;
-   let el=link.parentElement,best=null;
-   while(el&&el!==document.body){
-    const ids=new Set([...el.querySelectorAll('a[href^="/station/"]')].map(a=>a.getAttribute('href')));
-    if(ids.size>1)break;
-    if(/^.+,\s*WI(?:\s|$)/im.test(el.innerText))best=el;
-    el=el.parentElement;
-   }
-   if(best){seen.add(href);out.push({href,name:link.innerText,text:best.innerText})}
-  }
-  return out;
- });
+export function parseGraphqlStation(raw,observedAt){
+ const a=raw?.address;
+ if(!/^\d+$/.test(String(raw?.id))||typeof raw.name!=='string'||a?.region!=='WI'||!a.line1||!a.locality)return null;
+ const station=parseSearchStation({href:`/station/${raw.id}`,name:raw.name,text:`${a.line1}\n${a.locality}, WI`},raw,observedAt);
+ if(station&&raw.brands?.some(b=>/\bcostco\b|\bsam['’]?s club\b/i.test(b.name)))station.membership=true;
+ return station;
 }
-const priceResponse=page=>page.waitForResponse(r=>{
- if(new URL(r.url()).pathname!=='/graphql')return false;
- try{return r.request().postDataJSON()?.operationName==='SearchPrices'}catch{return false}
-},{timeout:25000}).catch(()=>null);
+// Public website fields, same anonymous session and CSRF header as its own requests.
+const QUERY=`query SearchPrices($search:String,$cursor:String,$fuel:Int,$maxAge:Int){
+ locationBySearchTerm(search:$search,priority:"locality"){
+  displayName stations(cursor:$cursor,fuel:$fuel,maxAge:$maxAge,priority:"locality"){
+   count cursor{next} results{id name address{line1 locality region postalCode}
+    brands{name} prices{fuelProduct credit{price postedTime} cash{price postedTime}}}
+  }
+ }
+}`;
+export function moreCursor(connection,seenCount){
+ const next=connection.cursor?.next;
+ if(!next||next==='0'||!connection.results.length)return null;
+ if(Number.isFinite(connection.count)&&seenCount>=connection.count)return null;
+ // Follow the website's own numeric cursor/count convention.
+ if(/^\d+$/.test(next)&&Number.isFinite(connection.count)&&Number(next)>=connection.count)return null;
+ return next;
+}
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
 export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standardChrome=false,log=console.log}={}){
  const pages=[],stations=[],inventory=new Set();let session,fatal=null;
  try{
   session=await openBrowser({headless,channel,standardChrome});
   const {context}=session,page=await context.newPage();
-  // Start with the standard search landing page and use its own form thereafter.
+  let csrf=null;
+  page.on('request',r=>{if(new URL(r.url()).pathname==='/graphql'&&r.headers().gbcsrf)csrf=r.headers().gbcsrf});
+  const ready=page.waitForResponse(r=>{
+   try{return new URL(r.url()).pathname==='/graphql'&&r.request().postDataJSON()?.operationName==='SearchPrices'}catch{return false}
+  },{timeout:25000}).catch(()=>null);
   const landing=`${SOURCE}/home?search=53703&fuel=1`;
-  const ready=priceResponse(page);
   const entry=await page.goto(landing,{waitUntil:'domcontentloaded',timeout:30000});
   const initialPrices=await ready;
-  if(!entry?.ok()||!initialPrices?.ok()){
-   const title=await page.title();
-   pages.push({town:'GasBuddy search landing',url:landing,status:'blocked',httpStatus:entry?.status()??null,priceStatus:initialPrices?.status()??null,title,count:0});
+  if(!entry?.ok()||!initialPrices?.ok()||!csrf){
+   const title=await page.title();pages.push({town:'GasBuddy search landing',url:landing,status:'blocked',httpStatus:entry?.status()??null,priceStatus:initialPrices?.status()??null,title,count:0});
    throw Error(`Search landing unavailable: page HTTP ${entry?.status()}, prices HTTP ${initialPrices?.status()??'none'}, ${title}`);
   }
   await initialPrices.finished();
+  const request=async variables=>{
+   await pause(5000);
+   const call=()=>page.evaluate(async ({query,variables,csrf})=>{
+    const r=await fetch('/graphql',{method:'POST',headers:{'Content-Type':'application/json','gbcsrf':csrf},body:JSON.stringify({operationName:'SearchPrices',query,variables})});
+    return {status:r.status,retryAfter:r.headers.get('retry-after'),json:await r.json().catch(()=>null)};
+   },{query:QUERY,variables,csrf});
+   let result=await call();
+   if(result.status===429){
+    const header=result.retryAfter,seconds=header&&/^\d+$/.test(header)?Number(header):header?Math.max(0,(Date.parse(header)-Date.now())/1000):60;
+    const wait=Math.max(60,Number.isFinite(seconds)?seconds:60);
+    if(wait>120)throw Error(`Price service HTTP 429; requested cooldown ${wait}s exceeds this run's retry budget`);
+    log(`Rate limited: honoring ${wait}s cooldown before one retry.`);
+    await pause(wait*1000);result=await call();
+   }
+   if(result.status!==200)throw Error(`Price service HTTP ${result.status}`);
+   if(result.json?.errors?.length)throw Error(result.json.errors.map(e=>e.message).join('; '));
+   const connection=result.json?.data?.locationBySearchTerm?.stations;
+   if(!Array.isArray(connection?.results))throw Error('Price response has no station results');
+   return connection;
+  };
   for(const town of towns){
    const search=town.replaceAll('-',' ')+', WI';
-   const url=`${SOURCE}/home?${new URLSearchParams({search,fuel:'1',method:'all',maxAge:'0'})}`;
-   const row={town,url,status:'ok',count:0,listed:0,batches:0};pages.push(row);
+   const row={town,url:`${SOURCE}/home?${new URLSearchParams({search,fuel:'1'})}`,status:'ok',count:0,listed:0,batches:0};pages.push(row);
+   const seen=new Set(),cursors=new Set();let cursor=null;
    try{
-    await page.getByRole('searchbox',{name:'Search gas prices by city or zip code...'}).fill(search);
-    let waiting=priceResponse(page);
-    await page.getByRole('button',{name:/^Find Gas$/i,exact:true}).click();
-    let response=await waiting;
-    if(!response)throw Error('Search form returned no website price response');
-    const cursors=new Set();let complete=false;
     for(let batch=0;batch<30;batch++){
-     if(!response.ok())throw Error(`Price service HTTP ${response.status()}`);
-     const json=await response.json();if(json.errors?.length)throw Error(json.errors.map(e=>e.message).join('; '));
-     const connection=json.data?.locationBySearchTerm?.stations;
-     if(!Array.isArray(connection?.results))throw Error('Price response has no station results');
+     const connection=await request({search,cursor,fuel:1,maxAge:0});
      row.batches++;row.expected=connection.count;
-     const results=connection.results;
-     if(results.length){
-      const href=`/station/${results[0].id}`;
-      await page.locator(`a[href="${href}"]`).first().waitFor({state:'attached',timeout:15000});
-     }
-     const cards=new Map((await cardsOnPage(page)).map(c=>[c.href.split('/').at(-1),c]));
      const now=new Date().toISOString();
-     for(const raw of results){
-      inventory.add(String(raw.id));row.listed++;
-      const station=parseSearchStation(cards.get(String(raw.id)),raw,now);
-      if(station){stations.push(station);row.count++}
-      else if(!cards.has(String(raw.id))){row.status='partial';row.error='Some price responses had no matching rendered station card'}
+     for(const raw of connection.results){
+      const id=String(raw.id);inventory.add(id);if(seen.has(id))continue;seen.add(id);row.listed++;
+      const station=parseGraphqlStation(raw,now);if(station){stations.push(station);row.count++}
      }
-     const next=connection.cursor?.next;
-     if(!next||next==='0'||results.length===0){complete=true;break}
-     if(cursors.has(next))throw Error('Repeated pagination cursor');cursors.add(next);
-     const more=page.getByRole('button',{name:/^More .* Gas Prices$/i});
-     if(!await more.count())throw Error('Pagination button missing before final cursor');
-     await new Promise(r=>setTimeout(r,1500));
-     waiting=priceResponse(page);await more.click();response=await waiting;
-     if(!response)throw Error('Pagination returned no price response');
+     const next=moreCursor(connection,seen.size);
+     log(`${town} batch ${row.batches}: ${seen.size}/${connection.count} listings; ${row.count} regular reports; next ${next??'end'}`);
+     if(!next){cursor=null;break}
+     if(cursors.has(next)||next===cursor)throw Error('Repeated pagination cursor');cursors.add(next);cursor=next;
     }
-    if(!complete)throw Error('Pagination exceeded 30 batches');
+    if(cursor)throw Error('Pagination exceeded 30 batches');
     if(!row.listed)row.status='empty';
-    log(`${town}: ${row.count} regular reports, ${row.listed} listings in ${row.batches} batches`);
-   }catch(e){
-    row.error=String(e.message).slice(0,250);
-    if(/Price service HTTP (401|403|429)/.test(row.error)){row.status='blocked';fatal=row.error;log(`${town}: ${row.error}`);break}
-    row.status='error';log(`${town}: ${row.error}`);
-   }
-   await new Promise(r=>setTimeout(r,1500));
+   }catch(e){row.error=String(e.message).slice(0,250);log(`${town}: ${row.error}`);if(/Price service HTTP (401|403|429)/.test(row.error)){row.status='blocked';fatal=row.error;break}row.status='error'}
   }
  }catch(e){fatal=`GasBuddy collector failed: ${e.message}`}
- finally{await session?.close()}
+ finally{try{await session?.close()}catch(e){log(`Browser cleanup warning: ${e.code||e.message}`)}}
  return {stations:mergeStations([],stations),pages,fatal,inventoryCount:inventory.size};
 }

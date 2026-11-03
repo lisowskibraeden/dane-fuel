@@ -13,7 +13,7 @@ export async function openBrowser({headless=true,channel,standardChrome=false}={
  const child=spawn(process.env.CHROME_BIN||'/opt/google/chrome/chrome',[`--user-data-dir=${profile}`,`--remote-debugging-port=${port}`,'--remote-debugging-address=127.0.0.1','--no-first-run','--no-default-browser-check','about:blank'],{stdio:'ignore'});
  let startupError;child.on('error',e=>startupError=e);
  let browser;
- const close=async()=>{try{await browser?.close()}finally{child.kill('SIGTERM');await new Promise(r=>{if(child.exitCode!==null)return r();child.once('exit',r);setTimeout(r,3000)});await fs.rm(profile,{recursive:true,force:true})}};
+ const close=async()=>{try{await browser?.close()}finally{child.kill('SIGTERM');await new Promise(r=>{if(child.exitCode!==null)return r();child.once('exit',r);setTimeout(r,3000)});await fs.rm(profile,{recursive:true,force:true,maxRetries:8,retryDelay:250})}};
  try{
   let ready=false;
   for(let i=0;i<60;i++){
