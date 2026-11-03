@@ -1,1 +1,436 @@
-{}
+{
+  "2801 UNIVERSITY AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2801 UNIVERSITY AVE, MADISON, WI, 53705",
+    "coordinates": {
+      "x": -89.436306178857,
+      "y": 43.074131722
+    },
+    "checkedAt": "2026-11-03T00:28:37.192Z"
+  },
+  "5445 UNIVERSITY AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "5445 UNIVERSITY AVE, MADISON, WI, 53705",
+    "coordinates": {
+      "x": -89.473906236934,
+      "y": 43.081099264872
+    },
+    "checkedAt": "2026-11-03T00:28:37.195Z"
+  },
+  "4222 E WASHINGTON AVE, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:28:37.330Z"
+  },
+  "3401 UNIVERSITY AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3401 UNIVERSITY AVE, MADISON, WI, 53705",
+    "coordinates": {
+      "x": -89.445263766134,
+      "y": 43.075220462529
+    },
+    "checkedAt": "2026-11-03T00:28:37.904Z"
+  },
+  "1423 NORTHPORT DR, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1423 NORTHPORT DR, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.372274007823,
+      "y": 43.134310644894
+    },
+    "checkedAt": "2026-11-03T00:28:37.934Z"
+  },
+  "2702 E WASHINGTON AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2702 E WASHINGTON AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.347296925817,
+      "y": 43.102112735238
+    },
+    "checkedAt": "2026-11-03T00:28:38.098Z"
+  },
+  "4 COLLINS CT, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4 COLLINS CT, MADISON, WI, 53716",
+    "coordinates": {
+      "x": -89.304863903343,
+      "y": 43.047530157942
+    },
+    "checkedAt": "2026-11-03T00:28:38.664Z"
+  },
+  "3859 E. WASHINGTON ST., MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3859 E WASHINGTON AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.319172158751,
+      "y": 43.120346961258
+    },
+    "checkedAt": "2026-11-03T00:28:38.677Z"
+  },
+  "6410 MILLPOND RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6410 MILLPOND RD, MADISON, WI, 53718",
+    "coordinates": {
+      "x": -89.281065521105,
+      "y": 43.206835854749
+    },
+    "checkedAt": "2026-11-03T00:28:38.678Z"
+  },
+  "8230 WATTS ROAD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "8230 WATTS RD, MADISON, WI, 53719",
+    "coordinates": {
+      "x": -89.525612612842,
+      "y": 43.055619162573
+    },
+    "checkedAt": "2026-11-03T00:28:39.243Z"
+  },
+  "2201 S PARK ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2201 S PARK ST, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.393951955228,
+      "y": 43.042175024896
+    },
+    "checkedAt": "2026-11-03T00:28:39.248Z"
+  },
+  "3817 MILWAUKEE ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3817 MILWAUKEE ST, MADISON, WI, 53714",
+    "coordinates": {
+      "x": -89.319087509424,
+      "y": 43.098239165146
+    },
+    "checkedAt": "2026-11-03T00:28:39.516Z"
+  },
+  "2402 W BROADWAY, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2402 W BROADWAY, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.351419541121,
+      "y": 43.047141407899
+    },
+    "checkedAt": "2026-11-03T00:28:40.093Z"
+  },
+  "7502 MINERAL POINT RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7502 MINERAL POINT RD, MADISON, WI, 53717",
+    "coordinates": {
+      "x": -89.512762013619,
+      "y": 43.060628331073
+    },
+    "checkedAt": "2026-11-03T00:28:40.104Z"
+  },
+  "2538 FISH HATCHERY RD, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:28:40.219Z"
+  },
+  "2601 SHOPKO DRIVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2601 SHOPKO DR, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.349568004719,
+      "y": 43.111515783178
+    },
+    "checkedAt": "2026-11-03T00:28:40.781Z"
+  },
+  "6702 MINERAL POINT RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6702 MINERAL POINT RD, MADISON, WI, 53705",
+    "coordinates": {
+      "x": -89.497210455976,
+      "y": 43.060809883739
+    },
+    "checkedAt": "2026-11-03T00:28:40.791Z"
+  },
+  "2601 FISH HATCHERY RD, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:28:40.885Z"
+  },
+  "6702 RAYMOND RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6702 RAYMOND RD, MADISON, WI, 53719",
+    "coordinates": {
+      "x": -89.497096334436,
+      "y": 43.031859211041
+    },
+    "checkedAt": "2026-11-03T00:28:41.458Z"
+  },
+  "220 COTTAGE GROVE RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "220 COTTAGE GROVE RD, MADISON, WI, 53716",
+    "coordinates": {
+      "x": -89.322549585832,
+      "y": 43.083766082368
+    },
+    "checkedAt": "2026-11-03T00:28:41.458Z"
+  },
+  "7717 MINERAL POINT RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7717 MINERAL POINT RD, MADISON, WI, 53717",
+    "coordinates": {
+      "x": -89.516007794604,
+      "y": 43.060495400591
+    },
+    "checkedAt": "2026-11-03T00:28:41.725Z"
+  },
+  "4325 MOHAWK DRIVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4325 MOHAWK DR, MADISON, WI, 53711",
+    "coordinates": {
+      "x": -89.450422886941,
+      "y": 43.038085650741
+    },
+    "checkedAt": "2026-11-03T00:28:42.292Z"
+  },
+  "699 S GAMMON RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "699 S GAMMON RD, MADISON, WI, 53719",
+    "coordinates": {
+      "x": -89.503064809715,
+      "y": 43.050204972037
+    },
+    "checkedAt": "2026-11-03T00:28:42.293Z"
+  },
+  "3019 E WASHINGTON AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3019 E WASHINGTON AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.342873911128,
+      "y": 43.103696721569
+    },
+    "checkedAt": "2026-11-03T00:28:42.310Z"
+  },
+  "4810 E WASHINGTON AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4810 E WASHINGTON AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.302742638348,
+      "y": 43.131895070608
+    },
+    "checkedAt": "2026-11-03T00:28:42.861Z"
+  },
+  "4102 COMMERCIAL AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4102 COMMERCIAL AVE, MADISON, WI, 53714",
+    "coordinates": {
+      "x": -89.314649198383,
+      "y": 43.108319239153
+    },
+    "checkedAt": "2026-11-03T00:28:42.872Z"
+  },
+  "4624 MONONA DR, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4624 MONONA DR, MADISON, WI, 53716",
+    "coordinates": {
+      "x": -89.326009680429,
+      "y": 43.06978904882
+    },
+    "checkedAt": "2026-11-03T00:28:42.872Z"
+  },
+  "902 ATLAS AVENUE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "902 ATLAS AVE, MADISON, WI, 53714",
+    "coordinates": {
+      "x": -89.307072027757,
+      "y": 43.084833704089
+    },
+    "checkedAt": "2026-11-03T00:28:43.426Z"
+  },
+  "2301 COMMERCIAL AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2301 COMMERCIAL AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.354655174924,
+      "y": 43.106776255034
+    },
+    "checkedAt": "2026-11-03T00:28:43.435Z"
+  },
+  "1625 N STOUGHTON RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1625 N STOUGHTON RD, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.324673272892,
+      "y": 43.119572516298
+    },
+    "checkedAt": "2026-11-03T00:28:43.463Z"
+  },
+  "3510 PACKERS AVENUE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3510 PACKERS AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.355412111002,
+      "y": 43.132023878404
+    },
+    "checkedAt": "2026-11-03T00:28:44.021Z"
+  },
+  "4825 AMERICAN PKWY, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4825 AMERICAN PKWY, MADISON, WI, 53718",
+    "coordinates": {
+      "x": -89.28989590919,
+      "y": 43.149754712778
+    },
+    "checkedAt": "2026-11-03T00:28:44.030Z"
+  },
+  "1434 NORTHPORT DR, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1434 NORTHPORT DR, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.372177041496,
+      "y": 43.134587309691
+    },
+    "checkedAt": "2026-11-03T00:28:44.057Z"
+  },
+  "3528 E WASHINGTON AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3528 E WASHINGTON AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.327469887801,
+      "y": 43.115121309367
+    },
+    "checkedAt": "2026-11-03T00:28:44.622Z"
+  },
+  "318 S PARK ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "318 S PARK ST, MADISON, WI, 53715",
+    "coordinates": {
+      "x": -89.400830241844,
+      "y": 43.063654292141
+    },
+    "checkedAt": "2026-11-03T00:28:44.626Z"
+  },
+  "3603 CROSS HILL DR, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3603 CROSS HILL DR, MADISON, WI, 53718",
+    "coordinates": {
+      "x": -89.283393350348,
+      "y": 43.142288967173
+    },
+    "checkedAt": "2026-11-03T00:28:44.627Z"
+  },
+  "6525 KILPATRICK LN, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:28:45.077Z"
+  },
+  "7583 W MINERAL POINT RD, VERONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7583 W MINERAL POINT RD, VERONA, WI, 53593",
+    "coordinates": {
+      "x": -89.579229327561,
+      "y": 43.060156787547
+    },
+    "checkedAt": "2026-11-03T00:28:45.209Z"
+  },
+  "1129 S PARK ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1129 S PARK ST, MADISON, WI, 53715",
+    "coordinates": {
+      "x": -89.396793699523,
+      "y": 43.054531457451
+    },
+    "checkedAt": "2026-11-03T00:28:45.482Z"
+  },
+  "4501 VERONA RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4501 VERONA RD, MADISON, WI, 53711",
+    "coordinates": {
+      "x": -89.461133142823,
+      "y": 43.030497167242
+    },
+    "checkedAt": "2026-11-03T00:28:46.049Z"
+  },
+  "6202 SCHROEDER RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6202 SCHROEDER RD, MADISON, WI, 53711",
+    "coordinates": {
+      "x": -89.486722017033,
+      "y": 43.046372906888
+    },
+    "checkedAt": "2026-11-03T00:28:46.051Z"
+  },
+  "901 S. GAMMON ROAD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "901 S GAMMON RD, MADISON, WI, 53719",
+    "coordinates": {
+      "x": -89.503153233728,
+      "y": 43.04615381624
+    },
+    "checkedAt": "2026-11-03T00:28:46.051Z"
+  },
+  "3101 N SHERMAN AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3101 N SHERMAN AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.363426902503,
+      "y": 43.129794961957
+    },
+    "checkedAt": "2026-11-03T00:28:46.627Z"
+  },
+  "3153 MAPLE GROVE DR, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3153 MAPLE GROVE DR, MADISON, WI, 53719",
+    "coordinates": {
+      "x": -89.498779577005,
+      "y": 43.016337289584
+    },
+    "checkedAt": "2026-11-03T00:28:46.629Z"
+  },
+  "401 N 3RD ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "401 N 3RD ST, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.359347094563,
+      "y": 43.097391271291
+    },
+    "checkedAt": "2026-11-03T00:28:46.648Z"
+  },
+  "3401 MILWAUKEE ST, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:28:47.100Z"
+  },
+  "4902 VERONA RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4902 VERONA RD, MADISON, WI, 53711",
+    "coordinates": {
+      "x": -89.461936035485,
+      "y": 43.03031758391
+    },
+    "checkedAt": "2026-11-03T00:28:47.218Z"
+  },
+  "950 S PARK ST, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "950 S PARK ST, MADISON, WI, 53715",
+    "coordinates": {
+      "x": -89.399504855034,
+      "y": 43.057628626003
+    },
+    "checkedAt": "2026-11-03T00:28:47.254Z"
+  },
+  "4741 LIEN RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4741 LIEN RD, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.29870100611,
+      "y": 43.121259064456
+    },
+    "checkedAt": "2026-11-03T00:28:47.820Z"
+  },
+  "725 S GAMMON RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "725 S GAMMON RD, MADISON, WI, 53719",
+    "coordinates": {
+      "x": -89.50308282053,
+      "y": 43.04899433628
+    },
+    "checkedAt": "2026-11-03T00:28:47.824Z"
+  },
+  "4602 VERONA RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4602 VERONA RD, MADISON, WI, 53711",
+    "coordinates": {
+      "x": -89.456133582962,
+      "y": 43.034393679644
+    },
+    "checkedAt": "2026-11-03T00:28:48.101Z"
+  }
+}
