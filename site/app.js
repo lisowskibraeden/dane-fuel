@@ -14,7 +14,7 @@ function render(){
  $('update-time').textContent=data.lastSuccessAt?`${data.source==='Kwik Trip'?'Kwik Trip only · ':''}Retrieved ${fmt(data.lastSuccessAt)}`:'No successful station update yet';
  $('update-detail').textContent=data.attemptedAt?`Attempted ${fmt(data.attemptedAt)}`:'';
  if(data.status==='failed')notice('Station update failed. Saved price timestamps are preserved.');
- else if(data.lastSuccessAt&&Date.now()-Date.parse(data.lastSuccessAt)>2*3600e3)notice('Station updates are behind. Check report times.');
+ else if(data.lastSuccessAt&&Date.now()-Date.parse(data.lastSuccessAt)>26*3600e3)notice('Station updates are behind. Check report times.');
  else if(data.status==='partial')notice(data.source==='Kwik Trip'?'Kwik Trip only · limited coverage. Lowest among listed stations.':'Partial coverage · some listings or county checks were unavailable.');
  else if(data.status==='not-run')notice('Waiting for the first station update.');else notice('');
  $('result-count').textContent=`${eligible.length} price${eligible.length===1?'':'s'}`;
