@@ -9,7 +9,7 @@ No account, app store download, or paid data subscription is required.
 - **An estimated minimum price** based on the Madison terminal report, taxes and markup.
 - **Station prices, lowest first**, with addresses, brand logos, report ages, and links to the source listings.
 - **Membership stations included**, with membership requirements clearly labeled. Cash-only prices are excluded by default.
-- **Freshness filters** for reports from the last 6, 12, or 24 hours. The default is 24 hours.
+- **Daily snapshots** with collection time and individual report ages. Reports older than 24 hours are excluded.
 - **Preferred brands when prices tie:** Costco, then Woodman’s, then Kwik Trip. A lower price always ranks ahead of a higher price.
 
 ## Use it on your phone
@@ -25,7 +25,9 @@ The app opens from your home screen. An internet connection is required to load 
 
 The headline is a **terminal-based estimate**, not a verified legal minimum for every station. It uses the latest available AXXIS Madison terminal 967 report, treats ULC10 as regular E10, and assumes the reported wholesale price excludes taxes. Following the terminal branch described in [Wisconsin DATCP’s guidance](https://datcp.wi.gov/Pages/Programs_Services/UnfairSalesAct.aspx), it adds taxes and assumed delivery before applying 9.18% markup. The tax components are $0.184 federal gasoline tax ([IRS Publication 510](https://www.irs.gov/publications/p510)), $0.309 Wisconsin fuel tax and $0.020 inspection fee ([Wisconsin DOR](https://www.revenue.wi.gov/pages/faqs/ise-mofuel.aspx)). Delivery is an illustrative $0.025 per gallon, not a state-prescribed rate. Wholesale precision is retained; the final display rounds upward to a tenth of a cent. Example: `($2.9580 + $0.184 + $0.309 + $0.020 + $0.025) × 1.0918 = $3.8169328`, displayed as **$3.817**. The source date and calculation are available in the app.
 
-Actual statutory costs depend on the retailer’s eligible terminal, invoice or replacement costs, delivery charges, discounts, and applicable exceptions. The optional **Minimum-price inputs** calculator accepts retailer-specific costs and replaces the headline estimate when valid inputs are supplied. Those inputs stay in your browser.
+The app also runs the full worksheet comparison: the lesser eligible terminal cost plus 9.18%, compared with the lesser invoice/replacement cost plus 6% (9.18% for a refiner or fuel wholesaler), then the higher branch is selected. Taxes and transportation are added separately to each cost before markup. The automatic estimate uses the latest terminal quote as a proxy for prior-day terminal, invoice and replacement costs, assumes a purchase one day before the sale, and uses 2.5¢ delivery. These are provisional inputs, not verified history or retailer costs.
+
+The **Full worksheet calculation** form accepts pre-tax costs, seller type, eligible dates, taxes and separate delivery charges. It displays Steps 1–7 and the final result. **Use assumed costs** loads the automatic scenario for review and editing. Inputs stay in your browser. The [calculation notes](docs/minimum-calculation.md) map the formulas to the state worksheet and explain a broken reference in the supplied workbook. Actual statutory costs and applicable exceptions vary by retailer.
 
 See [Wisconsin’s cost calculation guidance](https://datcp.wi.gov/Pages/Programs_Services/UnfairSalesAct.aspx) and the [AXXIS source report](https://old.axxispetro.com/download/wisconsin-cta.txt).
 
@@ -33,7 +35,7 @@ See [Wisconsin’s cost calculation guidance](https://datcp.wi.gov/Pages/Program
 
 Station reports come from GasBuddy searches across Dane County and surrounding communities. Addresses are checked against U.S. Census and official Dane County records before entering the ranking. If GasBuddy is unavailable, the collector can use a clearly labeled Kwik Trip-only fallback.
 
-Prices are saved snapshots. The app preserves source report times and excludes reports outside the selected freshness window. Missing prices, unmatched addresses, and source outages can reduce coverage. The lowest listed price is the lowest eligible report collected, and may change before you reach the pump.
+Prices are saved snapshots. The app preserves source report times and excludes reports older than 24 hours. Missing prices, unmatched addresses, and source outages can reduce coverage. The lowest listed price is the lowest eligible report collected, and may change before you reach the pump.
 
 Dane Fuel is an independent project and is not affiliated with GasBuddy or the station brands shown. Logos identify their respective brands.
 

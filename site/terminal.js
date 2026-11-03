@@ -1,3 +1,4 @@
+import {calculateWorksheet} from './minimum.js?v=worksheet';
 export const TERMINAL_SOURCE='https://old.axxispetro.com/download/wisconsin-cta.txt';
 // Terminal branch: adjusted cost including taxes and delivery, plus 9.18%.
 // Sources: DATCP Unfair Sales Act guidance, Wisconsin DOR fuel tax FAQ, IRS Pub 510.
@@ -18,10 +19,15 @@ export function parseMadisonReport(text){
  const wholesale=Number(values[index]);if(wholesale<=0||wholesale>20)throw Error('Invalid terminal price.');
  return {schemaVersion:1,terminal:'967',city:'Madison, WI',product:'ULC10',reportDate,reportTime:date[4],wholesale,source:TERMINAL_SOURCE};
 }
-export function terminalEstimate(report){
+// Public reports do not provide a retailer's private costs or eligible history.
+// Use the latest quote as an explicit proxy for each cost, never as verified inputs.
+export function estimatedWorksheetInputs(report,saleDate=report?.reportDate){
  if(report?.schemaVersion!==1||report.terminal!=='967'||report.product!=='ULC10'||!Number.isFinite(report.wholesale)||report.wholesale<=0||report.wholesale>20)return null;
- const tax=0.184+0.309+0.020,delivery=0.025;
- const base=report.wholesale+tax+delivery;
- const raw=base*1.0918;
- return {wholesale:report.wholesale,tax,delivery,base,raw,price:Math.ceil((raw-1e-10)*1000)/1000};
+ const date=Date.parse(saleDate+'T00:00:00Z');if(!Number.isFinite(date))return null;
+ return {saleDate,purchaseDate:new Date(date-86400e3).toISOString().slice(0,10),terminalPrior:String(report.wholesale),terminalPurchase:'',invoice:String(report.wholesale),replacement:String(report.wholesale),sellerType:'retailer',federalTax:'0.184',stateTax:'0.309',inspectionFee:'0.020',terminalDelivery:'0.025',purchaseDelivery:'0.025',invoiceDelivery:'0.025',replacementDelivery:'0.025'};
+}
+export function terminalEstimate(report,{saleDate=report?.reportDate}={}){
+ const inputs=estimatedWorksheetInputs(report,saleDate);if(!inputs)return null;
+ const result=calculateWorksheet(inputs);if(result.errors.length)return null;
+ return {...result,inputs,assumed:true,wholesale:report.wholesale,delivery:0.025,base:result.terminalBase};
 }
