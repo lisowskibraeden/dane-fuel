@@ -1462,5 +1462,35 @@
     },
     "checkedAt": "2026-11-03T02:32:22.799Z",
     "checkedWithPostalCode": null
+  },
+  "2216 UNIVERSITY AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2216 UNIVERSITY AVE, MADISON, WI, 53726",
+    "coordinates": {
+      "x": -89.424009441084,
+      "y": 43.072490122259
+    },
+    "checkedAt": "2026-11-03T04:59:52.344Z",
+    "checkedWithPostalCode": "53726"
+  },
+  "605 COTTAGE GROVE RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "605 COTTAGE GROVE RD, MADISON, WI, 53716",
+    "coordinates": {
+      "x": -89.316125739985,
+      "y": 43.083847753566
+    },
+    "checkedAt": "2026-11-03T04:59:52.888Z",
+    "checkedWithPostalCode": null
+  },
+  "101 W MAIN ST, DANE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "101 W MAIN ST, DANE, WI, 53529",
+    "coordinates": {
+      "x": -89.501663390708,
+      "y": 43.25037750545
+    },
+    "checkedAt": "2026-11-03T04:59:53.420Z",
+    "checkedWithPostalCode": "53529"
   }
 }
