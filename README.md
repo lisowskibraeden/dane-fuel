@@ -43,7 +43,12 @@ Dane Fuel is an independent project and is not affiliated with GasBuddy or the s
 
 The website is static HTML, CSS, and JavaScript. A GitHub Actions workflow collects station reports and the terminal report, saves JSON data, and publishes the `site/` directory to GitHub Pages. Visitors load those saved files directly; no application server or API key is required.
 
-The workflow is scheduled daily at **5:00 AM Central time** (`America/Chicago`), adjusting automatically for daylight saving time, when enabled for a public repository. Two UTC schedule checks select the appropriate Central-time slot; only one performs collection. GitHub may delay or drop scheduled events, so 5 AM is a target rather than a guaranteed start time. Actual update times depend on GitHub Actions and source availability. Recurring collection and deployment are disabled while the repository is private.
+The scheduled updates run in **Central time** (`America/Chicago`):
+
+- **5:00 AM:** collect station prices and publish the morning snapshot.
+- **10:35 AM:** fetch the terminal report and publish the revised estimate, without collecting station prices again. This allows five minutes after the report's usual 10:30 AM timestamp.
+
+UTC schedule checks select the appropriate slots for daylight saving time. GitHub may delay or drop scheduled events, so these are target start times. The terminal job reports a failure if today's report is not available and retains the previous report's date. Recurring collection and deployment are disabled while the repository is private. Manual runs can select station data, terminal data, or both. Pushes update both.
 
 ## Run locally
 

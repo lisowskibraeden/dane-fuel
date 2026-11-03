@@ -2,6 +2,11 @@ name: Refresh prices and deploy Pages
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: 'Which data to update (scheduled runs select automatically). '
+        type: choice
+        options: [all, stations, terminal]
+        default: all
       private_test:
         description: 'Run one private verification after confirming an enforced $0 Actions budget. Does not deploy Pages.'
         type: boolean
@@ -15,9 +20,11 @@ on:
         type: boolean
         default: false
   schedule:
-    # UTC triggers; the gate selects the correct 5 AM Central slot for DST.
+    # UTC triggers; the gate selects 5 AM stations and 10:35 AM terminal for DST.
     - cron: '0 10 * * *'
     - cron: '0 11 * * *'
+    - cron: '35 15 * * *'
+    - cron: '35 16 * * *'
   push:
     branches: [main]
 permissions:
@@ -33,13 +40,15 @@ jobs:
     timeout-minutes: 2
     outputs:
       run: ${{ steps.due.outputs.run }}
+      mode: ${{ steps.due.outputs.mode }}
     steps:
       - uses: actions/checkout@v6
-      - name: Select 5 AM Central schedule
+      - name: Select Central-time collection slot
         id: due
         env:
           EVENT_NAME: ${{ github.event_name }}
           CRON_SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_MODE: ${{ inputs.mode || 'all' }}
         run: node scripts/schedule.mjs >> "$GITHUB_OUTPUT"
   update:
     needs: schedule
@@ -60,18 +69,28 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - run: npx playwright install --with-deps chrome
+      - if: needs.schedule.outputs.mode != 'terminal'
+        run: npx playwright install --with-deps chrome
       - name: Collect public reports
         id: collect
         continue-on-error: true
         env:
+          COLLECTION_MODE: ${{ needs.schedule.outputs.mode }}
           REQUIRE_GASBUDDY: ${{ github.event_name != 'workflow_dispatch' || inputs.require_gasbuddy }}
           SMOKE_TEST: ${{ inputs.smoke }}
         run: |
+          if [ "$COLLECTION_MODE" = 'terminal' ]; then
+            node scripts/update-terminal.mjs --require-current
+            exit 0
+          fi
           args=(--headed --chrome --standard-chrome)
           if [ "$REQUIRE_GASBUDDY" = 'true' ]; then args+=(--require-gasbuddy); fi
           if [ "$SMOKE_TEST" = 'true' ]; then args+=(--smoke); fi
-          xvfb-run -a npm run collect -- "${args[@]}"
+          if [ "$COLLECTION_MODE" = 'stations' ]; then
+            xvfb-run -a node scripts/collect.mjs "${args[@]}"
+          else
+            xvfb-run -a npm run collect -- "${args[@]}"
+          fi
       - name: Preserve results and attempt status
         if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
         run: bash scripts/push-updates.sh
