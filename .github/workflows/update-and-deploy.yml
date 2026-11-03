@@ -15,8 +15,9 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: '0 5 * * *'
-      timezone: America/Chicago
+    # UTC triggers; the gate selects the correct 5 AM Central slot for DST.
+    - cron: '0 10 * * *'
+    - cron: '0 11 * * *'
   push:
     branches: [main]
 permissions:
@@ -25,9 +26,24 @@ concurrency:
   group: fuel-update-and-pages
   cancel-in-progress: false
 jobs:
-  update:
-    # Recurring updates require a public repo. Private runs are explicit, one-time tests.
+  schedule:
+    # Recurring updates require a public repo. Private runs are explicit tests.
     if: (github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true') || (github.event_name == 'workflow_dispatch' && inputs.private_test == true)
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      run: ${{ steps.due.outputs.run }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Select 5 AM Central schedule
+        id: due
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CRON_SCHEDULE: ${{ github.event.schedule }}
+        run: node scripts/schedule.mjs >> "$GITHUB_OUTPUT"
+  update:
+    needs: schedule
+    if: needs.schedule.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
