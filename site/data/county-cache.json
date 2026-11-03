@@ -19,7 +19,8 @@
   },
   "4222 E WASHINGTON AVE, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T00:28:37.330Z"
+    "checkedAt": "2026-11-03T00:45:29.308Z",
+    "checkedWithPostalCode": "53704"
   },
   "3401 UNIVERSITY AVE, MADISON, WI": {
     "countyFips": "55025",
@@ -121,8 +122,14 @@
     "checkedAt": "2026-11-03T00:28:40.104Z"
   },
   "2538 FISH HATCHERY RD, MADISON, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:28:40.219Z"
+    "countyFips": "55025",
+    "matchedAddress": "2538 FISH HATCHERY RD, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.404533008779,
+      "y": 43.037787494554
+    },
+    "checkedAt": "2026-11-03T00:45:35.562Z",
+    "checkedWithPostalCode": "53713"
   },
   "2601 SHOPKO DRIVE, MADISON, WI": {
     "countyFips": "55025",
@@ -143,8 +150,14 @@
     "checkedAt": "2026-11-03T00:28:40.791Z"
   },
   "2601 FISH HATCHERY RD, MADISON, WI": {
-    "countyFips": null,
-    "checkedAt": "2026-11-03T00:28:40.885Z"
+    "countyFips": "55025",
+    "matchedAddress": "2601 FISH HATCHERY RD, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.40477592959,
+      "y": 43.037218864219
+    },
+    "checkedAt": "2026-11-03T00:45:36.084Z",
+    "checkedWithPostalCode": "53713"
   },
   "6702 RAYMOND RD, MADISON, WI": {
     "countyFips": "55025",
@@ -310,7 +323,8 @@
   },
   "6525 KILPATRICK LN, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T00:28:45.077Z"
+    "checkedAt": "2026-11-03T00:45:44.880Z",
+    "checkedWithPostalCode": "53718"
   },
   "7583 W MINERAL POINT RD, VERONA, WI": {
     "countyFips": "55025",
@@ -386,7 +400,8 @@
   },
   "3401 MILWAUKEE ST, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T00:28:47.100Z"
+    "checkedAt": "2026-11-03T00:45:54.774Z",
+    "checkedWithPostalCode": "53714"
   },
   "4902 VERONA RD, MADISON, WI": {
     "countyFips": "55025",
@@ -432,5 +447,960 @@
       "y": 43.034393679644
     },
     "checkedAt": "2026-11-03T00:28:48.101Z"
+  },
+  "2599 IRONWOOD DR, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2599 IRONWOOD DR, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.264485880211,
+      "y": 43.184806635261
+    },
+    "checkedAt": "2026-11-03T00:45:28.893Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "2400 DEMING WAY, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2400 DEMING WAY, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.518363565794,
+      "y": 43.101588343756
+    },
+    "checkedAt": "2026-11-03T00:45:28.907Z",
+    "checkedWithPostalCode": "53562"
+  },
+  "355 N RUTLAND AVE, BROOKLYN, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "355 N RUTLAND AVE, BROOKLYN, WI, 53521",
+    "coordinates": {
+      "x": -89.369158651994,
+      "y": 42.85838368251
+    },
+    "checkedAt": "2026-11-03T00:45:28.908Z",
+    "checkedWithPostalCode": "53521"
+  },
+  "404 W MAIN ST, WAUNAKEE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "404 W MAIN ST, WAUNAKEE, WI, 53597",
+    "coordinates": {
+      "x": -89.460409169624,
+      "y": 43.191960329843
+    },
+    "checkedAt": "2026-11-03T00:45:29.421Z",
+    "checkedWithPostalCode": "53597"
+  },
+  "208 E MAIN ST, WAUNAKEE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "208 E MAIN ST, WAUNAKEE, WI, 53597",
+    "coordinates": {
+      "x": -89.453108759771,
+      "y": 43.191847403924
+    },
+    "checkedAt": "2026-11-03T00:45:29.930Z",
+    "checkedWithPostalCode": "53597"
+  },
+  "400 EAST VERONA AVE, VERONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "400 E VERONA AVE, VERONA, WI, 53593",
+    "coordinates": {
+      "x": -89.529833859483,
+      "y": 42.991781519523
+    },
+    "checkedAt": "2026-11-03T00:45:29.930Z",
+    "checkedWithPostalCode": "53593"
+  },
+  "1220 E BROADWAY, MONONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1220 E BROADWAY, MONONA, WI, 53716",
+    "coordinates": {
+      "x": -89.313095656719,
+      "y": 43.048072541385
+    },
+    "checkedAt": "2026-11-03T00:45:30.464Z",
+    "checkedWithPostalCode": null
+  },
+  "2500 ROYAL AVE, MONONA, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:30.854Z",
+    "checkedWithPostalCode": null
+  },
+  "981 N PAGE ST, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "981 N PAGE ST, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.222452805721,
+      "y": 42.927063823386
+    },
+    "checkedAt": "2026-11-03T00:45:30.995Z",
+    "checkedWithPostalCode": "53589"
+  },
+  "401 W COTTAGE GROVE RD, COTTAGE GROVE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "401 W COTTAGE GROVE RD, COTTAGE GROVE, WI, 53527",
+    "coordinates": {
+      "x": -89.208800327144,
+      "y": 43.086698835872
+    },
+    "checkedAt": "2026-11-03T00:45:31.524Z",
+    "checkedWithPostalCode": "53527"
+  },
+  "424 W MAIN ST, CAMBRIDGE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "424 MAIN ST, CAMBRIDGE, WI, 53523",
+    "coordinates": {
+      "x": -89.022511869133,
+      "y": 43.007742636672
+    },
+    "checkedAt": "2026-11-03T00:45:31.559Z",
+    "checkedWithPostalCode": "53523"
+  },
+  "4701 BURMA RD, MCFARLAND, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4701 BURMA RD, MCFARLAND, WI, 53558",
+    "coordinates": {
+      "x": -89.303295942992,
+      "y": 43.012098812051
+    },
+    "checkedAt": "2026-11-03T00:45:32.078Z",
+    "checkedWithPostalCode": "53558"
+  },
+  "2050 FISH HATCHERY RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2050 FISH HATCHERY RD, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.404044084032,
+      "y": 43.043352479886
+    },
+    "checkedAt": "2026-11-03T00:45:32.079Z",
+    "checkedWithPostalCode": "53713"
+  },
+  "103 PRAIRIE OAKS DR, VERONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "103 PRAIRIE OAKS DR, VERONA, WI, 53593",
+    "coordinates": {
+      "x": -89.532368663032,
+      "y": 43.003952014205
+    },
+    "checkedAt": "2026-11-03T00:45:32.088Z",
+    "checkedWithPostalCode": "53593"
+  },
+  "525 SPRINGDALE ST, MOUNT HOREB, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "525 SPRINGDALE ST, MOUNT HOREB, WI, 53572",
+    "coordinates": {
+      "x": -89.732420438755,
+      "y": 43.00926348757
+    },
+    "checkedAt": "2026-11-03T00:45:32.612Z",
+    "checkedWithPostalCode": "53572"
+  },
+  "6519 CENTURY AVE, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6519 CENTURY AVE, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.49170351005,
+      "y": 43.104079764895
+    },
+    "checkedAt": "2026-11-03T00:45:33.115Z",
+    "checkedWithPostalCode": "53562"
+  },
+  "101  E VERONA AVE, VERONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "101 E VERONA AVE, VERONA, WI, 53593",
+    "coordinates": {
+      "x": -89.53338417732,
+      "y": 42.990464710508
+    },
+    "checkedAt": "2026-11-03T00:45:33.138Z",
+    "checkedWithPostalCode": null
+  },
+  "5301 S RIDGE WAY, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "5301 S RIDGE WAY, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.47168713636,
+      "y": 43.112953179893
+    },
+    "checkedAt": "2026-11-03T00:45:33.148Z",
+    "checkedWithPostalCode": null
+  },
+  "7508 CENTURY AVE, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7508 CENTURY AVE, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.510090995521,
+      "y": 43.111663059361
+    },
+    "checkedAt": "2026-11-03T00:45:33.671Z",
+    "checkedWithPostalCode": null
+  },
+  "6162 US-51, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6162 US HWY 51, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.323898479458,
+      "y": 43.18355178679
+    },
+    "checkedAt": "2026-11-03T00:45:34.190Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "925 E BROADWAY, MONONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "925 E BROADWAY, MONONA, WI, 53716",
+    "coordinates": {
+      "x": -89.315391624556,
+      "y": 43.04826616458
+    },
+    "checkedAt": "2026-11-03T00:45:34.228Z",
+    "checkedWithPostalCode": null
+  },
+  "2762 CR-N, COTTAGE GROVE, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:34.629Z",
+    "checkedWithPostalCode": null
+  },
+  "781 S MAIN ST, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "781 S MAIN ST, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.343602872611,
+      "y": 43.238841904031
+    },
+    "checkedAt": "2026-11-03T00:45:35.047Z",
+    "checkedWithPostalCode": null
+  },
+  "105 E BROADWAY, MONONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "105 E BROADWAY, MONONA, WI, 53716",
+    "coordinates": {
+      "x": -89.324586045133,
+      "y": 43.04778985509
+    },
+    "checkedAt": "2026-11-03T00:45:35.558Z",
+    "checkedWithPostalCode": null
+  },
+  "1601 LANDMARK DR, COTTAGE GROVE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1601 LANDMARK DR, COTTAGE GROVE, WI, 53527",
+    "coordinates": {
+      "x": -89.197086754437,
+      "y": 43.105151826558
+    },
+    "checkedAt": "2026-11-03T00:45:36.587Z",
+    "checkedWithPostalCode": null
+  },
+  "4601 VERONA RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4601 VERONA RD, MADISON, WI, 53711",
+    "coordinates": {
+      "x": -89.461133142823,
+      "y": 43.030497167242
+    },
+    "checkedAt": "2026-11-03T00:45:37.113Z",
+    "checkedWithPostalCode": null
+  },
+  "916 JANESVILLE ST, OREGON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "916 JANESVILLE ST, OREGON, WI, 53575",
+    "coordinates": {
+      "x": -89.373288255196,
+      "y": 42.917930118716
+    },
+    "checkedAt": "2026-11-03T00:45:37.644Z",
+    "checkedWithPostalCode": "53575"
+  },
+  "4711 COUNTY ROAD TT, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4711 CO RD TT, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.199355642674,
+      "y": 43.112844101608
+    },
+    "checkedAt": "2026-11-03T00:45:37.655Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "2763 COUNTY ROAD N, COTTAGE GROVE, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:37.768Z",
+    "checkedWithPostalCode": "53527"
+  },
+  "5901 US-51, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "5901 US HWY 51, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.324631785296,
+      "y": 43.171892140751
+    },
+    "checkedAt": "2026-11-03T00:45:38.287Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "856 N MAIN ST, OREGON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "856 N MAIN ST, OREGON, WI, 53575",
+    "coordinates": {
+      "x": -89.38329141384,
+      "y": 42.938900319527
+    },
+    "checkedAt": "2026-11-03T00:45:38.290Z",
+    "checkedWithPostalCode": null
+  },
+  "3303 PARMENTER ST, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "3303 PARMENTER ST, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.509656338958,
+      "y": 43.110267751762
+    },
+    "checkedAt": "2026-11-03T00:45:38.470Z",
+    "checkedWithPostalCode": "53562"
+  },
+  "4112 MILWAUKEE ST, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:38.863Z",
+    "checkedWithPostalCode": null
+  },
+  "1100 N WINDSOR AVE, COTTAGE GROVE, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:38.872Z",
+    "checkedWithPostalCode": "53527"
+  },
+  "4004 TERMINAL DR, MCFARLAND, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4004 TERMINAL DR, MCFARLAND, WI, 53558",
+    "coordinates": {
+      "x": -89.302580120424,
+      "y": 43.039849338321
+    },
+    "checkedAt": "2026-11-03T00:45:39.052Z",
+    "checkedWithPostalCode": null
+  },
+  "2850 HOEPKER RD, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2850 HOEPKER RD, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.271581723506,
+      "y": 43.167863956054
+    },
+    "checkedAt": "2026-11-03T00:45:39.583Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "1099 S GRAND AVE, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1099 S GRAND AVE, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.267730246321,
+      "y": 43.162698172648
+    },
+    "checkedAt": "2026-11-03T00:45:39.595Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "2570 RIMROCK RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2570 RIMROCK RD, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.380299928224,
+      "y": 43.034929331676
+    },
+    "checkedAt": "2026-11-03T00:45:40.146Z",
+    "checkedWithPostalCode": "53713"
+  },
+  "2581 COFFEYTOWN RD, COTTAGE GROVE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2581 COFFEYTOWN RD, COTTAGE GROVE, WI, 53527",
+    "coordinates": {
+      "x": -89.202736895048,
+      "y": 43.064838854409
+    },
+    "checkedAt": "2026-11-03T00:45:40.195Z",
+    "checkedWithPostalCode": "53527"
+  },
+  "4601 COTTAGE GROVE RD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4601 COTTAGE GROVE RD, MADISON, WI, 53716",
+    "coordinates": {
+      "x": -89.302980917435,
+      "y": 43.08415142632
+    },
+    "checkedAt": "2026-11-03T00:45:40.702Z",
+    "checkedWithPostalCode": null
+  },
+  "135 N MAIN ST, OREGON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "135 N MAIN ST, OREGON, WI, 53575",
+    "coordinates": {
+      "x": -89.384262808602,
+      "y": 42.926835423775
+    },
+    "checkedAt": "2026-11-03T00:45:41.212Z",
+    "checkedWithPostalCode": null
+  },
+  "1009 W MAIN ST, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1009 W MAIN ST, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.232843900878,
+      "y": 42.916968460065
+    },
+    "checkedAt": "2026-11-03T00:45:41.220Z",
+    "checkedWithPostalCode": "53589"
+  },
+  "4701 FARWELL ST, MCFARLAND, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4701 FARWELL ST, MCFARLAND, WI, 53558",
+    "coordinates": {
+      "x": -89.302684651944,
+      "y": 43.013337968125
+    },
+    "checkedAt": "2026-11-03T00:45:41.237Z",
+    "checkedWithPostalCode": null
+  },
+  "206 S CENTURY AVE, WAUNAKEE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "206 S CENTURY AVE, WAUNAKEE, WI, 53597",
+    "coordinates": {
+      "x": -89.461683136009,
+      "y": 43.188736800851
+    },
+    "checkedAt": "2026-11-03T00:45:41.744Z",
+    "checkedWithPostalCode": null
+  },
+  "5420 WILLOW RD, WAUNAKEE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "5420 WILLOW RD, WAUNAKEE, WI, 53597",
+    "coordinates": {
+      "x": -89.41412551173,
+      "y": 43.150723016061
+    },
+    "checkedAt": "2026-11-03T00:45:41.757Z",
+    "checkedWithPostalCode": "53597"
+  },
+  "428 RIVER ST, BELLEVILLE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "428 RIVER ST, BELLEVILLE, WI, 53508",
+    "coordinates": {
+      "x": -89.533029306497,
+      "y": 42.867501096374
+    },
+    "checkedAt": "2026-11-03T00:45:42.279Z",
+    "checkedWithPostalCode": "53508"
+  },
+  "4905 CR-V, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4905 CO RD V, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.373532128876,
+      "y": 43.250230566878
+    },
+    "checkedAt": "2026-11-03T00:45:42.284Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "937 HOLUM ST, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "937 E HOLUM ST, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.325202601063,
+      "y": 43.247629474343
+    },
+    "checkedAt": "2026-11-03T00:45:42.830Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "7372 N TOWN RD, DEFOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7372 N TOWNE RD, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.323950393183,
+      "y": 43.248710651914
+    },
+    "checkedAt": "2026-11-03T00:45:42.863Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "1750 HWY-51 W, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1750 US HWY 51, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.253632072237,
+      "y": 42.942029904144
+    },
+    "checkedAt": "2026-11-03T00:45:43.382Z",
+    "checkedWithPostalCode": "53589"
+  },
+  "1359 US HWY 51, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1359 US HWY 51, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.250753834117,
+      "y": 42.920813736933
+    },
+    "checkedAt": "2026-11-03T00:45:43.384Z",
+    "checkedWithPostalCode": "53589"
+  },
+  "4848 CTY HWY V, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4848 CO RD V, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.36791058055,
+      "y": 43.250678037199
+    },
+    "checkedAt": "2026-11-03T00:45:43.453Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "4630 DALMORE RD, DE FOREST, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:43.872Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "4301 WINDSOR RD, WINDSOR, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4301 WINDSOR RD, WINDSOR, WI, 53598",
+    "coordinates": {
+      "x": -89.329454011294,
+      "y": 43.216348690378
+    },
+    "checkedAt": "2026-11-03T00:45:43.958Z",
+    "checkedWithPostalCode": "53598"
+  },
+  "1110 STATE, BLACK EARTH, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1110 STATE ST, BLACK EARTH, WI, 53515",
+    "coordinates": {
+      "x": -89.743678619972,
+      "y": 43.141906662474
+    },
+    "checkedAt": "2026-11-03T00:45:43.965Z",
+    "checkedWithPostalCode": "53515"
+  },
+  "10836 VILLAGE CIR, BLUE MOUNDS, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "10836 VILLAGE CIR, BLUE MOUNDS, WI, 53517",
+    "coordinates": {
+      "x": -89.822271813201,
+      "y": 43.012834972492
+    },
+    "checkedAt": "2026-11-03T00:45:44.476Z",
+    "checkedWithPostalCode": "53517"
+  },
+  "1350 WATER WHEEL DR, WAUNAKEE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1350 WATER WHEEL DR, WAUNAKEE, WI, 53597",
+    "coordinates": {
+      "x": -89.459997169282,
+      "y": 43.168654452626
+    },
+    "checkedAt": "2026-11-03T00:45:44.489Z",
+    "checkedWithPostalCode": "53597"
+  },
+  "233 WILD CAT WAY, VERONA, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:44.889Z",
+    "checkedWithPostalCode": "53593"
+  },
+  "4665 DALMORE RD, DE FOREST, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:44.911Z",
+    "checkedWithPostalCode": "53532"
+  },
+  "1359 US HIGHWAY 51, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1359 US HWY 51, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.250753834117,
+      "y": 42.920813736933
+    },
+    "checkedAt": "2026-11-03T00:45:45.422Z",
+    "checkedWithPostalCode": "53589"
+  },
+  "1120 BELLWEST BLVD, BELLEVILLE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1120 BELLWEST BLVD, BELLEVILLE, WI, 53508",
+    "coordinates": {
+      "x": -89.558317221578,
+      "y": 42.861527894383
+    },
+    "checkedAt": "2026-11-03T00:45:45.428Z",
+    "checkedWithPostalCode": "53508"
+  },
+  "9255 RIDGEVIEW RD, MOUNT HOREB, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "9255 RIDGE DR, MOUNT HOREB, WI, 53572",
+    "coordinates": {
+      "x": -89.696627882472,
+      "y": 42.879296373415
+    },
+    "checkedAt": "2026-11-03T00:45:45.469Z",
+    "checkedWithPostalCode": "53572"
+  },
+  "1000 BATKER CT, VERONA, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:45.864Z",
+    "checkedWithPostalCode": "53593"
+  },
+  "2792 S SYENE RD, FITCHBURG, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2792 S SYENE RD, FITCHBURG, WI, 53711",
+    "coordinates": {
+      "x": -89.396169663381,
+      "y": 43.006816442293
+    },
+    "checkedAt": "2026-11-03T00:45:45.993Z",
+    "checkedWithPostalCode": "53711"
+  },
+  "1706 WINDSOR ST, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1706 WINDSOR ST, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.241732951447,
+      "y": 43.187490868238
+    },
+    "checkedAt": "2026-11-03T00:45:45.994Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "6133 MCKEE RD, FITCHBURG, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6133 MCKEE RD, FITCHBURG, WI, 53719",
+    "coordinates": {
+      "x": -89.469221981945,
+      "y": 43.015404676642
+    },
+    "checkedAt": "2026-11-03T00:45:46.514Z",
+    "checkedWithPostalCode": null
+  },
+  "4015 TERMINAL DR, MCFARLAND, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4015 TERMINAL DR, MCFARLAND, WI, 53558",
+    "coordinates": {
+      "x": -89.302188973756,
+      "y": 43.039996559283
+    },
+    "checkedAt": "2026-11-03T00:45:46.514Z",
+    "checkedWithPostalCode": "53558"
+  },
+  "1354 N BIRD ST, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1354 N BIRD ST, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.225797444928,
+      "y": 43.200675006232
+    },
+    "checkedAt": "2026-11-03T00:45:47.036Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "6208 MCKEE RD, FITCHBURG, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6208 MCKEE RD, FITCHBURG, WI, 53719",
+    "coordinates": {
+      "x": -89.487719818435,
+      "y": 43.015783152791
+    },
+    "checkedAt": "2026-11-03T00:45:47.561Z",
+    "checkedWithPostalCode": null
+  },
+  "2956 FISH HATCHERY ROAD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2956 FISH HATCHERY RD, MADISON, WI, 53713",
+    "coordinates": {
+      "x": -89.412163666841,
+      "y": 43.027277869055
+    },
+    "checkedAt": "2026-11-03T00:45:47.570Z",
+    "checkedWithPostalCode": "53713"
+  },
+  "2508 MAIN ST, CROSS PLAINS, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2508 MAIN ST, CROSS PLAINS, WI, 53528",
+    "coordinates": {
+      "x": -89.644897124768,
+      "y": 43.111258245763
+    },
+    "checkedAt": "2026-11-03T00:45:48.086Z",
+    "checkedWithPostalCode": null
+  },
+  "10 W COMMERCIAL ST, MAZOMANIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "10 W COMMERCIAL ST, MAZOMANIE, WI, 53560",
+    "coordinates": {
+      "x": -89.79509037131,
+      "y": 43.171885595678
+    },
+    "checkedAt": "2026-11-03T00:45:48.111Z",
+    "checkedWithPostalCode": null
+  },
+  "9 TOWER DR, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "9 TOWER DR, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.211259340111,
+      "y": 43.198675628502
+    },
+    "checkedAt": "2026-11-03T00:45:48.629Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "4800 LARSON BEACH RD, MCFARLAND, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4800 LARSON BEACH RD, MCFARLAND, WI, 53558",
+    "coordinates": {
+      "x": -89.30080375581,
+      "y": 43.017170485114
+    },
+    "checkedAt": "2026-11-03T00:45:48.631Z",
+    "checkedWithPostalCode": null
+  },
+  "1252 W MAIN ST, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1252 W MAIN ST, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.233906762035,
+      "y": 43.179873006749
+    },
+    "checkedAt": "2026-11-03T00:45:49.143Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "1705 W MAIN ST, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1705 W MAIN ST, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.241781692529,
+      "y": 43.17769085997
+    },
+    "checkedAt": "2026-11-03T00:45:49.145Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "605 E MAIN ST, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "605 E MAIN ST, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.206135344084,
+      "y": 43.180773650667
+    },
+    "checkedAt": "2026-11-03T00:45:49.146Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "6325 PEPSI WAY, WINDSOR, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6325 PEPSI WAY, WINDSOR, WI, 53598",
+    "coordinates": {
+      "x": -89.336415739142,
+      "y": 43.193699462231
+    },
+    "checkedAt": "2026-11-03T00:45:49.658Z",
+    "checkedWithPostalCode": "53598"
+  },
+  "6340 LAKE RD, WINDSOR, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6340 LAKE RD, WINDSOR, WI, 53598",
+    "coordinates": {
+      "x": -89.343045653039,
+      "y": 43.195788800303
+    },
+    "checkedAt": "2026-11-03T00:45:49.679Z",
+    "checkedWithPostalCode": "53598"
+  },
+  "6351 LAKE RD, WINDSOR, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6351 LAKE RD, WINDSOR, WI, 53598",
+    "coordinates": {
+      "x": -89.343202817346,
+      "y": 43.19579058998
+    },
+    "checkedAt": "2026-11-03T00:45:49.683Z",
+    "checkedWithPostalCode": null
+  },
+  "2770 S SYENE RD, FITCHBURG, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2770 S SYENE RD, FITCHBURG, WI, 53711",
+    "coordinates": {
+      "x": -89.396222699755,
+      "y": 43.005604760624
+    },
+    "checkedAt": "2026-11-03T00:45:50.217Z",
+    "checkedWithPostalCode": "53711"
+  },
+  "1525 STATE ST, BLACK EARTH, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1525 STATE ST, BLACK EARTH, WI, 53515",
+    "coordinates": {
+      "x": -89.747894846204,
+      "y": 43.142895663478
+    },
+    "checkedAt": "2026-11-03T00:45:50.234Z",
+    "checkedWithPostalCode": "53515"
+  },
+  "602 W NORTH ST, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "602 W NORTH ST, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.356169004909,
+      "y": 43.252754242656
+    },
+    "checkedAt": "2026-11-03T00:45:50.257Z",
+    "checkedWithPostalCode": null
+  },
+  "109 N MAIN ST, DEERFIELD, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "109 N MAIN ST, DEERFIELD, WI, 53531",
+    "coordinates": {
+      "x": -89.074919966571,
+      "y": 43.054214187286
+    },
+    "checkedAt": "2026-11-03T00:45:50.767Z",
+    "checkedWithPostalCode": "53531"
+  },
+  "7205 CR-I, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "7205 CO HWY I, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.382567887253,
+      "y": 43.255285415484
+    },
+    "checkedAt": "2026-11-03T00:45:50.824Z",
+    "checkedWithPostalCode": null
+  },
+  "4995 CR-V, DE FOREST, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4995 CO RD V, DEFOREST, WI, 53532",
+    "coordinates": {
+      "x": -89.379050900654,
+      "y": 43.250333636384
+    },
+    "checkedAt": "2026-11-03T00:45:50.868Z",
+    "checkedWithPostalCode": null
+  },
+  "2050 CR-MM, OREGON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2050 CO RD MM, OREGON, WI, 53575",
+    "coordinates": {
+      "x": -89.372329619023,
+      "y": 42.964699915076
+    },
+    "checkedAt": "2026-11-03T00:45:51.359Z",
+    "checkedWithPostalCode": null
+  },
+  "216 S MAIN ST, DEERFIELD, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "216 S MAIN ST, DEERFIELD, WI, 53531",
+    "coordinates": {
+      "x": -89.076216662809,
+      "y": 43.050506861233
+    },
+    "checkedAt": "2026-11-03T00:45:51.369Z",
+    "checkedWithPostalCode": null
+  },
+  "206 W COMMERCIAL ST, MAZOMANIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "206 W COMMERCIAL ST, MAZOMANIE, WI, 53560",
+    "coordinates": {
+      "x": -89.797454898461,
+      "y": 43.171877610297
+    },
+    "checkedAt": "2026-11-03T00:45:51.880Z",
+    "checkedWithPostalCode": null
+  },
+  "8613 UNIVERSITY GREEN, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "8613 UNIVERSITY GREEN, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.534996069931,
+      "y": 43.097375695044
+    },
+    "checkedAt": "2026-11-03T00:45:51.890Z",
+    "checkedWithPostalCode": "53562"
+  },
+  "517 W MAIN ST, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "517 W MAIN ST, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.22623575419,
+      "y": 42.916761953851
+    },
+    "checkedAt": "2026-11-03T00:45:52.436Z",
+    "checkedWithPostalCode": null
+  },
+  "501 W MAIN ST, MOUNT HOREB, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "501 W MAIN ST, MOUNT HOREB, WI, 53572",
+    "coordinates": {
+      "x": -89.746195979318,
+      "y": 43.007290768762
+    },
+    "checkedAt": "2026-11-03T00:45:52.483Z",
+    "checkedWithPostalCode": null
+  },
+  "1231 E MAIN ST, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1231 E MAIN ST, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.206408061034,
+      "y": 42.918487346249
+    },
+    "checkedAt": "2026-11-03T00:45:52.495Z",
+    "checkedWithPostalCode": null
+  },
+  "1888 BARBER DR, STOUGHTON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1888 BARBER DR, STOUGHTON, WI, 53589",
+    "coordinates": {
+      "x": -89.269428129705,
+      "y": 42.949487866102
+    },
+    "checkedAt": "2026-11-03T00:45:52.986Z",
+    "checkedWithPostalCode": null
+  },
+  "401 MARSHVIEW DR, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "401 MARSHVIEW DR, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.218377075249,
+      "y": 43.174630810029
+    },
+    "checkedAt": "2026-11-03T00:45:53.010Z",
+    "checkedWithPostalCode": null
+  },
+  "699 S WHITNEY WAY, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:53.105Z",
+    "checkedWithPostalCode": null
+  },
+  "6136 UNIVERSITY AVE, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "6136 UNIVERSITY AVE, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.48480030171,
+      "y": 43.089047274683
+    },
+    "checkedAt": "2026-11-03T00:45:53.849Z",
+    "checkedWithPostalCode": "53562"
+  },
+  "504 PLAZA DR, MARSHALL, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-03T00:45:54.239Z",
+    "checkedWithPostalCode": "53559"
+  },
+  "2145 CR-PB, VERONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2145 CO HWY PB, VERONA, WI, 53593",
+    "coordinates": {
+      "x": -89.512436935133,
+      "y": 42.970920465379
+    },
+    "checkedAt": "2026-11-03T00:45:54.356Z",
+    "checkedWithPostalCode": "53593"
+  },
+  "510 W MAIN ST, MARSHALL, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "510 W MAIN ST, MARSHALL, WI, 53559",
+    "coordinates": {
+      "x": -89.069319707401,
+      "y": 43.169944317042
+    },
+    "checkedAt": "2026-11-03T00:45:54.380Z",
+    "checkedWithPostalCode": "53559"
+  },
+  "2810 FISH HATCHERY RD, FITCHBURG, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "2810 FISH HATCHERY RD, FITCHBURG, WI, 53713",
+    "coordinates": {
+      "x": -89.409639196967,
+      "y": 43.030806204682
+    },
+    "checkedAt": "2026-11-03T00:45:54.909Z",
+    "checkedWithPostalCode": null
   }
 }
