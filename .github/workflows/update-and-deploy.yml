@@ -36,6 +36,8 @@ jobs:
       collected: ${{ steps.collect.outcome }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
@@ -56,14 +58,7 @@ jobs:
           xvfb-run -a npm run collect -- "${args[@]}"
       - name: Preserve results and attempt status
         if: always() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure')
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add site/data/prices.json site/data/county-cache.json site/data/terminal.json
-          if ! git diff --cached --quiet; then
-            git commit -m 'Update fuel reports and collection status'
-            git push
-          fi
+        run: bash scripts/push-updates.sh
       - name: Surface private test failure
         if: github.event.repository.private && steps.collect.outcome == 'failure'
         run: |
