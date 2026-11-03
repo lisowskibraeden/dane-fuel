@@ -14,7 +14,7 @@ No account, app store download, or paid data subscription is required.
 
 ## Use it on your phone
 
-Open the hosted site and tap **Add to phone**, or use your browser’s install option:
+Open the hosted site and use your browser’s install option:
 
 - **iPhone:** Safari → Share → Add to Home Screen.
 - **Android:** Chrome → menu → Add to Home screen / Install.
@@ -23,7 +23,7 @@ The app opens from your home screen. An internet connection is required to load 
 
 ## Understanding the headline price
 
-The headline is a **terminal-based estimate**, not a verified legal minimum for every station. It uses the latest available AXXIS Madison terminal 967 report, treats ULC10 as regular E10, and assumes the reported wholesale price excludes taxes. The configured benchmark rounds wholesale cost to the nearest cent, applies 6% markup, then adds $0.51 per gallon for combined state and federal taxes. It adds no delivery allowance and displays four decimal places. For example, a $2.9580 quote rounds to $2.96: `$2.96 × 1.06 + $0.51 = $3.6476`. This benchmark formula is separate from the retailer-specific statutory-cost comparison. The source date and calculation are available in the app.
+The headline is a **terminal-based estimate**, not a verified legal minimum for every station. It uses the latest available AXXIS Madison terminal 967 report, treats ULC10 as regular E10, and assumes the reported wholesale price excludes taxes. Following the terminal branch described in [Wisconsin DATCP’s guidance](https://datcp.wi.gov/Pages/Programs_Services/UnfairSalesAct.aspx), it adds taxes and assumed delivery before applying 9.18% markup. The tax components are $0.184 federal gasoline tax ([IRS Publication 510](https://www.irs.gov/publications/p510)), $0.309 Wisconsin fuel tax and $0.020 inspection fee ([Wisconsin DOR](https://www.revenue.wi.gov/pages/faqs/ise-mofuel.aspx)). Delivery is an illustrative $0.025 per gallon, not a state-prescribed rate. Wholesale precision is retained; the final display rounds upward to a tenth of a cent. Example: `($2.9580 + $0.184 + $0.309 + $0.020 + $0.025) × 1.0918 = $3.8169328`, displayed as **$3.817**. The source date and calculation are available in the app.
 
 Actual statutory costs depend on the retailer’s eligible terminal, invoice or replacement costs, delivery charges, discounts, and applicable exceptions. The optional **Minimum-price inputs** calculator accepts retailer-specific costs and replaces the headline estimate when valid inputs are supplied. Those inputs stay in your browser.
 

@@ -1,6 +1,7 @@
 export const TERMINAL_SOURCE='https://old.axxispetro.com/download/wisconsin-cta.txt';
-// Configured benchmark: round wholesale cost to cents, add 6%, then $0.51 tax.
-// This user-supplied formula is distinct from the optional statutory-cost calculator.
+// Terminal branch: adjusted cost including taxes and delivery, plus 9.18%.
+// Sources: DATCP Unfair Sales Act guidance, Wisconsin DOR fuel tax FAQ, IRS Pub 510.
+// The report tax treatment, ULC10 mapping and $0.025 delivery are assumptions.
 export function parseMadisonReport(text){
  const lines=text.replace(/\r/g,'').split('\n');
  const start=lines.findIndex(line=>/^967\s+MADISON, WI\s+Date:/i.test(line));
@@ -19,6 +20,8 @@ export function parseMadisonReport(text){
 }
 export function terminalEstimate(report){
  if(report?.schemaVersion!==1||report.terminal!=='967'||report.product!=='ULC10'||!Number.isFinite(report.wholesale)||report.wholesale<=0||report.wholesale>20)return null;
- const costCents=Math.round((report.wholesale+Number.EPSILON)*100);
- return {wholesale:report.wholesale,cost:costCents/100,markup:costCents*6/10000,tax:0.51,price:(costCents*106+5100)/10000};
+ const tax=0.184+0.309+0.020,delivery=0.025;
+ const base=report.wholesale+tax+delivery;
+ const raw=base*1.0918;
+ return {wholesale:report.wholesale,tax,delivery,base,raw,price:Math.ceil((raw-1e-10)*1000)/1000};
 }
