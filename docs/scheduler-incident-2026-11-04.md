@@ -10,3 +10,5 @@ GitHub reported two incidents overlapping the intended Central-time slots:
 These are the best-supported explanation for the missing dispatches; GitHub does not expose a per-event reason for a schedule it never created. The evidence does not establish that every earlier missed run had the same cause.
 
 The workflow was explicitly disabled and re-enabled, and its cron registration was refreshed. The primary 05:00 and 10:35 schedules remain. An hourly check now compares the saved data with the Central date/time and performs only missing updates. This mitigates a dropped scheduled event after GitHub recovers; it is not a guarantee during a platform outage. Manual dispatch remains available.
+
+An isolated temporary cron probe was scheduled for 16:58 UTC after the reported mitigations. No schedule-event run was visible by 17:02 UTC. That does not establish a new code defect: GitHub can delay dispatch, and the incident was still under monitoring. The temporary probe was removed; the production hourly catch-up remains. Future automatic dispatch still depends on GitHub’s scheduler.
