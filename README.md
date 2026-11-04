@@ -56,7 +56,7 @@ The scheduled updates run in **Central time** (`America/Chicago`):
 - **5:00 AM:** collect station prices and publish the morning snapshot.
 - **10:35 AM:** fetch the terminal report and publish the revised estimate, without collecting station prices again. This allows five minutes after the report's usual 10:30 AM timestamp.
 
-UTC schedule checks select the appropriate slots for daylight saving time. GitHub may delay or drop scheduled events, so these are target start times. The terminal job reports a failure if today's report is not available and retains the previous report's date. Recurring collection and deployment are disabled while the repository is private. Manual runs can select station data, terminal data, or both. Pushes update both.
+UTC schedule checks select the appropriate slots for daylight saving time. An hourly check at minute 17 retries only missing morning station data or a missing same-day terminal report; it skips collection when the saved data is current. GitHub may delay or drop scheduled events, so these are target start times. The terminal job reports a failure if today's report is not available and retains the previous report's date. Recurring collection and deployment are disabled while the repository is private. Manual runs can select station data, terminal data, or both. Pushes update both.
 
 ## Run locally
 
