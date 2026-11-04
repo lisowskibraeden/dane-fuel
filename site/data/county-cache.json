@@ -1528,5 +1528,56 @@
     },
     "checkedAt": "2026-11-03T16:59:58.666Z",
     "checkedWithPostalCode": null
+  },
+  "4821 E WASHINGTON AVE, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-04T17:04:05.031Z",
+    "checkedWithPostalCode": "53704",
+    "countyFallbackVersion": 1
+  },
+  "633 JUNCTION ROAD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "633 JUNCTION RD, MADISON, WI, 53717",
+    "coordinates": {
+      "x": -89.525945889353,
+      "y": 43.073015308385
+    },
+    "checkedAt": "2026-11-04T17:04:05.362Z",
+    "checkedWithPostalCode": "53717"
+  },
+  "2703 W BELTLINE HWY, MADISON, WI": {
+    "countyFips": null,
+    "checkedAt": "2026-11-04T17:04:06.268Z",
+    "checkedWithPostalCode": null,
+    "countyFallbackVersion": 1
+  },
+  "6859 COUNTY RD K, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "checkedAt": "2026-11-04T17:04:07.194Z",
+    "checkedWithPostalCode": "53562",
+    "countyAuthority": "Dane County public address data",
+    "countySource": "https://dcimapapps.danecounty.gov/arcgissrv/rest/services/Addressing/MapServer/0",
+    "matchedAddress": "6859 County Highway K, Middleton, WI 53562",
+    "countyFallbackVersion": 1
+  },
+  "1010 DAVIDSON DRIVE, SUN PRAIRIE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1010 DAVISON DR, SUN PRAIRIE, WI, 53590",
+    "coordinates": {
+      "x": -89.229608581098,
+      "y": 43.187403234074
+    },
+    "checkedAt": "2026-11-04T17:04:07.466Z",
+    "checkedWithPostalCode": "53590"
+  },
+  "300 S DIVISION ST, WAUNAKEE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "300 S DIVISION ST, WAUNAKEE, WI, 53597",
+    "coordinates": {
+      "x": -89.446885854817,
+      "y": 43.189731516056
+    },
+    "checkedAt": "2026-11-04T17:04:08.040Z",
+    "checkedWithPostalCode": "53597"
   }
 }
