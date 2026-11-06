@@ -56,7 +56,7 @@ The scheduled updates run in **Central time** (`America/Chicago`):
 - **5:00 AM:** collect station prices and publish the morning snapshot.
 - **10:35 AM:** fetch the terminal report and publish the revised estimate, without collecting station prices again. This allows five minutes after the report's usual 10:30 AM timestamp.
 
-UTC schedule checks select the appropriate slots for daylight saving time. An hourly check at minute 17 retries only missing morning station data or a missing same-day terminal report; it skips collection when the saved data is current. GitHub may delay or drop scheduled events, so these are target start times. The terminal job reports a failure if today's report is not available and retains the previous report's date. Recurring collection and deployment are disabled while the repository is private. Manual runs can select station data, terminal data, or both. Pushes update both.
+The **Daily fuel updates** workflow provides native cron triggers. A separate **Fuel recovery clock** uses GitHub environment wait timers and queues its successor before waiting, providing an automatic fallback when native cron never dispatches. It checks near the target times and less frequently between them, starts only missing data updates, and avoids overlapping collections. UTC schedule checks select the appropriate slots for daylight saving time. An hourly check at minute 17 retries only missing morning station data or a missing same-day terminal report; it skips collection when the saved data is current. GitHub may delay or drop scheduled events, so these are target start times. The terminal job reports a failure if today's report is not available and retains the previous report's date. Recurring collection and deployment are disabled while the repository is private. Manual runs can select station data, terminal data, or both. Pushes update both.
 
 ## Run locally
 
@@ -96,3 +96,13 @@ Later pushes to `main` and scheduled runs update the deployed site. No paid serv
 - `scripts/` — station collection, county verification, and terminal-report updates.
 - `tests/` — source parsing, price calculations, filtering, and ranking checks.
 - `.github/workflows/` — collection and deployment workflows.
+
+## Recovery clock operations
+
+The clock stays entirely on GitHub. Environment wait timers do not occupy runners or count as billable execution; the brief checks use standard public-repository runners. It uses the repository's short-lived `GITHUB_TOKEN`, with Actions write permission to start the next clock run and the updater. No personal token or external scheduler is needed.
+
+Timer environments are `fuel-clock-1`, `fuel-clock-15` and `fuel-clock-60`, with respective 1-, 15- and 60-minute wait rules. Set repository variable `ENABLE_FUEL_CLOCK=true` and start **Fuel recovery clock** once. Each run queues the next one before entering its wait. It checks at roughly one-minute intervals near 5 AM and 10:35 AM Central, and uses longer waits between targets. Actual runner queue delays still apply.
+
+For installation verification, dispatch with `verification_cycles=2`. Two short timer cycles run automatically; the second starts one terminal-only update, then the clock returns to normal timing. To stop the chain, set `ENABLE_FUEL_CLOCK=false` and cancel any waiting/current clock run; the queued successor will exit without re-arming.
+
+References: [GitHub environment wait timers](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments), [GITHUB_TOKEN dispatch behavior](https://docs.github.com/en/actions/concepts/security/github_token).

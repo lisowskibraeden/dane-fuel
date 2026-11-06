@@ -26,3 +26,5 @@ test('clock skips current data, avoids overlapping updates, and surfaces dispatc
  assert.equal((await checkAndDispatch({now,prices,repository:'o/r',token:'test',fetcher:async()=>Response.json({workflow_runs:[{name:'Refresh prices and deploy Pages',status:'in_progress'}]})})).reason,'Updater already active');
  await assert.rejects(checkAndDispatch({now,prices,repository:'o/r',token:'test',fetcher:async()=>new Response(null,{status:403})}),/HTTP 403/);
 });
+
+test('one installation verification can dispatch terminal even when saved data is current',async()=>{const calls=[];const result=await checkAndDispatch({repository:'o/r',token:'test',now:new Date('2026-11-06T17:00:00Z'),prices,terminal,verificationMode:'terminal',fetcher:async(url,init)=>{calls.push([url,init]);return calls.length===1?Response.json({workflow_runs:[]}):new Response(null,{status:204})}});assert.equal(result.dispatched,true);assert.equal(JSON.parse(calls[1][1].body).inputs.mode,'terminal')});

@@ -19,8 +19,9 @@ export function clockDelay({now=new Date(),prices=null,terminal=null,verificatio
  return distance>=61?60:distance>=16?15:1;
 }
 const workers=new Set(['Refresh prices and deploy Pages','Daily fuel updates']);
-export async function checkAndDispatch({repository,token,now=new Date(),prices=null,terminal=null,fetcher=fetch}){
- const mode=clockMode({now,prices,terminal});if(mode==='skip')return {mode,dispatched:false};
+export async function checkAndDispatch({repository,token,now=new Date(),prices=null,terminal=null,fetcher=fetch,verificationMode=null}){
+ if(verificationMode!==null&&verificationMode!=='terminal')throw Error('Only terminal verification is supported.');
+ const mode=verificationMode||clockMode({now,prices,terminal});if(mode==='skip')return {mode,dispatched:false};
  if(!/^[\w.-]+\/[\w.-]+$/.test(repository||'')||!token)throw Error('Missing clock repository or Actions token.');
  const base=`https://api.github.com/repos/${repository}`;
  const headers={Accept:'application/vnd.github+json',Authorization:`Bearer ${token}`,'X-GitHub-Api-Version':'2022-11-28','User-Agent':'DaneFuel-RecoveryClock'};
@@ -35,7 +36,8 @@ export async function checkAndDispatch({repository,token,now=new Date(),prices=n
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const read=name=>{try{return JSON.parse(fs.readFileSync(new URL(`../site/data/${name}.json`,import.meta.url),'utf8'))}catch{return null}};
  const state={prices:read('prices'),terminal:read('terminal')};
- const cycles=Number(process.env.VERIFY_CYCLES||0);
+ const eventInputs=process.env.GITHUB_EVENT_PATH?JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH,'utf8')).inputs:null;
+ const cycles=Number(process.env.VERIFY_CYCLES??eventInputs?.verification_cycles??0);
  if(process.argv[2]==='plan'){
   const minutes=clockDelay({...state,verificationCycles:cycles});
   fs.appendFileSync(process.env.GITHUB_OUTPUT,`environment=fuel-clock-${minutes}\n`);
@@ -46,6 +48,6 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
   if(!response.ok)throw Error(`Cannot queue next clock check: HTTP ${response.status}`);
   console.log('Next clock run queued before entering the wait.');
  }else if(process.argv[2]==='check'){
-  console.log(JSON.stringify(await checkAndDispatch({...state,repository:process.env.GITHUB_REPOSITORY,token:process.env.GH_TOKEN})));
+  console.log(JSON.stringify(await checkAndDispatch({...state,repository:process.env.GITHUB_REPOSITORY,token:process.env.GH_TOKEN,verificationMode:cycles===1?'terminal':null})));
  }else throw Error('Use plan, arm, or check.');
 }
