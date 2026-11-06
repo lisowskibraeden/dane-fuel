@@ -1,0 +1,13 @@
+name: Daily fuel updates
+on:
+  schedule:
+    # Temporary verification cadence; replaced after a real schedule event is observed.
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  refresh:
+    uses: ./.github/workflows/update-and-deploy.yml

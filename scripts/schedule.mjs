@@ -12,7 +12,7 @@ export function catchupMode({now=new Date(),prices=null,terminal=null}={}){
 }
 export function collectionMode({event,schedule,mode='all',now=new Date(),prices=null,terminal=null}){
  if(event!=='schedule'){if(!['all','stations','terminal'].includes(mode))throw Error('Invalid collection mode.');return mode;}
- if(schedule==='17 * * * *')return catchupMode({now,prices,terminal});
+ if(schedule==='17 * * * *'||schedule==='*/5 * * * *')return catchupMode({now,prices,terminal});
  const offset=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',timeZoneName:'longOffset'}).formatToParts(now).find(p=>p.type==='timeZoneName')?.value;
  const match=offset?.match(/^GMT([+-])(\d{2}):(\d{2})$/);
  if(!match)throw Error('Cannot determine Central time offset.');

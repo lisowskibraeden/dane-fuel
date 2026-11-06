@@ -19,14 +19,20 @@ on:
         description: 'Test Madison only before a full county-area run.'
         type: boolean
         default: false
-  schedule:
-    # UTC triggers; the gate selects 5 AM stations and 10:35 AM terminal for DST.
-    - cron: '0 10 * * *'
-    - cron: '0 11 * * *'
-    - cron: '35 15 * * *'
-    - cron: '35 16 * * *'
-    # Hourly catch-up: no collection if today’s scheduled data is already saved.
-    - cron: '17 * * * *'
+  workflow_call:
+    inputs:
+      mode:
+        type: string
+        default: all
+      private_test:
+        type: boolean
+        default: false
+      require_gasbuddy:
+        type: boolean
+        default: true
+      smoke:
+        type: boolean
+        default: false
   push:
     branches: [main]
 permissions:

@@ -36,3 +36,5 @@ test('catch-up uses Central daylight time and schedule dispatch selects the chec
  assert.equal(catchupMode({now:new Date('2027-07-01T10:17:00Z')}),'stations');
  assert.equal(collectionMode({event:'schedule',schedule:'17 * * * *',now:new Date('2026-11-04T12:17:00Z'),prices:todayPrices}),'skip');
 });
+
+test('new scheduled entry point uses catch-up and stops work once data is current',()=>{const now=new Date('2026-11-04T17:15:00Z');assert.equal(collectionMode({event:'schedule',schedule:'*/5 * * * *',now}),'all');assert.equal(collectionMode({event:'schedule',schedule:'*/5 * * * *',now,prices:todayPrices,terminal:todayTerminal}),'skip')});
