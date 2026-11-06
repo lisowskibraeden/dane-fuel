@@ -1579,5 +1579,65 @@
     },
     "checkedAt": "2026-11-04T17:04:08.040Z",
     "checkedWithPostalCode": "53597"
+  },
+  "1101 N SHERMAN AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1101 N SHERMAN AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.363721508177,
+      "y": 43.11165531296
+    },
+    "checkedAt": "2026-11-06T23:22:00.022Z",
+    "checkedWithPostalCode": null
+  },
+  "4905 COMMERCIAL AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "4905 COMMERCIAL AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.29897844136,
+      "y": 43.1064273839
+    },
+    "checkedAt": "2026-11-06T23:22:00.545Z",
+    "checkedWithPostalCode": null
+  },
+  "1010 N SHERMAN AVE, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1010 N SHERMAN AVE, MADISON, WI, 53704",
+    "coordinates": {
+      "x": -89.363883105697,
+      "y": 43.111178675332
+    },
+    "checkedAt": "2026-11-06T23:22:01.054Z",
+    "checkedWithPostalCode": "53704"
+  },
+  "5551 EASTPARK BLVD, MADISON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "5551 EASTPARK BLVD, MADISON, WI, 53718",
+    "coordinates": {
+      "x": -89.289373214227,
+      "y": 43.14790073795
+    },
+    "checkedAt": "2026-11-06T23:22:01.593Z",
+    "checkedWithPostalCode": "53718"
+  },
+  "128 W MAIN ST, BELLEVILLE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "128 W MAIN ST, BELLEVILLE, WI, 53508",
+    "coordinates": {
+      "x": -89.535637735998,
+      "y": 42.859594500237
+    },
+    "checkedAt": "2026-11-06T23:22:02.179Z",
+    "checkedWithPostalCode": "53508"
+  },
+  "281 W MAIN ST, CAMBRIDGE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "281 W MAIN ST, CAMBRIDGE, WI, 53523",
+    "coordinates": {
+      "x": -89.02039124828,
+      "y": 43.004243742632
+    },
+    "checkedAt": "2026-11-06T23:22:02.699Z",
+    "checkedWithPostalCode": "53523"
   }
 }
