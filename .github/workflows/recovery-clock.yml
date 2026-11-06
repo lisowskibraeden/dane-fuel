@@ -1,0 +1,51 @@
+name: Fuel recovery clock
+on:
+  workflow_dispatch:
+    inputs:
+      verification_cycles:
+        description: 'Installation test only: 2 short automatic checks, then normal timing.'
+        type: number
+        default: 0
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: fuel-recovery-clock
+  cancel-in-progress: false
+jobs:
+  plan:
+    if: github.event.repository.private == false && vars.ENABLE_FREE_UPDATES == 'true' && vars.ENABLE_FUEL_CLOCK == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      environment: ${{ steps.delay.outputs.environment }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Select next check time
+        id: delay
+        env:
+          VERIFY_CYCLES: ${{ inputs.verification_cycles }}
+        run: node scripts/recovery-clock.mjs plan
+      # Queue the successor first, so a failure after the wait cannot stop the clock.
+      - name: Queue successor
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERIFY_CYCLES: ${{ inputs.verification_cycles }}
+        run: node scripts/recovery-clock.mjs arm
+  check:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment:
+      name: ${{ needs.plan.outputs.environment }}
+      deployment: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Start only missing daily updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/recovery-clock.mjs check

@@ -1,8 +1,11 @@
 name: Daily fuel updates
 on:
   schedule:
-    # Temporary verification cadence; replaced after a real schedule event is observed.
-    - cron: '*/5 * * * *'
+    - cron: '0 10 * * *'
+    - cron: '0 11 * * *'
+    - cron: '35 15 * * *'
+    - cron: '35 16 * * *'
+    - cron: '17 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
