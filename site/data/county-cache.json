@@ -1639,5 +1639,15 @@
     },
     "checkedAt": "2026-11-06T23:22:02.699Z",
     "checkedWithPostalCode": "53523"
+  },
+  "203 W COTTAGE GROVE RD, COTTAGE GROVE, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "203 W COTTAGE GROVE RD, COTTAGE GROVE, WI, 53527",
+    "coordinates": {
+      "x": -89.200007061052,
+      "y": 43.086962402129
+    },
+    "checkedAt": "2026-11-08T11:09:42.355Z",
+    "checkedWithPostalCode": null
   }
 }
