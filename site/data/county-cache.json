@@ -1649,5 +1649,15 @@
     },
     "checkedAt": "2026-11-08T11:09:42.355Z",
     "checkedWithPostalCode": null
+  },
+  "1755 PLEASANT VIEW RD, MIDDLETON, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "1755 PLEASANT VIEW RD, MIDDLETON, WI, 53562",
+    "coordinates": {
+      "x": -89.53512598638,
+      "y": 43.093658701249
+    },
+    "checkedAt": "2026-11-09T11:07:08.127Z",
+    "checkedWithPostalCode": null
   }
 }
