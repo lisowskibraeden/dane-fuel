@@ -1659,5 +1659,15 @@
     },
     "checkedAt": "2026-11-09T11:07:08.127Z",
     "checkedWithPostalCode": null
+  },
+  "5601 MONONA DR, MONONA, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "5601 MONONA DR, MONONA, WI, 53716",
+    "coordinates": {
+      "x": -89.325918564866,
+      "y": 43.058683738497
+    },
+    "checkedAt": "2026-11-09T21:20:15.220Z",
+    "checkedWithPostalCode": null
   }
 }
