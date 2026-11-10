@@ -19,7 +19,7 @@
   },
   "4222 E WASHINGTON AVE, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T01:03:09.016Z",
+    "checkedAt": "2026-11-10T11:09:52.799Z",
     "checkedWithPostalCode": "53704",
     "countyFallbackVersion": 1
   },
@@ -324,7 +324,7 @@
   },
   "6525 KILPATRICK LN, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-03T01:03:09.403Z",
+    "checkedAt": "2026-11-10T11:09:53.340Z",
     "checkedWithPostalCode": "53718",
     "countyFallbackVersion": 1
   },
