@@ -7,7 +7,7 @@
   "reportTime": "10:30 AM",
   "wholesale": 2.3959,
   "source": "https://old.axxispetro.com/download/wisconsin-cta.txt",
-  "attemptedAt": "2026-11-13T22:06:44.381Z",
+  "attemptedAt": "2026-11-14T19:14:16.067Z",
   "retrievedAt": "2026-11-13T22:06:44.804Z",
-  "lastError": null
+  "lastError": "Today's terminal report is not available (received 2026-11-13)."
 }
