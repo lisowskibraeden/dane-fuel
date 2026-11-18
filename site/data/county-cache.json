@@ -1515,7 +1515,7 @@
   },
   "5418 N. BLUEBILL PARK DRIVE, WESTPORT, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-10T18:30:28.909Z",
+    "checkedAt": "2026-11-18T19:19:44.653Z",
     "checkedWithPostalCode": "53597",
     "countyFallbackVersion": 1
   },
@@ -1547,7 +1547,7 @@
   },
   "2703 W BELTLINE HWY, MADISON, WI": {
     "countyFips": null,
-    "checkedAt": "2026-11-11T18:20:27.736Z",
+    "checkedAt": "2026-11-18T19:19:45.268Z",
     "checkedWithPostalCode": null,
     "countyFallbackVersion": 1
   },
