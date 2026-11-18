@@ -341,6 +341,37 @@
       "retrievedAt": "2026-11-17T22:56:51.469Z",
       "recordedAt": "2026-11-17T22:56:51.483Z",
       "reconstructed": false
+    },
+    {
+      "id": "967/ULC10/2026-11-18/10:30 AM/2.3025/datcp-worksheet-v1",
+      "reportDate": "2026-11-18",
+      "reportTime": "10:30 AM",
+      "wholesale": 2.3025,
+      "estimatedMinimum": 3.1012579000000002,
+      "displayMinimum": 3.102,
+      "terminalBranch": 3.1012579000000002,
+      "retailerBranch": 3.01093,
+      "inputs": {
+        "saleDate": "2026-11-18",
+        "purchaseDate": "2026-11-17",
+        "terminalPrior": "2.3025",
+        "terminalPurchase": "",
+        "invoice": "2.3025",
+        "replacement": "2.3025",
+        "sellerType": "retailer",
+        "federalTax": "0.184",
+        "stateTax": "0.309",
+        "inspectionFee": "0.020",
+        "terminalDelivery": "0.025",
+        "purchaseDelivery": "0.025",
+        "invoiceDelivery": "0.025",
+        "replacementDelivery": "0.025"
+      },
+      "calculationVersion": "datcp-worksheet-v1",
+      "source": "https://old.axxispetro.com/download/wisconsin-cta.txt",
+      "retrievedAt": "2026-11-18T22:02:11.978Z",
+      "recordedAt": "2026-11-18T22:02:11.994Z",
+      "reconstructed": false
     }
   ]
 }
