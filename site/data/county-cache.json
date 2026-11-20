@@ -1669,5 +1669,15 @@
     },
     "checkedAt": "2026-11-09T21:20:15.220Z",
     "checkedWithPostalCode": null
+  },
+  "917 MILLS ST, BLACK EARTH, WI": {
+    "countyFips": "55025",
+    "matchedAddress": "917 MILLS ST, BLACK EARTH, WI, 53515",
+    "coordinates": {
+      "x": -89.747899296176,
+      "y": 43.140517609062
+    },
+    "checkedAt": "2026-11-20T13:09:41.752Z",
+    "checkedWithPostalCode": null
   }
 }
