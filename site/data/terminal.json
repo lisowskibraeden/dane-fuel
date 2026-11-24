@@ -3,11 +3,11 @@
   "terminal": "967",
   "city": "Madison, WI",
   "product": "ULC10",
-  "reportDate": "2026-11-20",
+  "reportDate": "2026-11-23",
   "reportTime": "10:30 AM",
-  "wholesale": 2.2928,
+  "wholesale": 2.3152,
   "source": "https://old.axxispetro.com/download/wisconsin-cta.txt",
-  "attemptedAt": "2026-11-23T02:52:36.378Z",
-  "retrievedAt": "2026-11-20T22:46:36.955Z",
-  "lastError": "Today's terminal report is not available (received 2026-11-20)."
+  "attemptedAt": "2026-11-24T00:58:43.594Z",
+  "retrievedAt": "2026-11-24T00:58:43.856Z",
+  "lastError": null
 }
